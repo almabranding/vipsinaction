@@ -4,57 +4,50 @@
         <div id="container">
             <ul class="footer-list">
                 <li>
-                    <h1>ABOUT US</h1>
-                    <p>Aborem quiat rem siti ditiassita eles voluptur, corporum iliberf eruptia vent, quibus, ommost andam harum quaspictus nonestecto est ium liquae secta soluptus di quo eatem qui officta tquias idelis magnamuscidi sinus doluptis dus, sequi odis miliq</p>
-                    <p><a>Read more</a></p>
-                </li><li>
-                    <h1>ACCOMMODATION</h1>
+                    <h1>VIPSENACCIÓN</h1>
                     <ul class="footer-list-a">
-                        <li><a>Rurales</a></li>
-                        <li><a>Historicos</a></li>
-                        <li><a>Agricolas</a></li>
-                        <li><a>Superior</a></li>
+                        <li><a>Testimoniales</a></li>
+                        <li><a>Equipo</a></li>
+                        <li><a>FAQs</a></li>
                     </ul>
                 </li><li>
-                    <h1>GIFT</h1>
-                    <a>SUGGESTION GIF</a>
-                </li><li>
-                    <h1>NEWSLETTER</h1>
-                    <a>SINGUP FOR RECIVE <br>
-                        OUR OFFERS</a>
-                </li><li class="footerlogo">
-                    <p><span style="font-size: 36px;font-family: 'Gotham';font-weight: bold;color:#ffffff;">TERRAE</span><br>
-                        C/ Miguel Grau 329, Piazenza. Italia ©</p>
-                </li><li>
-                    <h1>EXPERIENCES</h1>
+                    <h1>COLABORA CON NOSOTROS</h1>
                     <ul class="footer-list-a">
-                        <li><a>Saborea</a></li>
-                        <li><a>Crea</a></li>
-                        <li><a>Recuerda</a></li>
-                        <li><a>Explora</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <h1>CONTACT</h1>
-                    <ul class="footer-list-a">
-                        <li><a>CONTACT PARTNERS</a></li>
-                        <li><a>CONTACT CLIENTS</a></li>
+                        <li><a>Testimoniales</a></li>
+                        <li><a>Equipo</a></li>
+                        <li><a>FAQs</a></li>
                     </ul>
                 </li><li>
-                    <h1>SHARE</h1>
+                    <h1>CONTACTA CON NOSOTROS</h1>
+                    <ul class="footer-list-a">
+                        <li><a>Oficinas en Barcelona</a></li>
+                        <li><a>Oficinas en Madrid</a></li>
+                    </ul>
+                </li><li>
+                    <h1>SUBSCRÍBETE A NUESTRA<br> NEWSLETTER</h1>
+                    <form><input type="text"><input type="submit" style="display: none;"></form>
                     <ul class="socialIcons">
                         <li>
-                            <a><div id="gp"></div></a>
+                            <a href="#"><div id="fb"></div></a>
                         </li>
                         <li>
-                            <a><div id="tw"></div></a>
+                            <a href="#"><div id="tw"></div></a>
                         </li>
                         <li>
-                            <a><div id="fb"></div></a>
+                            <a href="#"><div id="pi"></div></a>
+                        </li>
+                        <li>
+                            <a href="#"><div id="gp"></div></a>
+                        </li>
+                        <li>
+                            <a href="#"><div id="mail"></div></a>
                         </li>
                     </ul>
                 </li>
             </ul>
+            <div class="privacy">
+                © 2014 Vipsenaccion SL. Todos los derechos reservados | <a href="#">Política de privacidad</a>
+            </div>
         </div>
     </div>  
 </div>  

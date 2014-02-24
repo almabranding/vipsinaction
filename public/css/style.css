@@ -14,12 +14,22 @@
 
 }
 @font-face {
-    font-family: 'PFAdamantPro';
-    src: url('../font/PFAdamantPro_XBold.eot');
-    src: url('../font/PFAdamantPro_XBold.eot?#iefix') format('embedded-opentype'),
-        url('../font/PFAdamantPro_XBold.woff') format('woff'),
-        url('../font/PFAdamantPro_XBold.ttf') format('truetype'),
-        url('../font/PFAdamantPro_XBold.svg#PFAdamantPro_XBold') format('svg');
+    font-family: 'Avenir';
+    src: url('../font/AvenirLTStd-Roman.eot');
+    src: url('../font/AvenirLTStd-Roman.eot?#iefix') format('embedded-opentype'),
+        url('../font/AvenirLTStd-Roman.woff') format('woff'),
+        url('../font/AvenirLTStd-Roman.ttf') format('truetype'),
+        url('../font/AvenirLTStd-Roman.svg#AvenirLTStd-Roman') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Avenir';
+    src: url('../font/AvenirLTStd-Black.eot');
+    src: url('../font/AvenirLTStd-Black.eot?#iefix') format('embedded-opentype'),
+        url('../font/AvenirLTStd-Black.woff') format('woff'),
+        url('../font/AvenirLTStd-Black.ttf') format('truetype'),
+        url('../font/AvenirLTStd-Black.svg#AvenirLTStd-Black') format('svg');
     font-weight: bold;
     font-style: normal;
 }
@@ -53,14 +63,14 @@ img.full{
     display: block;
 }
 body {
-    background: #f4f1ec;
+    background: url('../img/trozo-puzzle.png') repeat #ffffff;
     overflow-x: hidden;
     color:#777777;
     font-size:12px;
     text-align:center;
     margin:0;
     padding:0;
-    font-family:'PFAdamantPro',arial,sans-serif;
+    font-family:'Avenir',arial,sans-serif;
 }
 .hidden{
     display: none;
@@ -90,7 +100,9 @@ header{
     width: 470px;
     margin:55px auto 30px;
 }
-
+#header{
+    background: #000000;;
+}
 .login{
 
 }
@@ -290,19 +302,12 @@ input[type="submit"]:hover{
 }
 /*HEADER*/
 #menuNav{
-    -moz-transition: max-height 1s ease;
-    -webkit-transition: max-height 1s ease;
-    -o-transition: max-height 1s ease;
-    transition: max-height 1s ease;
     background: none repeat scroll 0 0 #F4F1EC;
     box-shadow: 0 4px 2px -2px #cccccc;
-    margin-top: 10px;
-    overflow: hidden;
-    position: absolute;
+    margin: 30px auto;
     text-align: left;
     width: 100%;
     max-height: 0;
-    z-index: 5;
     text-transform: uppercase;
 }
 #navCheck:checked ~ #menuNav{
@@ -371,51 +376,63 @@ input[type="submit"]:hover{
 }
 .socialIcons li div{
     background: url("../img/socialIcons.png") repeat scroll 0px 0 transparent;
-    height: 30px;
-    width: 38px;
+    height: 25px;
+    width: 25px;
 }
 .socialIcons #tw{
-    background-position: 99px 0;
+    background-position: -27px 0;
 
 }
 .socialIcons #fb{
-    background-position: 45px 0;
+    background-position: 2px 0;
 }
 .socialIcons #gp{
-    background-position: 0 0;
+    background-position: -90px 0;
+}
+.socialIcons #mail{
+    background-position: -122px 0;
+}
+.socialIcons #pi{
+    background-position: -62px 0;
 }
 #footer{
     width: 100%;
-    background-color: #012540;
+    background-color: #000000;
     margin-top: 30px;
     padding: 40px 0;
+    font-size: 14px;
 }
+#footer .privacy{
+    margin-top: 80px; 
+    color: #ffffff;
+    font-size: 11px;
+}
+#footer .privacy a{display: inline-block}
 #footer .container{}
 #footer p{
     color:#838587;
 }
 #footer h1{
-    color:#004066;
-    font-size: 36px;
-    font-family: 'League-Gothic';
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: normal
 }
 #footer .footer-list > li{
     display: inline-block;
-    margin: 10px 0;
     padding: 0 1%;
     text-align: left;
     vertical-align: top;
-    width: 21%;
+    width: 23%;;
 }
 #footer .footer-list-a li{
     display: block;
-    margin: 0;
+    margin: 5px 0;
 }
 #footer .footer-list li.footerlogo{
     vertical-align: bottom;
 }
 #footer a{
-    color:#4e6675;
+    color:#FFFFFF;
     display: block;
 }
 #footer a:hover{
@@ -423,4 +440,81 @@ input[type="submit"]:hover{
 }
 #footer .container{
 
+}
+
+
+/*
+    HOME
+*/
+
+/*BANNER*/
+#banner .banner-box{
+    background: #f5f5f5;
+    height: 330px;
+    overflow: hidden;
+}
+.button{
+    font-size: 16px;
+    padding: 10px;
+    border:2px solid #ffffff;
+    width: 150px;
+    text-align: center;
+    line-height: 20px;
+    color:#ffffff;
+    -webkit-box-shadow: 0px 0px 11px 0px rgba(255, 255, 255, 0.75);
+    -moz-box-shadow:    0px 0px 11px 0px rgba(255, 255, 255, 0.75);
+    box-shadow:         0px 0px 11px 0px rgba(255, 255, 255, 0.75);
+}
+.button:hover{opacity: 0.7}
+#banner .label{
+    color: #009FE3;
+    display: inline-block;
+    font-size: 22px;
+    text-align: center;
+    text-transform: uppercase;
+    vertical-align: top;
+    width: 40%;
+}
+#banner .label p{
+    width: 80%;
+    margin: 40px auto;
+}
+#banner .img{
+    width: 60%;
+    display: inline-block;
+}
+#banner .img img{width: 100%;height: auto;}
+.button.blue{
+    background: #009fe3;
+}
+
+/*LIST AUCTIONS*/
+#auctions-list{
+    margin-top: 50px;
+    text-align: left;
+}
+#auctions-list li{
+    display: inline-block;
+    width: 25%;
+    margin-bottom: 30px;
+    text-align: center;
+}
+#auctions-list li .content-box{
+    margin-right: 30px;
+}
+#auctions-list li .last{
+    margin-right: 0px;
+}
+.auctions-list-img-box{
+    width: 100%;
+    overflow: hidden;
+    height:200px;
+}
+.auctions-list-info{
+    margin: auto;
+    width: 90%;
+    font-size: 14px;
+}
+.auctions-list-info .price{
+    font-size: 12px
 }
