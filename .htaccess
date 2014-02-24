@@ -1,0 +1,26 @@
+SetEnv PHP_VER 5
+#php_value display_errors 0
+#php_value upload_max_filesize 50M
+
+# For security reasons, Option followsymlinks cannot be overridden.
+#Options +FollowSymlinks
+Options +SymLinksIfOwnerMatch
+RewriteEngine On
+RewriteBase /
+<IfModule mod_mime.c>
+    AddType image/ico .ico
+</IfModule>
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)(\.gz)?$">
+Header append Cache-Control "public"
+Header unset ETag
+FileETag None
+</FilesMatch>
+# Quitar el www del nombre de dominio  
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
+#AddType application/x-httpd-php .html
