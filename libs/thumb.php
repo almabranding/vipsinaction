@@ -30,9 +30,6 @@ class thumb {
             case IMAGETYPE_PNG:
                 $this->image = imagecreatefrompng($name);
                 break;
-            case IMAGETYPE_BMP:
-                $this->image = imagecreatefromwbmp($name);
-                break;
         }
         
     }
@@ -113,7 +110,7 @@ class thumb {
     function crop($cwidth, $cheight, $pos = 'center') {
 
 //---Dependiendo del tamaño deseado redimensionar primero la imagen a uno de los valores
-        if ($cwidth > $cheight) {
+        if ($cwidth > $cheight || $this->width<$this->height) {
             $this->resize($cwidth, 'width');
         } else {
             $this->resize($cheight, 'height');

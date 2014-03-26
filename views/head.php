@@ -8,19 +8,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <?$siteName=($this->siteName)?$this->siteName.' - MyCausa':'MyCausa';?>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title><?=($this->siteName)?$this->siteName.' - TERRAE':'TERRAE';?></title>
+    <title><?=$siteName?></title>
     <meta charset="UTF-8"> 
     <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
-    <meta property="og:title" content="Sight Management" />
-    <meta property="og:site_name" content="Sight Management" />
-    <meta property="og:description"content="Sight Management"/>
+    <meta property="og:title" content="<?=$siteName?>" />
+    <meta property="og:site_name" content="<?=$siteName?>" />
+    <meta property="og:description"content="<?=$siteName?>"/>
     <meta property="og:image" content="/public/images/logo.png" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minium-scale=1.0,user-scalable=yes"/>
-    <link rel="shortcut icon" href="<?=URL; ?>favicon.png" Content-type="image/x-icon" />
+    <link rel="shortcut icon" href="<?=URL; ?>favicon.ico" Content-type="image/x-icon" />
     <link rel="stylesheet" href="<?=URL; ?>public/css/style.css" />
     <link rel="stylesheet" href="<?=URL; ?>public/css/mobile.css"/>
     <link rel="stylesheet" href="<?=URL; ?>public/css/zebra_form.css"/>

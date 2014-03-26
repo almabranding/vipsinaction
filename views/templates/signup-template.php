@@ -1,24 +1,18 @@
 
-
-<!--
-    in reality you'd have this in an external stylesheet;
-    i am using it like this for the sake of the example
--->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<style type="text/css">
-    .Zebra_Form .optional { padding: 10px 50px; display: none }
-</style>
-
-<!--
-    again, in reality you'd have this in an external JavaScript file;
-    i am using it like this for the sake of the example
--->
-
-<?php echo (isset($zf_error) ? $zf_error : (isset($error) ? $error : '')) ?>
-
-<?=$accounttype ?>
 <div id="signup-box">
-<ul>
+<label for="signupCheck" class="xLogo">x</label>
+<?php echo (isset($zf_error) ? $zf_error : (isset($error) ? $error : '')) ?>
+<?=$accounttype ?>
+    <h1><?=$this->variables['turn to member']?></h1>
+    <a href="https://www.facebook.com/dialog/oauth?client_id=<?=APP_ID?>&redirect_uri=<?=APP_REDIRECT?>&scope=publish_stream,email,basic_info" title="Signup with facebook">
+     <div id="facebookSignup"></div></a>
+    <p><?=$this->variables['acuerdos_fb']?> <a href="#"><?=$this->variables['Acuerdo de usuario']?></a></p>
+    <span id="oregister"><?=$this->variables['O_REGISTRATE']?></span>
+    <p><?=$this->variables['coplete_formulario']?></p>
+<ul><li class="row" style="text-align: left">
+    <?php echo $label_email . $email ?>
+    <span id="error_1" class="orange error" style="display: none;"><?=$this->variables['mail_existe']?></span>
+</li>
 <li class="row">
     <?php echo $label_firstname . $firstname ?>
 </li>
@@ -26,33 +20,28 @@
     <?php echo $label_lastname. $lastname?>
 </li>
 <li class="clear"></li>
-<li class="row">
-    <?php echo $label_email . $email ?>
-</li>
-<li class="row even" id="phone">
-    <?php echo $label_phone . $phone ?>
-</li>
-<li class="row">
-    <?php echo $label_year . $year ?>
+<li class="row" style="text-align: left">
+    <?php echo $label_nick . $nick ?>
+    <span id="error_2" class="orange error" style="display: none;"><?=$this->variables['nick_existe']?></span>
 </li>
 <li class="clear"></li>
 <li class="row even">
-    <?php echo $label_city . $city ?>
-</li>
-<li class="row even">
-    <?php echo $label_country . $country ?>
-</li>
-<li class="clear"></li>
-<li class="row even">
-    <?php echo $label_password . $password ?>
+    <?php echo $label_user_password . $user_password?>
 </li>
 <li class="row even">
     <?php echo $label_confirm_password . $confirm_password ?>
 </li>
+<li class="clear" style="margin: 10px 0"></li>
+<li class="row even leftAlign">
+    <?php echo  $extra_acuerdo.$label_extra_acuerdo ?>
+</li><li class="row even leftAlign">
+    <?php echo  $extra_noticias.$label_extra_noticias ?>
+</li>
+<li class="row last">
+    <?php echo $_btnsubmit ?>
+</li>
 
 </ul>
-
 <div class="clear"></div>
 </div>
-<div class="row last"><?php echo $_btnsubmit ?></div>
 

@@ -34,13 +34,19 @@
                             <a href="#"><div id="tw"></div></a>
                         </li>
                         <li>
-                            <a href="#"><div id="pi"></div></a>
+                            <a href="#"><div id="gplus"></div></a>
                         </li>
                         <li>
-                            <a href="#"><div id="gp"></div></a>
+                            <a href="#"><div id="pinterest"></div></a>
                         </li>
                         <li>
-                            <a href="#"><div id="mail"></div></a>
+                            <a href="#"><div id="tuenti"></div></a>
+                        </li>
+                        <li>
+                            <a href="#"><div id="in"></div></a>
+                        </li>
+                        <li>
+                            <a href="#"><div id="instagram"></div></a>
                         </li>
                     </ul>
                 </li>

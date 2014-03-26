@@ -12,21 +12,18 @@
     i am using it like this for the sake of the example
 -->
 
-<?php echo (isset($zf_error) ? $zf_error : (isset($error) ? $error : '')) ?>
 
-<?=$user_id ?>
-<div id="signup-box">
-<ul>
-<li class="row even">
-    <?php echo $label_password . $password ?>
-</li>
-<li class="row even">
-    <?php echo $label_confirm_password . $confirm_password ?>
-</li>
+<div style="width:400px;">
+    <?php echo (isset($zf_error) ? $zf_error : (isset($error) ? $error : '')) ?>
+    <ul>
+        <li class="row even">
+            <?php echo $label_user_password . $user_password ?>
+        </li>
+        <li class="row even">
+            <?php echo $label_confirm_password . $confirm_password ?>
+        </li>
+    </ul>
 
-</ul>
-
-<div class="clear"></div>
 </div>
 <div class="row last"><?php echo $_btnsubmit ?></div>
 

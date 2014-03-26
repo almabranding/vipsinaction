@@ -1,7 +1,7 @@
 <div id="sectionHeader">
     <h1>Banners</h1>
     <div id="sectionNav">
-                <div class="btn blue" onclick="location.href = '<?= URL ?>banner/viewGroup'" >New banner</div>
+                <div class="btn blue" onclick="location.href = '<?= URL ?>banner/view'" >New banner</div>
     </div>
     <div class="clr"></div>
 </div>

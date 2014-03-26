@@ -11,12 +11,7 @@ class Model {
     }
 
     function getUser($id = null) {
-        if ($id == null) {
-            if (Session::get('loggedIn')) {
-                return $this->db->selectOne('SELECT * FROM book_customers WHERE id=:id', array('id' => Session::get('userid')));
-            }return false;
-        }
-        return $this->db->selectOne('SELECT * FROM ' . DB_PREFIX . 'customers WHERE id = :id', array('id' => $id));
+       if($id!=null) return $this->db->selectOne('SELECT * FROM ' . BID_PREFIX . 'users WHERE id = :id', array('id' => $id));
     }
 
     function getGallery($id) {
@@ -26,44 +21,49 @@ class Model {
     function setLang($lang) {
         $this->lang = $lang;
     }
-    public function loadLang($name=null) {
-        $langPath='lang/'.LANG.'/';
-        require $langPath .'default.php';
-        $path = $langPath . $name.'.php';
+
+    public function loadLang($name = null) {
+        $langPath = 'lang/' . LANG . '/';
+        require $langPath . 'default.php';
+        $path = $langPath . $name . '.php';
         if (file_exists($path)) {
             require $path;
         }
         $this->lang = $lang;
-    
     }
+
     public function getImageById($id) {
         $img = $this->db->selectOne('SELECT * FROM photos WHERE id = :id', array('id' => $id));
         return $this->getRouteImg($img['created_at']) . $img['file_name'];
     }
 
+    public function getType($id = null) {
+        $type = array(0 => 'accommodation', 1 => 'experience');
+        if ($id == null)
+            return $type;
+        else
+            return $type[$id];
+    }
 
-    public function getArticle($name) {
-        return $this->db->selectOne('SELECT * FROM pages p JOIN pages_description pd on (p.id=pd.page_id) WHERE name LIKE "' . $name . '"');
+    public function getSections($id = null, $lang = LANG) {
+        if ($id == null)
+            return $this->db->select("SELECT *,p.created_at as img FROM home_sections s JOIN home_sections_description sd ON sd.home_sections_id=s.id JOIN photos p ON p.id=s.photo_id WHERE sd.language_id=:lang ORDER by position", array('lang' => $lang));
+        else
+            return $this->db->selectOne("SELECT *,p.created_at as img FROM home_sections s JOIN home_sections_description sd ON sd.home_sections_id=s.id JOIN photos p ON p.id=s.photo_id WHERE s.id=:id sd.language_id=:lang ORDER by position", array('id' => $id, 'lang' => $lang));
     }
-    public function getType($id=null){
-        $type=array(0=>'accommodation',1=>'experience');
-        if($id==null)return $type;
-        else return $type[$id];
+
+    public function getSectionsByName($name, $lang = LANG) {
+        return $this->db->selectOne("SELECT *,p.created_at as img FROM home_sections s JOIN home_sections_description sd ON sd.home_sections_id=s.id JOIN photos p ON p.id=s.photo_id WHERE sd.name LIKE :name AND sd.language_id=:lang ORDER by position", array('name' => $name, 'lang' => $lang));
     }
-    public function getSections($id=null,$lang=LANG) {
-         if($id==null) return $this->db->select("SELECT *,p.created_at as img FROM home_sections s JOIN home_sections_description sd ON sd.home_sections_id=s.id JOIN photos p ON p.id=s.photo_id WHERE sd.language_id=:lang ORDER by position",array('lang'=>$lang));
-        else return $this->db->selectOne("SELECT *,p.created_at as img FROM home_sections s JOIN home_sections_description sd ON sd.home_sections_id=s.id JOIN photos p ON p.id=s.photo_id WHERE s.id=:id sd.language_id=:lang ORDER by position",array('id'=>$id,'lang'=>$lang));
-    }
-    public function getSectionsByName($name,$lang=LANG) {
-        return $this->db->selectOne("SELECT *,p.created_at as img FROM home_sections s JOIN home_sections_description sd ON sd.home_sections_id=s.id JOIN photos p ON p.id=s.photo_id WHERE sd.name LIKE :name AND sd.language_id=:lang ORDER by position",array('name'=>$name,'lang'=>$lang));
-    }
+
     public static function getRouteImg($date) {
         $timestamp = strtotime($date);
-        return date("Y",$timestamp).'/'.date("m",$timestamp).'/';
-     }
+        return date("Y", $timestamp) . '/' . date("m", $timestamp) . '/';
+    }
+
     public static function getTimeReverse($time) {
         $fecha = date_create_from_format('d-m-Y', $time);
-        return date_format($fecha,'Y-m-d');
+        return date_format($fecha, 'Y-m-d');
     }
 
     public static function getTimeStamp($sqlTime) {
@@ -78,6 +78,30 @@ class Model {
     public static function getTime($sqlTime) {
         $timestamp = strtotime($sqlTime);
         return date("d-m-Y", $timestamp);
+    }
+
+    public static function getRemaingTime($sqlTime) {
+        $a = new DateTime(date('Y-m-d h:i:s', $sqlTime));
+        $b = new DateTime(date('Y-m-d h:i:s', time()));
+        $fecha = $a->diff($b);
+        if ($sqlTime > time())
+            return $fecha;
+        else
+            return false;
+    }
+
+    public static function CheckMoney($amount) {
+        if (!preg_match('#^([0-9]+|[0-9]{1,3}(,[0-9]{3})*)(\.[0-9]{0,3})?$#', $amount))
+            return false;
+        //if (!preg_match('#^([0-9]+|[0-9]{1,3}(\.[0-9]{3})*)(,[0-9]{0,3})?$#', $amount))
+        //return false;
+        return true;
+    }
+
+    function input_money($str) {
+        $str = str_replace('.', ',', $str);
+        return number_format($str,2,',','.');
+        
     }
 
 }

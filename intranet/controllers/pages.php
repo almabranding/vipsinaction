@@ -8,7 +8,7 @@ class Pages extends Controller {
         if(!Session::get('loggedIn')) header('location: '.URL);
     }
     function index() { 
-        header('location: '.URL.LANG.'/home/lista');  
+        header('location: '.URL.LANG.'/pages/lista');  
     }
     public function lista() 
     {

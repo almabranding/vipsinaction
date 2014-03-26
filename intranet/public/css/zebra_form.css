@@ -27,7 +27,7 @@
 .Zebra_Form .row input.text,
 .Zebra_Form .row select,
 .Zebra_Form .row textarea {
-    display: block
+    display: inline-block
 }
 
 .Zebra_Form input.button,
@@ -105,7 +105,8 @@
 
 .Zebra_Form select.time {
     float: left;
-    margin-right: 5px
+    margin-right: 5px;
+    width: 50px;
 }
 
 .Zebra_Form input.password,
@@ -137,6 +138,7 @@
 
 /* only for IE 8 and below */
 .Zebra_Form input.file {
+    visibility: visible !important;
     border: 1px solid #999\9;
     background: #FFF url('../images/textbox-background.gif') repeat-x top\9;
     padding: 4px\9;

@@ -6,16 +6,17 @@ class Menu_Model extends Model {
         parent::__construct();
     }
 
-    public function form($type = 'add', $id = 'null') {
-        $action = ($type == 'add') ? URL . LANG . '/menu/create' : URL . LANG . '/menu/edit/' . $id;
+    public function form($id = null) {
+        $action = ($id == null) ? URL . LANG . '/menu/create' : URL . LANG . '/menu/edit/' . $id;
 
         $atributes = array(
             'enctype' => 'multipart/form-data',
         );
 
         $form = new Zebra_Form('addProject', 'POST', $action, $atributes);
-        if ($type == 'edit')
+        if ($id !=null)
             $element=$this->getMenu($id);
+        
         $form->add('hidden', '_add', 'project');
         $form->add('label', 'label_link', 'link', 'Link type:');
         $obj = $form->add('select', 'link', $element['page_id']);
@@ -26,7 +27,6 @@ class Menu_Model extends Model {
             $options[$page['id']] = $page['name'];
         };
         $obj->add_options($options, true);
-        
         $form->add('label', 'label_url', 'url', 'URL:');
         $form->add('text', 'url', $element['url']);
 
@@ -99,7 +99,7 @@ class Menu_Model extends Model {
         $this->db->delete('menus_description', "`menu_id` = {$id}");
     }
 
-    public function getMenu($id, $lng = 'en') {
+    public function getMenu($id, $lng = LANG) {
         return $this->db->selectOne("SELECT * FROM menus m JOIN menus_description md ON md.menu_id=m.id WHERE m.id=" . $id . ' AND language_id="' . $lng . '"');
     }
 

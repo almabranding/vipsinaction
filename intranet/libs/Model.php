@@ -7,6 +7,9 @@ class Model {
     function endConn() {
         $this->db = null;
     }
+    function getPhoto($id){
+        return $this->db->selectOne("SELECT * FROM photos WHERE id=:id",array('id'=>$id));
+    }
     function getMenu($id=null,$column=null){
         $column=($column==null)?'*':$column;
         if($id==null)return $this->db->select("SELECT * FROM menu WHERE parent=0");
@@ -70,14 +73,6 @@ class Model {
         $pagination['max']=(int)($count/$numpp);
         $pagination['order']=$order;
         return $pagination;
-    }
-    public function idToRute($id) {
-       $id=str_pad($id, 9, "0", STR_PAD_LEFT);
-       $folder=str_split($id,3);
-       foreach($folder as $value){
-           $rute.=$value.'/';
-       } 
-       return $rute;
     }
     public function uploadFile($sub = '', $name = 'pic') {
         $allowed_ext = array('jpg', 'jpeg', 'png', 'gif', 'pdf', 'doc');

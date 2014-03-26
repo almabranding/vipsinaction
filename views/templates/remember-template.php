@@ -12,16 +12,8 @@
 -->
 
 <?php echo (isset($zf_error) ? $zf_error : (isset($error) ? $error : '')) ?>
-<div id="signup-box">
-<ul  style="text-align: center;">
-
-<li class="row">
+<div style="width:400px;">
     <?php echo $label_email . $email ?>
-</li>
-
-</ul>
-
-<div class="clear"></div>
 </div>
 <div class="row last"><?php echo $_btnsubmit ?></div>
 

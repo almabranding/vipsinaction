@@ -1,12 +1,8 @@
 <?php
 
 class User extends Controller {
-
     function __construct() {
         parent::__construct();
-        $this->view->js = array('page/js/custom.js');
-        $this->view->css = array('page/css/custom.css');
-        $this->view->setBreadcrumb('User');
     }
 
     function index() {
@@ -14,27 +10,44 @@ class User extends Controller {
         $this->view->render('error/index');
     }
 
-    function signup() {
-        $this->view->error = (isset($_GET['exist'])) ? '* Este usuario ya existe' : '';
-        $this->view->signupForm = $this->model->signupForm();
-        $this->view->setBreadcrumb('Signup', true);
-        $this->view->render('page/signup');
+    function settings($nick) {
+        $this->view->setBreadcrumb('<a class="capitalize" href="/">'.$this->view->lang['home'].'</a>');
+        $this->view->setBreadcrumb('<span class="capitalize">'.$this->view->lang['user'].'</span>');
+        $this->view->js = array('user/js/custom.js');
+        if ($nick != $this->model->user['nick'])
+            header('location: ' . URL);
+        $this->view->userForm = $this->model->userForm($nick);
+        $this->view->user = $this->model->getUser($nick);
+        $this->view->render('user/view');
+    }
+
+    function favorites() {
+        $this->view->title=$this->view->lang['favoritos'];
+        $this->view->setBreadcrumb('<a class="capitalize" href="/">'.$this->view->lang['home'].'</a>',true);
+        $this->view->setBreadcrumb('<a class="capitalize" href="/user/settings/'.$this->model->user['nick'].'">'.$this->view->lang['user'].'</a>',true);
+        $this->view->setBreadcrumb('<span class="capitalize">'.$this->view->lang['favoritos'].'</span>');
+        $this->view->bids=$this->model->getFavorites();
+        $this->view->render('auction/lista');
+    }
+    function bids() {
+        $this->view->title=$this->view->lang['my_bids'];
+        $this->view->setBreadcrumb('<a class="capitalize" href="/">'.$this->view->lang['home'].'</a>',true);
+        $this->view->setBreadcrumb('<a class="capitalize" href="/user/settings/'.$this->model->user['nick'].'">'.$this->view->lang['user'].'</a>',true);
+        $this->view->setBreadcrumb('<span class="capitalize">'.$this->view->lang['my_bids'].'</span>');
+        $this->view->bids=$this->model->getBids();
+        $this->view->render('auction/lista');
     }
 
     function remember($done = null) {
         $this->view->message['title'] = 'REMEMBER PASSWORD';
-        $this->view->message['subtitle'] = '*ALL FIELDS ARE REQUIRED';
         $this->view->setBreadcrumb('Remember password', true);
         if ($done == null) {
             $this->view->form = $this->model->rememberForm();
             $this->view->formName = 'remember-template';
             $this->view->render('page/message');
         } else {
-            $this->model->sendRememberMail();
-            $this->view->message['title'] = 'Remember Password';
-            $this->view->message['subtitle'] = 'Email has been sent';
-            $this->view->message['content'] = 'Check your mail';
-            $this->view->render('page/message');
+            $this->model->sendChangePasswordMail();
+            header('location: ' . URL . 'user/message/5');
         }
     }
 
@@ -58,32 +71,86 @@ class User extends Controller {
         }
     }
 
+    function message($code = null) {
+        switch ($code) {
+            //Register done, please confirm
+            case 1:
+                $this->view->setBreadcrumb('Register Complete');
+                $this->view->message['title'] = 'Please confirm your mail';
+                $this->view->message['subtitle'] = '';
+                $this->view->message['content'] = 'We sent you an email. Please confirm your mail';
+                break;
+            //FbRegister done, login
+            case 2:
+                $this->view->setBreadcrumb('Register Complete');
+                $this->view->message['title'] = 'Reset Password';
+                $this->view->message['subtitle'] = '';
+                $this->view->message['content'] = 'Your password has been reset';
+                break;
+            //Password has been changed
+            case 3:
+                $this->view->setBreadcrumb('Password changed');
+                $this->view->message['title'] = 'Reset Password';
+                $this->view->message['subtitle'] = '';
+                $this->view->message['content'] = 'Your password has been reset';
+                break;
+            //User not found
+            case 4:
+                $this->view->setBreadcrumb('User not found');
+                $this->view->message['title'] = 'User or password wrong';
+                $this->view->message['subtitle'] = '';
+                $this->view->message['content'] = 'Please try again or <a href="'.URL.'user/remember">reset password</a>';
+                break;
+            //Remember password
+            case 5:
+                $this->view->setBreadcrumb('Remember Password');
+                $this->view->message['title'] = 'Remember Password';
+                $this->view->message['subtitle'] = '';
+                $this->view->message['content'] = 'We sent you an email. Please check your mail';
+                break;
+        }
+        $this->view->render('page/message');
+    }
+
     function create() {
         $this->view->id = $this->model->create();
         if ($this->view->id == 0)
-            header('location: ' . URL . 'user/signup?exist=yes');
+            header('location: ' . URL . 'user/message');
         else
-            header('location: ' . URL);
+            header('location: ' . URL . 'user/message/1');
     }
 
     function edit() {
-        $this->view->id = $this->model->edit();
-        header('location: ' . URL . 'experience');
+        $error = $this->model->edit();
+        switch ($error) {
+            case 1:
+                header('location: ' . URL . 'user/message/1');
+                break;
+            default:
+                header('location: ' . URL);
+        }
     }
 
     function activate() {
-        $isActive = $this->model->activate($_GET['id'], $_GET['hash']);
-        if ($isActive){
-            $this->model->forceLogin($_GET['id']);
-            header('location: ' . URL . 'experience');
-        }
-        else
-            header('location: ' . URL);
+        $this->model->activate($_GET['id'], $_GET['hash']);
+        header('location: ' . URL);
     }
 
     function login() {
-        $this->model->login();
-        header('location: ' . URL . 'experience');
+        $error = $this->model->login();
+        switch ($error) {
+            case 0:
+                header('location: ' . URL);
+                break;
+            case 1:
+                header('location: ' . URL . 'user/message/4');
+                break;
+            case 2:
+                header('location: ' . URL . 'user/message/1');
+                break;
+            default:
+                header('location: ' . URL);
+        }
     }
 
     function logout() {
@@ -91,37 +158,12 @@ class User extends Controller {
         header('location: ' . URL);
     }
 
-    function profile() {
-        $this->model->getUser();
-        $this->view->bookings = $this->model->getBookings();
-        $this->view->signupForm = $this->model->signupForm();
-        $this->view->setBreadcrumb('Signup', true);
-        $this->view->render('page/profile');
+    function fbRegister() {
+        $this->model->fbRegister();
     }
 
-    function booking($bookid = null) {
-        $this->view->booking = $this->model->getBooking($bookid);
-        $this->view->user = $this->model->getUser();
-        $this->view->setBreadcrumb('Booking');
-        $this->view->setBreadcrumb($this->view->booking['booking_description'], true);
-        $this->view->render('page/booking_detail');
-    }
-
-    function bookingPDF($bookid) {
-        $this->view->booking = $this->model->getBooking($bookid);
-        $this->view->user = $this->model->getUser();
-        $this->view->setBreadcrumb('Booking');
-        $this->view->setBreadcrumb($this->view->booking['booking_description'], true);
-        require_once( $_SERVER['DOCUMENT_ROOT'] . "/libs/dompdf/dompdf_config.inc.php");
-        $dompdf = new DOMPDF();
-        ob_start();
-        $this->view->render('page/booking_detail');
-        //require_once($_SERVER['DOCUMENT_ROOT'] . "/views/templates/booking-detail.php");
-        $html = '<html><body><src="' . URL . '/public/img/addFav.png"></body></html>';
-
-        $dompdf->load_html($html);
-        $dompdf->render();
-        $dompdf->stream("file.pdf");
+    function checkRegister() {
+        $this->model->checkRegister();
     }
 
 }

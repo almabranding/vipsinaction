@@ -22,8 +22,16 @@ window.onload = function() {
 
 
 };
+
+var mycallback = function(value, segment) {
+    $segment = $('.optional' + segment);
+    if (value)
+        $segment.show();
+    else
+        $segment.hide();
+}
 $(function() {
-   $('#sortable').sortable({
+    $('#sortable').sortable({
         start: function(event, ui) {
             $(ui.helper).addClass("sortable-drag-clone");
         },
@@ -46,9 +54,9 @@ function showPop(id) {
     $('#white_full').css('display', 'block');
     $('#' + id).css('display', 'block');
 }
-function secureMsg(Msg,route){
-    if(confirm(Msg))
-            location.href = ROOT+route;
+function secureMsg(Msg, route) {
+    if (confirm(Msg))
+        location.href = ROOT + route;
 }
 $(document).ready(function() {
 

@@ -1,0 +1,9 @@
+1.1.1
+-----------------------------
+- Fixed DOB string when user does not have one entered when suspending/activating user account
+- Fix error in install SQL
+- Fixed proxy bidding (Bug #459) (Thanks Bushstar)
+- Fixed admin login time (Thanks pani100)
+- Security fixes
+
+for older changes check out http://www.webidsupport.com/wiki/Change_Log

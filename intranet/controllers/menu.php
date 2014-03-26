@@ -28,8 +28,7 @@ class Menu extends Controller {
     }
     public function view($id=null) 
     {
-        $type=(!$id)?'add':'edit';
-        $this->view->form=$this->model->form($type,$id);
+        $this->view->form=$this->model->form($id);
         $this->view->render('menu/edit'); 
     }
     public function sort() 

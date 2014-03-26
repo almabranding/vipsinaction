@@ -12,7 +12,7 @@ class Bootstrap {
     private $_errorModule = 'error';
     private $_defaultFile = 'index.php';
     private $_ZebraForm = 'Zebra_Form/Zebra_Form.php'; 
-    private $_allowLang = Array('es','en','it');
+    private $_allowLang = Array('es');
     /**
      * Starts the Bootstrap
      * 
@@ -132,7 +132,7 @@ class Bootstrap {
             define('LANG',Session::get('lang'));
         }else{
             if(!Session::get('lang')){
-                Session::set('lang','en');
+                Session::set('lang','es');
             }
             define('LANG',Session::get('lang'));
         }
@@ -159,7 +159,7 @@ class Bootstrap {
         require $this->_controllerPath . $this->_defaultFile;
         $this->_controller = new Index();
         $this->_controller->loadModel('index','', $this->_modelPath);
-        $this->_controller->loadLang( $this->_allowLang,'index');
+        $this->_controller->loadLang($this->_allowLang,'index');
         $this->_controller->index();
         
     }

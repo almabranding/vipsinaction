@@ -10,8 +10,8 @@ class Bootstrap {
     private $_modelPath = 'models/'; // Always include trailing slash
     private $_errorFile = 'error.php';
     private $_defaultFile = 'index.php';
-    private $_ZebraForm = 'Zebra_Form.php';
-    private $_allowLang = Array('es','en','it');
+    private $_ZebraForm = 'Zebra_Form/Zebra_Form.php';
+    private $_allowLang = Array('es');
     /**
      * Starts the Bootstrap
      * 
@@ -113,11 +113,11 @@ class Bootstrap {
         if(in_array(strtolower($this->_url[0]),$this->_allowLang)){
             Session::set('lang', strtolower(array_shift($this->_url)));
             if(!Session::get('lang')){
-                Session::set('lang','en');
+                Session::set('lang',$this->_allowLang[0]);
             }
             define('LANG',Session::get('lang'));
         }else{
-            Session::set('lang','en');
+            Session::set('lang',$this->_allowLang[0]);
             define('LANG',Session::get('lang'));
         }
     }

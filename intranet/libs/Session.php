@@ -10,13 +10,13 @@ class Session
     
     public static function set($key, $value)
     {
-        $_SESSION[$key] = $value;
+        $_SESSION['intranet'][$key] = $value;
     }
     
     public static function get($key)
     {
-        if (isset($_SESSION[$key]))
-        return $_SESSION[$key];
+        if (isset($_SESSION['intranet'][$key]))
+        return $_SESSION['intranet'][$key];
     }
     
     public static function destroy()

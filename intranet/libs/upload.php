@@ -31,6 +31,7 @@ class upload extends Model {
                 $this->exit_status('File was uploaded successfuly!');
                 $data['file'] = $file;
                 $data['nameFile'] = $nameFile;
+                $data['extension'] = $pathinfo['extension'];
                 $data['file_size'] = filesize($uploadDir . $file);
                 list($data['width'], $data['height'], $imgType, $atributos) = getimagesize($uploadDir . $file);
                 $data['file_content_type'] = image_type_to_mime_type($imgType);
@@ -68,32 +69,36 @@ class upload extends Model {
             $thumb->resize(500, 'height');
             $thumb->save($filepath . $filename);
         }
-        //$this->createThumbs($filename,$filepath, $filepath, $thumbWidth );
     }
-
     public function insertImg($img) {
+        $rute = $this->getRouteImg($this->getTimeSQL());
+        $file_name = (file_exists(UPLOAD . $rute . 'original/' . $img['file'])) ? $img['nameFile']. '_' . rand().'.'.$img['extension']: $img['file'];
         $data = array(
-            'file_name' => $img['file'],
+            'file_name' => $file_name,
             'file_content_type' => $img['file_content_type'],
             'file_size' => $img['file_file_size'],
             'width' => $img['width'],
             'height' => $img['height'],
-            'created_at' => $this->getTimeSQL(),
+            'img_date' => $this->getTimeSQL(),
             'updated_at' => $this->getTimeSQL()
         );
-        $photo_id = $this->db->insert('photos', $data);
-        $rute = $this->getRouteImg($data['created_at']);
+        $photo_id = $this->db->insert(DB_PREFIX . 'photos', $data);
+        
         if (!is_dir(UPLOAD . $rute . 'original'))
             mkdir(UPLOAD . $rute . 'original/', 0777, true);
-        copy(UPLOAD . 'temp/' . $img['file'], UPLOAD . $rute . 'original/' . $img['file']);
+        copy(UPLOAD . 'temp/' . $img['file'], UPLOAD . $rute . 'original/' . $file_name);
         $thumb = new thumb();
-        $thumb->loadImage(UPLOAD . $rute . 'original/' . $img['file']);
-        //$thumb->resize(500, 'height');
-        $thumb->save(UPLOAD . $rute . $img['file']);
-        $thumb->crop(162, 215);
-        $thumb->save(UPLOAD . $rute . 'thumb_' . $img['file']);
+        $thumb->loadImage(UPLOAD . $rute . 'original/' . $file_name);
+        $thumb->crop(534,350);
+        $thumb->save(UPLOAD . $rute . $file_name);
+        $thumb->reset();
+        $thumb->crop(251,163);
+        $thumb->save(UPLOAD . $rute . 'thumb_' . $file_name);
+        $thumb->reset();
+        $thumb->crop(250,250);
+        $thumb->save(UPLOAD . $rute . 'thumb_250x250_' . $file_name);
         unlink(UPLOAD . 'temp/' . $img['file']);
-        $data['id']=$photo_id;
+        $data['id'] = $photo_id;
         return $data;
     }
     

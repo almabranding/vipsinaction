@@ -1,0 +1,364 @@
+
+/*******************************
+ *  STYLES FOR ZEBRA_DATEPICKER
+ *******************************/
+.Zebra_Form .error{display: none;}
+.Zebra_DatePicker *                          { margin: 0; padding: 0; color: #004067 }
+.Zebra_DatePicker                            { position: absolute; background: #004067; border: 2px solid #ffffff; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; display: none; z-index: 100; font-family: Tahoma, Arial, Helvetica, sans-serif; font-size: 13px }
+
+/* = GLOBALS
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker table                      { border-collapse: collapse; border-spacing: 0;border-bottom: 1px solid #fff !important }
+
+.Zebra_DatePicker td,
+.Zebra_DatePicker th                         { text-align: center; padding: 3px 0 }
+
+.Zebra_DatePicker td                         { cursor: pointer }
+
+.Zebra_DatePicker .dp_daypicker,
+.Zebra_DatePicker .dp_monthpicker,
+.Zebra_DatePicker .dp_yearpicker             {}
+.dp_daypicker tr:first-child{border-top: 1px solid #fff !important}
+.Zebra_DatePicker .dp_daypicker td,
+.Zebra_DatePicker .dp_daypicker th,
+.Zebra_DatePicker .dp_monthpicker td,
+.Zebra_DatePicker .dp_yearpicker td         { background: #f4f1ec; width: 25px; border: 4px solid #004067 }
+
+/* = HEADER
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker .dp_header td             { color: #FFF }
+.Zebra_DatePicker .dp_header .dp_previous{background-position: 11px center !important;}
+.Zebra_DatePicker .dp_header .dp_next{background-position: -17px center !important;}
+.Zebra_DatePicker .dp_header .dp_previous,
+.Zebra_DatePicker .dp_header .dp_next       {color:transparent !important;width: 20px;background: url("../img/zebra_icons.png") no-repeat; }
+
+.Zebra_DatePicker .dp_header .dp_caption    { font-weight: bold }
+/*.Zebra_DatePicker .dp_header .dp_hover      { background: #222; color: #FFF; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px }*/
+.Zebra_DatePicker .dp_header .dp_blocked    { color: #888; cursor: default }
+
+/* = DATEPICKER
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker .dp_daypicker th          { background: #004067;color:#f4f1ec;font-weight: normal; }
+.Zebra_DatePicker td.dp_not_in_month        { background: #F3F3F3; color: #CDCDCD; cursor: default }
+.Zebra_DatePicker td.dp_weekend             { background: #D8D8D8 }
+.Zebra_DatePicker td.dp_weekend_disabled    { color: #CCC; cursor: default }
+.Zebra_DatePicker td.dp_selected            { background: #5A4B4B; color: #FFF !important }
+.Zebra_DatePicker td.dp_week_number         { background: #FFCC33; color: #555; cursor: text; font-style: italic }
+
+/* = MONTHPICKER
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker .dp_monthpicker td        { width: 33% }
+
+/* = YEARPICKER
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker .dp_yearpicker td         { width: 33% }
+
+/* = FOOTER
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker .dp_footer                { margin-top: 3px }
+.Zebra_DatePicker .dp_footer td             { color: #FFF; padding: 2px; font-weight: bold }
+.Zebra_DatePicker .dp_footer .dp_hover      { background: #222; color: #FFF; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px }
+
+/* = SOME MORE GLOBALS (MUST BE LAST IN ORDER TO OVERWRITE PREVIOUS PROPERTIES)
+----------------------------------------------------------------------------------------------------------------------*/
+.Zebra_DatePicker td.dp_current             { color: #C40000 }
+.Zebra_DatePicker td.dp_disabled_current    { color: #E38585 }
+.Zebra_DatePicker td.dp_disabled            { background: #F3F3F3; color: #CDCDCD; cursor: default }
+.Zebra_DatePicker td.dp_hover               { background: #004067; color: #FFF }
+
+/* = ICON
+----------------------------------------------------------------------------------------------------------------------*/
+button.Zebra_DatePicker_Icon                { position: absolute; width: 31px; height: 16px;background: url('../img/calendar.png') no-repeat left top; text-indent: -9000px; border: none; cursor: pointer; margin: 0 0 0 5px; padding: 0; line-height: 0 }
+button.Zebra_DatePicker_Icon_Disabled       { background-image: url('../img/calendar-disabled.png') }
+button.Zebra_DatePicker_Icon_Inside         { margin: 0 3px 0 0 }
+
+/* Fix icon position in Chrome & Safari */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    button.Zebra_DatePicker_Icon_Inside     { margin: 0 5px 0 0 }
+}
+/*******************************
+ *  STYLES FOR ZEBRA_FORM
+ *******************************/
+
+
+
+.Zebra_Form .last {
+    border-bottom: none
+}
+
+.Zebra_Form input.other {
+    margin-top: 5px
+}
+
+.Zebra_Form .cell input.other {
+    margin: 0 0 0 5px
+}
+
+.Zebra_Form input.other-invisible,
+.Zebra_Form input.other-invisible {
+    display: none
+}
+
+.Zebra_Form .note {
+    font-size: 80%;
+    color: #666;
+    padding-left: 12px;
+    background: url('note.gif') no-repeat left 1px;
+    line-height: 1.2em
+}
+
+.Zebra_Form .note {
+    margin-top: 5px
+}
+
+.Zebra_Form .cell .note {
+    margin: 4px 0 0 5px
+}
+
+.Zebra_Form span.required {
+    margin-left: 5px;
+}
+
+
+.Zebra_Form_filename {
+    position: absolute;
+    font-weight: normal;
+    color:#888;
+    overflow: hidden;
+}
+
+
+/*
+.Zebra_Form_filename {
+    position: relative;
+    font-weight: normal;
+    color:#888;
+    overflow: hidden;
+    float:left;
+    min-width:200px;
+}
+*/
+
+.Zebra_Form_filename a {
+    font-weight: bold;
+    color: #C40000;
+    text-decoration: none;
+    margin-left: 5px
+}
+
+.Zebra_Form_error_message {
+    position: absolute;
+    z-index: 21;
+    overflow: hidden;
+    background: transparent;
+}
+
+.Zebra_Form_error_message .message {
+    background: #000;
+    padding: 10px 18px 10px 10px;
+    color: #FFF;
+    line-height: inherit;
+    font-size: inherit;
+    font-weight: normal;
+    margin-right: 6px;
+    position: relative;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    -moz-box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    *margin-right: 0;
+    max-width: 250px;
+}
+
+.Zebra_Form_error_message .noclose { padding: 10px }
+
+.Zebra_Form_error_message .close {
+    position: absolute;
+    color: #FFF;
+    right: 5px;
+    top: 4px;
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: url('close.png');
+    text-indent: -9000px;
+    overflow: hidden;
+    *right: 3px;
+    *top: 3px;
+}
+
+.Zebra_Form_error_message .close-ie6 {
+    position: absolute;
+    color: #FFF;
+    right: 4px;
+    top: 2px;
+    text-decoration: none;
+    font-family: arial, sans;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.Zebra_Form_error_message .arrow {
+    position:relative;
+    border-color: #000 transparent transparent transparent;
+    border-style: solid;
+    border-width: 10px;
+    height:0;
+    width:0;
+    left: 0;
+    bottom: 0;
+    z-index: 3;
+    float: left;
+    _border-left-color: pink;
+    _border-bottom-color: pink;
+    _border-right-color: pink;
+    _filter: chroma(color=pink);
+    _margin-bottom: -6px
+}
+
+.Zebra_Form div.error {
+    background: #444 url('ico-warning.png') no-repeat 8px 15px;
+    position: relative;
+    overflow: hidden;
+    _background-image: url('ico-warning.gif')
+}
+
+.Zebra_Form div.error div.container {
+    padding: 15px 65px 15px 35px;
+    border: 2px solid #000;
+    position: relative;
+    overflow: hidden
+}
+
+.Zebra_Form div.error div.container span {
+    color: #FFF;
+    font-weight: bold;
+    font-size: 90%;
+    display: block
+}
+
+.Zebra_Form div.error div.container div.close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #333;
+    height: 100%;
+    width: 50px;
+    padding: 15px 0;
+    _top: 2px;
+    _right: 2px;
+    _background: #444
+}
+
+.Zebra_Form div.error div.container div.close a {
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: url('ico-close.png') no-repeat;
+    text-indent: -9000px;
+    margin-left: 17px;
+    _background-image: url('ico-close.gif')
+}
+
+/* accesskeys */
+.Zebra_Form span.underline {
+    text-decoration: underline;
+    color: #666;
+}
+
+.Zebra_Form .fieldset {
+    background: #666;
+    color: #FFF;
+    padding: 4px
+}
+
+.Zebra_Form_spinner {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: url('spinner.gif');
+    margin: 3px 0 0 10px
+}
+
+.Zebra_Form input.disabled,
+.Zebra_Form select.disabled {
+    background: #DEDEDE;
+    color: #BBB
+}
+
+.Zebra_Form input.disabled:hover {
+    background: #DEDEDE;
+    color: #BBB
+}
+
+.Zebra_Form label.disabled {
+    color: #DEDEDE
+}
+
+.Zebra_Form_Placeholder {
+    position: absolute;
+    border: none !important;
+    background: transparent !important;
+    resize: none !important;
+}
+
+.Zebra_Form_Placeholder { color:#9C9CA2 !important }
+::-webkit-input-placeholder { color:#9C9CA2 !important }
+::-moz-placeholder { color:#9C9CA2 !important }
+input:-moz-placeholder { color:#9C9CA2 !important }
+
+.Zebra_Character_Counter {
+    position: absolute;
+    background: #FFF;
+    text-align: right;
+    border: 1px solid #AAA;
+    background: #EAEAEA;
+    color: #222;
+    font-size: 11px;
+    font-weight: normal;
+    padding: 0 2px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    opacity: .8
+}
+
+.show-character-counter { resize: none }
+.Zebra_Character_Counter span { color: #C40000 }
+
+.Zebra_Form .modifier-uppercase { text-transform: uppercase }
+.Zebra_Form .modifier-lowercase { text-transform: lowercase }
+
+.Zebra_Form div.captcha-container { position: relative }
+.Zebra_Form div.captcha-container img { border: 1px solid #CCC }
+.Zebra_Form div.captcha-container a {
+    position: absolute;
+    text-indent: -9000px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    left: 131px;
+    top: 15px;
+    background: #FFF url('ico-refresh.png') no-repeat center center;
+    border: 1px solid #CCC;
+    padding: 2px;
+    _background-image: url('ico-refresh.gif')
+}
+
+.Zebra_Form .Zebra_Form_Input_Prefix {
+    color: #888;
+    padding: 0;
+    margin-right: 2px;
+}
+
+.Zebra_Form input.error,
+.Zebra_Form select.error,
+.Zebra_Form textarea.error {
+    background: #FFEFEF;
+    border-color: #C40000;
+}
+
+/* don't change this! */
+.Zebra_Form input.password { font-family: 'Verdana', 'Tahoma', 'Arial' }

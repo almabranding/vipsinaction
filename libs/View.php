@@ -10,8 +10,9 @@ class View {
     function __construct() {
         $menu = new Menu;
         $this->menu = $menu->getMenu();
-        $user_model = Controller::loadSingleModel('user');
-        $this->loginForm = $user_model->loginForm();
+        $user_model=new login;
+        $this->signupForm=$user_model->signupForm();
+        $this->loginForm=$user_model->loginForm();
     }
 
     public static function getRouteImg($date) {
@@ -21,7 +22,6 @@ class View {
 
     public function render($name, $noInclude = false) {
         //$this->_getCache();
-
         if ($noInclude == true) {
             require 'views/' . $name . '.php';
         } else {
@@ -92,7 +92,7 @@ class View {
     }
 
     public function setBreadcrumb($breadcrumb, $isSelected = false) {
-        $this->breadcrumb.=($this->breadcrumb == '') ? '' : ' | ';
+        $this->breadcrumb.=($this->breadcrumb == '') ? '' : ' / ';
         if ($isSelected)
             $this->breadcrumb.='<span class="selected">' . $breadcrumb . '</span>';
         else

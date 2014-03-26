@@ -7,12 +7,11 @@ class Index extends Controller {
     }
     
    function index() {
-       $this->view->css = array('page/css/royalslider.css');
-       $this->view->js[] = 'page/js/jquery.royalslider.min.js';
-       $this->view->js[] = 'page/js/home.js';
+       $this->view->css = array('index/css/royalslider.css');
+       $this->view->js = array('index/js/jquery.royalslider.min.js','index/js/masonry.pkgd.min.js','index/js/home.js');
        $this->view->auctions=$this->model->getAuctions();
        $this->view->banner=$this->model->getBanner();
-       $this->view->render('page/home');
+       $this->view->render('index/home');
     }
     
 }

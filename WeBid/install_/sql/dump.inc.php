@@ -1,0 +1,1815 @@
+<?php
+# 
+# Table structure for table `" . $DBPrefix . "accesseshistoric`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "accesseshistoric`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "accesseshistoric` (
+  `month` char(2) NOT NULL default '',
+  `year` char(4) NOT NULL default '',
+  `pageviews` int(11) NOT NULL default '0',
+  `uniquevisitiors` int(11) NOT NULL default '0',
+  `usersessions` int(11) NOT NULL default '0'
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "accesseshistoric`
+#  
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "accounts`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "accounts`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "accounts` (
+	`id` INT(7) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`nick` VARCHAR(20) NOT NULL,
+	`name` TINYTEXT NOT NULL,
+	`text` TEXT NOT NULL,
+	`type` VARCHAR(15) NOT NULL,
+	`paid_date` VARCHAR(16) NOT NULL,
+	`amount` DOUBLE(6,2) NOT NULL,
+	`day` INT(3) NOT NULL,
+	`week` INT(2) NOT NULL,
+	`month` INT(2) NOT NULL,
+	`year` INT(4) NOT NULL
+)";
+
+# 
+# Dumping data for table `" . $DBPrefix . "accounts`
+# 
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "adminusers`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "adminusers`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "adminusers` (
+  `id` int(11) NOT NULL auto_increment,
+  `username` varchar(32) NOT NULL default '',
+  `password` varchar(32) NOT NULL default '',
+  `hash` varchar(5) NOT NULL default '',
+  `created` varchar(8) NOT NULL default '',
+  `lastlogin` varchar(14) NOT NULL default '',
+  `status` int(2) NOT NULL default '0',
+  `notes` text,
+  KEY `id` (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "adminusers`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "auccounter`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "auccounter`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "auccounter` (
+  `auction_id` int(11) NOT NULL default '0',
+  `counter` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`auction_id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "auccounter`
+# 
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "auctions`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "auctions`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "auctions` (
+  `id` int(32) NOT NULL auto_increment,
+  `user` int(32) default NULL,
+  `title` varchar(70),
+  `subtitle` varchar(70),
+  `starts` varchar(14) default NULL,
+  `description` text,
+  `pict_url` tinytext,
+  `category` int(11) default NULL,
+  `secondcat` int(11) default NULL,
+  `minimum_bid` double(16,2) default '0',
+  `shipping_cost` double(16,2) default '0',
+  `shipping_cost_additional` double(16,2) default '0',
+  `reserve_price` double(16,2) default '0',
+  `buy_now` double(16,2) default '0',
+  `auction_type` char(1) default NULL,
+  `duration` varchar(7) default NULL,
+  `increment` double(8,2) NOT NULL default '0',
+  `shipping` char(1) default NULL,
+  `payment` tinytext,
+  `international` char(1) default NULL,
+  `ends` varchar(14) default NULL,
+  `current_bid` double(16,2) default '0',
+  `closed` int(1) default '0',
+  `photo_uploaded` tinyint(1) default NULL,
+  `quantity` int(11) default NULL,
+  `suspended` int(1) default '0',
+  `relist` int(11) NOT NULL default '0',
+  `relisted` int(11) NOT NULL default '0',
+  `num_bids` int(11) NOT NULL default '0',
+  `sold` enum('y','n','s') NOT NULL default 'n',
+  `shipping_terms` tinytext NOT NULL,
+  `bn_only` enum('y','n') NOT NULL default 'n',
+  `bold` enum('y','n') NOT NULL default 'n',
+  `highlighted` enum('y','n') NOT NULL default 'n',
+  `featured` enum('y','n') NOT NULL default 'n',
+  `current_fee` double(16,2) default '0',
+  `tax`  enum('y','n') NOT NULL default 'n',
+  `taxinc`  enum('y','n') NOT NULL default 'y',
+  PRIMARY KEY  (`id`),
+  KEY `id` (`id`)
+);";
+
+# 
+# Dumping data for table `" . $DBPrefix . "auctions`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "banners`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "banners`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "banners` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) default NULL,
+  `type` enum('gif','jpg','png','swf') default NULL,
+  `views` int(11) default NULL,
+  `clicks` int(11) default NULL,
+  `url` varchar(255) default NULL,
+  `sponsortext` varchar(255) default NULL,
+  `alt` varchar(255) default NULL,
+  `purchased` int(11) NOT NULL default '0',
+  `width` int(11) NOT NULL default '0',
+  `height` int(11) NOT NULL default '0',
+  `user` int(11) NOT NULL default '0',
+  KEY `id` (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "banners`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "bannerscategories`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "bannerscategories`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "bannerscategories` (
+  `banner` int(11) NOT NULL default '0',
+  `category` int(11) NOT NULL default '0'
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "bannerscategories`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "bannerskeywords`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "bannerskeywords`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "bannerskeywords` (
+  `banner` int(11) NOT NULL default '0',
+  `keyword` varchar(255) NOT NULL default ''
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "bannerskeywords`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "bannersstats`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "bannersstats`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "bannersstats` (
+  `banner` int(11) default NULL,
+  `purchased` int(11) default NULL,
+  `views` int(11) default NULL,
+  `clicks` int(11) default NULL,
+  KEY `id` (`banner`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "bannersstats`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "bannersusers`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "bannersusers`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "bannersusers` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) default NULL,
+  `company` varchar(255) default NULL,
+  `email` varchar(255) default NULL,
+  KEY `id` (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "bannersusers`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "bids`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "bids`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "bids` (
+  `id` int(11) NOT NULL auto_increment,
+  `auction` int(32) default NULL,
+  `bidder` int(32) default NULL,
+  `bid` double(16,2) default NULL,
+  `bidwhen` varchar(14) default NULL,
+  `quantity` int(11) default '0',
+  PRIMARY KEY  (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "bids`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "categories`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "categories`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "categories` (
+  `cat_id` int(4) NOT NULL auto_increment,
+  `parent_id` int(4) default NULL,
+  `left_id` INT(8) NOT NULL,
+  `right_id` INT(8) NOT NULL,
+  `level` INT(1) NOT NULL,
+  `cat_name` tinytext,
+  `sub_counter` int(11) default 0,
+  `counter` int(11) default 0,
+  `cat_colour` varchar(15) default '',
+  `cat_image` varchar(150) default '',
+  PRIMARY KEY  (`cat_id`),
+  INDEX (`left_id`, `right_id`, `level`)
+);";
+
+# 
+# Dumping data for table `" . $DBPrefix . "categories`
+# 
+
+if ($_GET['cats'] == 1)
+{
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(1, -1, 1, 394, -1, 'All', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(2, 1, 340, 393, 0, 'Art &amp; Antiques', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(3, 2, 391, 392, 1, 'Textiles &amp; Linens', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(4, 2, 389, 390, 1, 'Amateur Art', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(5, 2, 387, 388, 1, 'Ancient World', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(6, 2, 385, 386, 1, 'Books &amp; Manuscripts', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(7, 2, 383, 384, 1, 'Cameras', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(8, 2, 363, 382, 1, 'Ceramics &amp; Glass', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(9, 8, 364, 381, 2, 'Glass', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(10, 9, 379, 380, 3, '40s, 50s &amp; 60s', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(11, 9, 377, 378, 3, 'Art Glass', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(12, 9, 375, 376, 3, 'Carnival', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(13, 9, 373, 374, 3, 'Chalkware', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(14, 9, 371, 372, 3, 'Chintz &amp; Shelley', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(15, 9, 369, 370, 3, 'Contemporary Glass', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(16, 9, 367, 368, 3, 'Decorative', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(17, 9, 365, 366, 3, 'Porcelain', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(18, 2, 361, 362, 1, 'Fine Art', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(19, 2, 359, 360, 1, 'General', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(20, 2, 357, 358, 1, 'Musical Instruments', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(21, 2, 355, 356, 1, 'Orientalia', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(22, 2, 353, 354, 1, 'Painting', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(23, 2, 351, 352, 1, 'Photographic Images', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(24, 2, 349, 350, 1, 'Post-1900', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(25, 2, 347, 348, 1, 'Pre-1900', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(26, 2, 345, 346, 1, 'Prints', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(27, 2, 343, 344, 1, 'Scientific Instruments', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(28, 2, 341, 342, 1, 'Silver &amp; Silver Plate', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(29, 1, 262, 339, 0, 'Books', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(30, 29, 337, 338, 1, 'Animals', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(31, 29, 335, 336, 1, 'Arts, Architecture &amp; Photography', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(32, 29, 333, 334, 1, 'Audiobooks', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(33, 29, 331, 332, 1, 'Biographies &amp; Memoirs', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(34, 29, 329, 330, 1, 'Business &amp; Investing', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(35, 29, 327, 328, 1, 'Catalogs', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(36, 29, 325, 326, 1, 'Children', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(37, 29, 323, 324, 1, 'Computers &amp; Internet', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(38, 29, 321, 322, 1, 'Contemporary', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(39, 29, 319, 320, 1, 'Cooking, Food &amp; Wine', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(40, 29, 317, 318, 1, 'Entertainment', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(41, 29, 315, 316, 1, 'Foreign Language Instruction', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(42, 29, 313, 314, 1, 'General', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(43, 29, 311, 312, 1, 'Health, Mind &amp; Body', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(44, 29, 309, 310, 1, 'Historical', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(45, 29, 307, 308, 1, 'History', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(46, 29, 305, 306, 1, 'Home &amp; Garden', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(47, 29, 303, 304, 1, 'Horror', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(48, 29, 301, 302, 1, 'Illustrated', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(49, 29, 299, 300, 1, 'Literature &amp; Fiction', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(50, 29, 297, 298, 1, 'Men', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(51, 29, 295, 296, 1, 'Mystery &amp; Thrillers', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(52, 29, 293, 294, 1, 'News', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(53, 29, 291, 292, 1, 'Nonfiction', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(54, 29, 289, 290, 1, 'Parenting &amp; Families', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(55, 29, 287, 288, 1, 'Poetry', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(56, 29, 285, 286, 1, 'Rare', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(57, 29, 283, 284, 1, 'Reference', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(58, 29, 281, 282, 1, 'Regency', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(59, 29, 279, 280, 1, 'Religion &amp; Spirituality', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(60, 29, 277, 278, 1, 'Science &amp; Nature', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(61, 29, 275, 276, 1, 'Science Fiction &amp; Fantasy', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(62, 29, 273, 274, 1, 'Sports', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(63, 29, 271, 272, 1, 'Sports &amp; Outdoors', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(64, 29, 269, 270, 1, 'Teens', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(65, 29, 267, 268, 1, 'Textbooks', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(66, 29, 265, 266, 1, 'Travel', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(67, 29, 263, 264, 1, 'Women', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(68, 1, 254, 261, 0, 'Clothing &amp; Accessories', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(69, 68, 259, 260, 1, 'Accessories', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(70, 68, 257, 258, 1, 'Clothing', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(71, 68, 255, 256, 1, 'Watches', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(72, 1, 248, 253, 0, 'Coins &amp; Stamps', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(73, 72, 251, 252, 1, 'Coins', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(74, 72, 249, 250, 1, 'Philately', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(75, 1, 172, 247, 0, 'Collectibles', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(76, 75, 245, 246, 1, 'Advertising', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(77, 75, 243, 244, 1, 'Animals', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(78, 75, 241, 242, 1, 'Animation', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(79, 75, 239, 240, 1, 'Antique Reproductions', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(80, 75, 237, 238, 1, 'Autographs', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(81, 75, 235, 236, 1, 'Barber Shop', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(82, 75, 233, 234, 1, 'Bears', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(83, 75, 231, 232, 1, 'Bells', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(84, 75, 229, 230, 1, 'Bottles &amp; Cans', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(85, 75, 227, 228, 1, 'Breweriana', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(86, 75, 225, 226, 1, 'Cars &amp; Motorcycles', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(87, 75, 223, 224, 1, 'Cereal Boxes &amp; Premiums', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(88, 75, 221, 222, 1, 'Character', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(89, 75, 219, 220, 1, 'Circus &amp; Carnival', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(90, 75, 217, 218, 1, 'Collector Plates', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(91, 75, 215, 216, 1, 'Dolls', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(92, 75, 213, 214, 1, 'General', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(93, 75, 211, 212, 1, 'Historical &amp; Cultural', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(94, 75, 209, 210, 1, 'Holiday &amp; Seasonal', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(95, 75, 207, 208, 1, 'Household Items', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(96, 75, 205, 206, 1, 'Kitsch', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(97, 75, 203, 204, 1, 'Knives &amp; Swords', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(98, 75, 201, 202, 1, 'Lunchboxes', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(99, 75, 199, 200, 1, 'Magic &amp; Novelty Items', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(100, 75, 197, 198, 1, 'Memorabilia', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(101, 75, 195, 196, 1, 'Militaria', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(102, 75, 193, 194, 1, 'Music Boxes', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(103, 75, 191, 192, 1, 'Oddities', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(104, 75, 189, 190, 1, 'Paper', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(105, 75, 187, 188, 1, 'Pinbacks', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(106, 75, 185, 186, 1, 'Porcelain Figurines', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(107, 75, 183, 184, 1, 'Railroadiana', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(108, 75, 181, 182, 1, 'Religious', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(109, 75, 179, 180, 1, 'Rocks, Minerals &amp; Fossils', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(110, 75, 177, 178, 1, 'Scientific Instruments', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(111, 75, 175, 176, 1, 'Textiles', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(112, 75, 173, 174, 1, 'Tobacciana', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(113, 1, 154, 171, 0, 'Comics, Cards &amp; Science Fiction', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(114, 113, 169, 170, 1, 'Anime &amp; Manga', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(115, 113, 167, 168, 1, 'Comic Books', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(116, 113, 165, 166, 1, 'General', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(117, 113, 163, 164, 1, 'Godzilla', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(118, 113, 161, 162, 1, 'Star Trek', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(119, 113, 159, 160, 1, 'The X-Files', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(120, 113, 157, 158, 1, 'Toys', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(121, 113, 155, 156, 1, 'Trading Cards', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(122, 1, 144, 153, 0, 'Computers &amp; Software', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(123, 122, 151, 152, 1, 'General', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(124, 122, 149, 150, 1, 'Hardware', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(125, 122, 147, 148, 1, 'Internet Services', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(126, 122, 145, 146, 1, 'Software', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(127, 1, 132, 143, 0, 'Electronics &amp; Photography', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(128, 127, 141, 142, 1, 'Consumer Electronics', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(129, 127, 139, 140, 1, 'General', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(130, 127, 137, 138, 1, 'Photo Equipment', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(131, 127, 135, 136, 1, 'Recording Equipment', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(132, 127, 133, 134, 1, 'Video Equipment', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(133, 1, 112, 131, 0, 'Home &amp; Garden', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(134, 133, 129, 130, 1, 'Baby Items', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(135, 133, 127, 128, 1, 'Crafts', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(136, 133, 125, 126, 1, 'Furniture', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(137, 133, 123, 124, 1, 'Garden', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(138, 133, 121, 122, 1, 'General', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(139, 133, 119, 120, 1, 'Household Items', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(140, 133, 117, 118, 1, 'Pet Supplies', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(141, 133, 115, 116, 1, 'Tools &amp; Hardware', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(142, 133, 113, 114, 1, 'Weddings', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(143, 1, 98, 111, 0, 'Movies &amp; Video', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(144, 143, 109, 110, 1, 'Blueray', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(145, 143, 107, 108, 1, 'DVD', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(146, 143, 105, 106, 1, 'General', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(147, 143, 103, 104, 1, 'HD-DVD', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(148, 143, 101, 102, 1, 'Laser Discs', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(149, 143, 99, 100, 1, 'VHS', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(150, 1, 84, 97, 0, 'Music', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(151, 150, 95, 96, 1, 'CDs', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(152, 150, 93, 94, 1, 'General', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(153, 150, 91, 92, 1, 'Instruments', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(154, 150, 89, 90, 1, 'Memorabilia', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(155, 150, 87, 88, 1, 'Records', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(156, 150, 85, 86, 1, 'Tapes', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(157, 1, 74, 83, 0, 'Office &amp; Business', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(158, 157, 81, 82, 1, 'Briefcases', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(159, 157, 79, 80, 1, 'Fax Machines', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(160, 157, 77, 78, 1, 'General Equipment', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(161, 157, 75, 76, 1, 'Pagers', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(162, 1, 58, 73, 0, 'Other Goods &amp; Services', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(163, 162, 71, 72, 1, 'General', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(164, 162, 69, 70, 1, 'Metaphysical', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(165, 162, 67, 68, 1, 'Property', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(166, 162, 65, 66, 1, 'Services', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(167, 162, 63, 64, 1, 'Tickets &amp; Events', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(168, 162, 61, 62, 1, 'Transportation', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(169, 162, 59, 60, 1, 'Travel', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(170, 1, 50, 57, 0, 'Sports &amp; Recreation', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(171, 170, 55, 56, 1, 'Apparel &amp; Equipment', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(172, 170, 53, 54, 1, 'Exercise Equipment', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(173, 170, 51, 52, 1, 'General', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(174, 1, 2, 49, 0, 'Toys &amp; Games', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(175, 174, 47, 48, 1, 'Action Figures', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(176, 174, 45, 46, 1, 'Beanie Babies &amp; Beanbag Toys', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(177, 174, 43, 44, 1, 'Diecast', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(178, 174, 41, 42, 1, 'Fast Food', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(179, 174, 39, 40, 1, 'Fisher-Price', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(180, 174, 37, 38, 1, 'Furby', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(181, 174, 35, 36, 1, 'Games', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(182, 174, 33, 34, 1, 'General', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(183, 174, 31, 32, 1, 'Giga Pet &amp; Tamagotchi', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(184, 174, 29, 30, 1, 'Hobbies', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(185, 174, 27, 28, 1, 'Marbles', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(186, 174, 25, 26, 1, 'My Little Pony', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(187, 174, 23, 24, 1, 'Peanuts Gang', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(188, 174, 21, 22, 1, 'Pez', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(189, 174, 19, 20, 1, 'Plastic Models', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(190, 174, 17, 18, 1, 'Plush Toys', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(191, 174, 15, 16, 1, 'Puzzles', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(192, 174, 13, 14, 1, 'lot Cars', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(193, 174, 11, 12, 1, 'Teletubbies', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(194, 174, 9, 10, 1, 'Toy Soldiers', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(195, 174, 7, 8, 1, 'Vintage', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(196, 174, 5, 6, 1, 'Vintage Tin', 0, 0, '', '');";
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(197, 174, 3, 4, 1, 'Vintage Vehicles', 0, 0, '', '');";
+}
+else
+{
+	$query[] = "INSERT INTO `" . $DBPrefix . "categories` VALUES(NULL, -1, 1, 2, -1, 'All', 0, 0, '', '');";
+}
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "closedrelisted`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "closedrelisted`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "closedrelisted` (
+  `auction` int(32) default '0',
+  `relistdate` varchar(8) NOT NULL default '',
+  `newauction` int(32) NOT NULL default '0'
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "closedrelisted`
+# 
+
+# Table structure for table `" . $DBPrefix . "comm_messages`
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "comm_messages`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "comm_messages` (
+  `id` int(11) NOT NULL auto_increment,
+  `boardid` int(11) NOT NULL default '0',
+  `msgdate` varchar(14) NOT NULL default '',
+  `user` int(11) NOT NULL default '0',
+  `username` varchar(255) NOT NULL default '',
+  `message` text NOT NULL,
+  KEY `msg_id` (`id`)
+);";
+
+# Dumping data for table `" . $DBPrefix . "comm_messages`
+
+
+# Table structure for table `" . $DBPrefix . "community`
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "community`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "community` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) NOT NULL default '0',
+  `messages` int(11) NOT NULL default '0',
+  `lastmessage` varchar(14) NOT NULL default '0',
+  `msgstoshow` int(11) NOT NULL default '0',
+  `active` int(1) NOT NULL default '1',
+  KEY `msg_id` (`id`)
+);";
+
+# Dumping data for table `" . $DBPrefix . "community`
+
+$query[] = "INSERT INTO `" . $DBPrefix . "community` VALUES (1, 'Selling', 0, '', 30, 1);";
+$query[] = "INSERT INTO `" . $DBPrefix . "community` VALUES (2, 'Buying', 0, '', 30, 1);";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "counters`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "counters`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "counters` (
+  `users` int(11) default '0',
+  `inactiveusers` int(11) NOT NULL default '0',
+  `auctions` int(11) default '0',
+  `closedauctions` int(11) NOT NULL default '0',
+  `bids` int(11) NOT NULL default '0',
+  `suspendedauctions` int(11) NOT NULL default '0'
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "counters`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "counters` VALUES (0, 0, 0, 0, 0, 0);";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "countries`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "countries`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "countries` (
+  `country` varchar(40) NOT NULL default '',
+  PRIMARY KEY  (`country`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "countries`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Afghanistan');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Albania');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Algeria');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('American Samoa');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Andorra');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Angola');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Anguilla');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Antarctica');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Antigua And Barbuda');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Argentina');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Armenia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Aruba');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Australia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Austria');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Azerbaijan Republic');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Bahamas');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Bahrain');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Bangladesh');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Barbados');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Belarus');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Belgium');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Belize');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Benin');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Bermuda');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Bhutan');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Bolivia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Bosnia and Herzegowina');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Botswana');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Bouvet Island');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Brazil');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('British Indian Ocean Territory');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Brunei Darussalam');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Bulgaria');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Burkina Faso');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Burma');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Burundi');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Cambodia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Cameroon');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Canada');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Cape Verde');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Cayman Islands');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Central African Republic');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Chad');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Chile');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('China');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Christmas Island');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Cocos &#40;Keeling&#41; Islands');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Colombia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Comoros');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Congo');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Congo, the Democratic Republic');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Cook Islands');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Costa Rica');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Cote d&#39;Ivoire');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Croatia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Cyprus');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Czech Republic');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Denmark');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Djibouti');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Dominica');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Dominican Republic');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('East Timor');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Ecuador');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Egypt');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('El Salvador');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Equatorial Guinea');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Eritrea');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Estonia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Ethiopia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Falkland Islands');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Faroe Islands');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Fiji');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Finland');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('France');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('French Guiana');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('French Polynesia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('French Southern Territories');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Gabon');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Gambia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Georgia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Germany');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Ghana');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Gibraltar');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Great Britain');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Greece');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Greenland');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Grenada');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Guadeloupe');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Guam');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Guatemala');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Guinea');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Guinea-Bissau');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Guyana');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Haiti');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Heard and Mc Donald Islands');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Honduras');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Hong Kong');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Hungary');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Iceland');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('India');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Indonesia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Ireland');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Israel');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Italy');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Jamaica');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Japan');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Jordan');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Kazakhstan');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Kenya');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Kiribati');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Korea &#40;South&#41;');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Kuwait');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Kyrgyzstan');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Lao People&#39;s Democratic Republic');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Latvia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Lebanon');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Lesotho');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Liberia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Liechtenstein');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Lithuania');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Luxembourg');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Macau');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Macedonia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Madagascar');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Malawi');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Malaysia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Maldives');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Mali');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Malta');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Marshall Islands');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Martinique');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Mauritania');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Mauritius');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Mayotte');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Mexico');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Micronesia, Federated States of');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Moldova, Republic of');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Monaco');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Mongolia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Montserrat');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Morocco');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Mozambique');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Namibia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Nauru');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Nepal');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Netherlands');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Netherlands Antilles');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('New Caledonia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('New Zealand');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Nicaragua');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Niger');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Nigeria');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Niuev');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Norfolk Island');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Northern Mariana Islands');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Norway');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Oman');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Pakistan');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Palau');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Panama');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Papua New Guinea');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Paraguay');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Peru');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Philippines');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Pitcairn');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Poland');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Portugal');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Puerto Rico');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Qatar');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Reunion');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Romania');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Russian Federation');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Rwanda');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Saint Kitts and Nevis');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Saint Lucia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Saint Vincent and the Grenadin');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Samoa &#40;Independent&#41;');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('San Marino');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Sao Tome and Principe');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Saudi Arabia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Senegal');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Seychelles');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Sierra Leone');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Singapore');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Slovakia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Slovenia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Solomon Islands');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Somalia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('South Africa');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('South Georgia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Spain');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Sri Lanka');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('St. Helena');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('St. Pierre and Miquelon');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Suriname');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Svalbard and Jan Mayen Islands');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Swaziland');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Sweden');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Switzerland');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Taiwan');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Tajikistan');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Tanzania');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Thailand');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Togo');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Tokelau');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Tonga');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Trinidad and Tobago');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Tunisia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Turkey');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Turkmenistan');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Turks and Caicos Islands');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Tuvalu');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Uganda');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Ukraine');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('United Arab Emiratesv');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('United Kingdom');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('United States');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Uruguay');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Uzbekistan');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Vanuatu');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Venezuela');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Viet Nam');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Virgin Islands &#40;British&#41;');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Virgin Islands &#40;U.S.&#41;');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Wallis and Futuna Islands');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Western Sahara');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Yemen');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Zambia');";
+$query[] = "INSERT INTO `" . $DBPrefix . "countries` VALUES ('Zimbabwe');";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "currentaccesses`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "currentaccesses`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "currentaccesses` (
+  `day` char(2) NOT NULL default '0',
+  `month` char(2) NOT NULL default '0',
+  `year` char(4) NOT NULL default '0',
+  `pageviews` int(11) NOT NULL default '0',
+  `uniquevisitors` int(11) NOT NULL default '0',
+  `usersessions` int(11) NOT NULL default '0'
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "currentaccesses`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "currentbrowsers`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "currentbrowsers`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "currentbrowsers` (
+  `month` char(2) NOT NULL default '0',
+  `year` varchar(4) NOT NULL default '0',
+  `browser` varchar(50) NOT NULL default '0',
+  `counter` int(11) NOT NULL default '0'
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "currentbrowsers`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "currentplatforms`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "currentplatforms`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "currentplatforms` (
+  `month` char(2) NOT NULL default '0',
+  `year` varchar(4) NOT NULL default '0',
+  `platform` varchar(50) NOT NULL default '0',
+  `counter` int(11) NOT NULL default '0'
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "currentplatforms`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "durations`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "durations`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "durations` (
+  `days` int(11) NOT NULL default '0',
+  `description` varchar(30) default NULL
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "durations`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "durations` VALUES (1, '1 day');";
+$query[] = "INSERT INTO `" . $DBPrefix . "durations` VALUES (2, '2 days');";
+$query[] = "INSERT INTO `" . $DBPrefix . "durations` VALUES (3, '3 days');";
+$query[] = "INSERT INTO `" . $DBPrefix . "durations` VALUES (7, '1 week');";
+$query[] = "INSERT INTO `" . $DBPrefix . "durations` VALUES (14, '2 weeks');";
+$query[] = "INSERT INTO `" . $DBPrefix . "durations` VALUES (21, '3 weeks');";
+$query[] = "INSERT INTO `" . $DBPrefix . "durations` VALUES (30, '1 month');";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "faqs`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "faqs`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "faqs` (
+  `id` int(11) NOT NULL auto_increment,
+  `question` varchar(200) NOT NULL default '',
+  `answer` text NOT NULL,
+  `category` int(11) NOT NULL default '0',
+  KEY `id` (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "faqs`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "faqs` VALUES (2, 'Registering', 'To register as a new user, click on Register at the top of the window. You will be asked for your name, a username and password, and contact information, including your email address.\r\n\r\n<B>You must be at least 18 years of age to register.</B>!', 1);";
+$query[] = "INSERT INTO `" . $DBPrefix . "faqs` VALUES (4, 'Item Watch', '<b>Item watch</b> notifies you when someone bids on the auctions that you have added to your Item Watch. ', 3);";
+$query[] = "INSERT INTO `" . $DBPrefix . "faqs` VALUES (5, 'What is a Dutch auction?', 'Dutch auction is a type of auction where the auctioneer begins with a high asking price which is lowered until some participant is willing to accept the auctioneer\'s price. The winning participant pays the last announced price.', 1);";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "faqs_translated`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "faqs_translated`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "faqs_translated` (
+  `id` int(11) NOT NULL auto_increment,
+  `lang` char(2) NOT NULL default '',
+  `question` varchar(200) NOT NULL default '',
+  `answer` text NOT NULL,
+  KEY `id` (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "faqs_translated`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "faqs_translated` VALUES (2, 'EN', 'Registering', 'To register as a new user, click on Register at the top of the window. You will be asked for your name, a username and password, and contact information, including your email address.\r\n\r\n<B>You must be at least 18 years of age to register.</B>!');";
+$query[] = "INSERT INTO `" . $DBPrefix . "faqs_translated` VALUES (2, 'ES', 'Registrarse', 'Para registrar un nuevo usuario, haz click en <B>Reg&iacute;Â­strate</B> en la parte superior de la pantalla. Se te preguntar&aacute;n tus datos personales, un nombre de usuario, una contrase&ntilde;a e informacion de contacto como la direccion e-mail.\r\n\r\n<B>�Tienes que ser mayor de edad para poder registrarte!</B>');";
+$query[] = "INSERT INTO `" . $DBPrefix . "faqs_translated` VALUES (4, 'EN', 'Item Watch', '<b>Item watch</b> notifies you when someone bids on the auctions that you have added to your Item Watch. ');";
+$query[] = "INSERT INTO `" . $DBPrefix . "faqs_translated` VALUES (4, 'ES', 'En la Mira', '<i><b>En la Mira</b></i> te env&iacute;a una notificacion por e-mail, cada vez que alguien puja en una de las subastas que has a&ntilde;adido a tu lista <i>En la Mira</i>. ');";
+$query[] = "INSERT INTO `" . $DBPrefix . "faqs_translated` VALUES (6, 'ES', 'Auction Watch', '<i><B>Auction Watch</b></i> es tu asistente para saber cuando se abre una subasta cuya descripcion contiene palabras clave de tu interes.\r\n\r\nPara usar esta opcion inserta las palabras clave en las que est&aacute;s interesado en la lista de <i>Auction Watch</i>. Todas las palabras claves deben estar separadas por un espacio. Cuando estas palabras claves aparezcan en alg&uacute;n t&iacute;tulo o descripcion de subasta, recibir&aacute;s un e-mail con la informacion de que una subasta que contiene tus palabras claves ha sido creada. Tambi&aacute;n puedas agregar el nombre del usuario como palabra clave. ');";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "faqscat_translated`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "faqscat_translated`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "faqscat_translated` (
+  `id` int(11) NOT NULL default '0',
+  `lang` char(2) NOT NULL default '',
+  `category` varchar(255) NOT NULL default ''
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "faqscat_translated`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "faqscat_translated` VALUES (3, 'EN', 'Buying');";
+$query[] = "INSERT INTO `" . $DBPrefix . "faqscat_translated` VALUES (3, 'ES', 'Comprar');";
+$query[] = "INSERT INTO `" . $DBPrefix . "faqscat_translated` VALUES (1, 'EN', 'General');";
+$query[] = "INSERT INTO `" . $DBPrefix . "faqscat_translated` VALUES (1, 'ES', 'General');";
+$query[] = "INSERT INTO `" . $DBPrefix . "faqscat_translated` VALUES (2, 'EN', 'Selling');";
+$query[] = "INSERT INTO `" . $DBPrefix . "faqscat_translated` VALUES (2, 'ES', 'Vender');";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "faqscategories`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "faqscategories`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "faqscategories` (
+  `id` int(11) NOT NULL auto_increment,
+  `category` varchar(200) NOT NULL default '',
+  KEY `id` (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "faqscategories`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "faqscategories` VALUES (1, 'General');";
+$query[] = "INSERT INTO `" . $DBPrefix . "faqscategories` VALUES (2, 'Selling');";
+$query[] = "INSERT INTO `" . $DBPrefix . "faqscategories` VALUES (3, 'Buying');";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "feedbacks`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "feedbacks`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "feedbacks` (
+  `id` int(11) NOT NULL auto_increment,
+  `rated_user_id` int(32) default NULL,
+  `rater_user_nick` varchar(20) default NULL,
+  `feedback` mediumtext,
+  `rate` int(2) default NULL,
+  `feedbackdate` INT(15) NOT NULL,
+  `auction_id` int(32) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "feedbacks`
+# 
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "fees`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "fees`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "fees` (
+  `id` INT(5) NOT NULL AUTO_INCREMENT,
+  `fee_from` double(16,2) NOT NULL default '0',
+  `fee_to` double(16,2) NOT NULL default '0',
+  `fee_type` enum('flat', 'perc') NOT NULL default 'flat',
+  `value` double(8,2) NOT NULL default '0',
+  `type` varchar(15) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "fees`
+# 
+
+$query[] = "INSERT INTO " . $DBPrefix . "fees (value, type) VALUES (0, 'signup_fee');";
+$query[] = "INSERT INTO " . $DBPrefix . "fees (value, type) VALUES (0, 'buyer_fee');";
+$query[] = "INSERT INTO " . $DBPrefix . "fees (value, type) VALUES (0, 'setup');";
+$query[] = "INSERT INTO " . $DBPrefix . "fees (value, type) VALUES (0, 'hpfeat_fee');";
+$query[] = "INSERT INTO " . $DBPrefix . "fees (value, type) VALUES (0, 'bolditem_fee');";
+$query[] = "INSERT INTO " . $DBPrefix . "fees (value, type) VALUES (0, 'hlitem_fee');";
+$query[] = "INSERT INTO " . $DBPrefix . "fees (value, type) VALUES (0, 'rp_fee');";
+$query[] = "INSERT INTO " . $DBPrefix . "fees (value, type) VALUES (0, 'picture_fee');";
+$query[] = "INSERT INTO " . $DBPrefix . "fees (value, type) VALUES (0, 'subtitle_fee');";
+$query[] = "INSERT INTO " . $DBPrefix . "fees (value, type) VALUES (0, 'excat_fee');";
+$query[] = "INSERT INTO " . $DBPrefix . "fees (value, type) VALUES (0, 'relist_fee');";
+$query[] = "INSERT INTO " . $DBPrefix . "fees (value, type) VALUES (0, 'buyout_fee');";
+$query[] = "INSERT INTO " . $DBPrefix . "fees (value, type) VALUES (0, 'endauc_fee');";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "filterwords`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "filterwords`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "filterwords` (
+  `word` varchar(255) NOT NULL default ''
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "filterwords`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "filterwords` VALUES ('');";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "gateways`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "gateways`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "gateways` (
+  `gateways` text,
+  `paypal_address` varchar(50) NOT NULL default '',
+  `paypal_required` int(1) NOT NULL default '0',
+  `paypal_active` int(1) NOT NULL default '0',
+  `authnet_address` varchar(50) NOT NULL default '',
+  `authnet_password` varchar(50) NOT NULL default '',
+  `authnet_required` int(1) NOT NULL default '0',
+  `authnet_active` int(1) NOT NULL default '0',
+  `worldpay_address` varchar(50) NOT NULL default '',
+  `worldpay_required` int(1) NOT NULL default '0',
+  `worldpay_active` int(1) NOT NULL default '0',
+  `moneybookers_address` varchar(50) NOT NULL default '',
+  `moneybookers_required` int(1) NOT NULL default '0',
+  `moneybookers_active` int(1) NOT NULL default '0',
+  `toocheckout_address` varchar(50) NOT NULL default '',
+  `toocheckout_required` int(1) NOT NULL default '0',
+  `toocheckout_active` int(1) NOT NULL default '0'
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "gateways`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "gateways` VALUES ('paypal,authnet,worldpay,moneybookers,toocheckout', '', 0, 1, '', '', 0, 1, '', 0, 1, '', 0, 1, '', 0, 1);";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "groups`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "groups`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "groups` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `group_name` varchar(50) NOT NULL default '',
+  `can_sell` int(1) NOT NULL default '0',
+  `can_buy` int(1) NOT NULL default '0',
+  `count` int(15) NOT NULL default '0',
+  `auto_join` int(15) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "groups`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "groups` VALUES (NULL, 'Sellers', 1, 0, 0, 1);";
+$query[] = "INSERT INTO `" . $DBPrefix . "groups` VALUES (NULL, 'Buyers', 0, 1, 0, 1);";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "increments`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "increments`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "increments` (
+  `id` int(3) NOT NULL AUTO_INCREMENT,
+  `low` double(16,2) default '0',
+  `high` double(16,2) default '0',
+  `increment` double(16,2) default '0',
+  PRIMARY KEY  (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "increments`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "increments` VALUES (NULL, 0.0000, 0.9900, 0.2800);";
+$query[] = "INSERT INTO `" . $DBPrefix . "increments` VALUES (NULL, 1.0000, 9.9900, 0.5000);";
+$query[] = "INSERT INTO `" . $DBPrefix . "increments` VALUES (NULL, 10.0000, 29.9900, 1.0000);";
+$query[] = "INSERT INTO `" . $DBPrefix . "increments` VALUES (NULL, 30.0000, 99.9900, 2.0000);";
+$query[] = "INSERT INTO `" . $DBPrefix . "increments` VALUES (NULL, 100.0000, 249.9900, 5.0000);";
+$query[] = "INSERT INTO `" . $DBPrefix . "increments` VALUES (NULL, 250.0000, 499.9900, 10.0000);";
+$query[] = "INSERT INTO `" . $DBPrefix . "increments` VALUES (NULL, 500.0000, 999.9900, 25.0000);";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "logs`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "logs`;";
+$query[] = "CREATE TABLE  `" . $DBPrefix . "logs` (
+  `id` INT( 25 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  `type` VARCHAR( 5 ) NOT NULL ,
+  `message` TEXT NOT NULL ,
+  `action_id` INT( 11 ) NOT NULL DEFAULT  '0',
+  `user_id` INT( 32 ) NOT NULL DEFAULT  '0',
+  `ip` VARCHAR( 45 ) NOT NULL,
+  `timestamp` INT( 11 ) NOT NULL DEFAULT  '0'
+);";
+
+# 
+# Dumping data for table `" . $DBPrefix . "logs`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "maintainance`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "maintainance`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "maintainance` (
+  `id` int(11) NOT NULL auto_increment,
+  `active` enum('y','n') default NULL,
+  `superuser` varchar(32) default NULL,
+  `maintainancetext` text,
+  KEY `id` (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "maintainance`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "maintainance` VALUES (1, 'n', 'renlok', '<br>\r\n<center>\r\n<b>Under maintainance!!!!!!!</b>\r\n</center>');";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "membertypes`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "membertypes`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "membertypes` (
+  `id` int(11) NOT NULL auto_increment,
+  `feedbacks` int(11) NOT NULL default '0',
+  `icon` varchar(30) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "membertypes`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "membertypes` VALUES (24, 9, 'transparent.gif');";
+$query[] = "INSERT INTO `" . $DBPrefix . "membertypes` VALUES (22, 999999, 'starFR.gif');";
+$query[] = "INSERT INTO `" . $DBPrefix . "membertypes` VALUES (21, 99999, 'starFV.gif');";
+$query[] = "INSERT INTO `" . $DBPrefix . "membertypes` VALUES (20, 49999, 'starFT.gif');";
+$query[] = "INSERT INTO `" . $DBPrefix . "membertypes` VALUES (19, 24999, 'starFY.gif');";
+$query[] = "INSERT INTO `" . $DBPrefix . "membertypes` VALUES (23, 9999, 'starG.gif');";
+$query[] = "INSERT INTO `" . $DBPrefix . "membertypes` VALUES (17, 4999, 'starR.gif');";
+$query[] = "INSERT INTO `" . $DBPrefix . "membertypes` VALUES (16, 999, 'starT.gif');";
+$query[] = "INSERT INTO `" . $DBPrefix . "membertypes` VALUES (15, 99, 'starB.gif');";
+$query[] = "INSERT INTO `" . $DBPrefix . "membertypes` VALUES (14, 49, 'starY.gif');";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "messages`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "messages`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "messages` (
+  `id` int(50) NOT NULL AUTO_INCREMENT ,
+  `sentto` int(25) NOT NULL default '0',
+  `sentfrom` int(25) NOT NULL default '0',
+  `fromemail` varchar(50) NOT NULL default '',
+  `sentat` varchar(20) NOT NULL default '',
+  `message` text NOT NULL ,
+  `isread` int(1) NOT NULL default '0',
+  `subject` varchar(50) NOT NULL default '',
+  `replied` int(1) NOT NULL default '0',
+  `reply_of` INT(50) NOT NULL default '0',
+  `question` int(15) NOT NULL default '0',
+  `public` INT(1) NOT NULL default '0',
+  PRIMARY KEY (`id`)
+) ;";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "news`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "news`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "news` (
+  `id` int(32) NOT NULL auto_increment,
+  `title` varchar(200) NOT NULL default '',
+  `content` longtext NOT NULL,
+  `new_date` int(8) NOT NULL default '0',
+  `suspended` int(1) NOT NULL default '0',
+  PRIMARY KEY  (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "news`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "news_translated`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "news_translated`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "news_translated` (
+  `id` int(11) NOT NULL default '0',
+  `lang` char(2) NOT NULL default '',
+  `title` varchar(255) NOT NULL default '',
+  `content` text NOT NULL
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "news_translated`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "online`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "online`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "online` (
+  `ID` bigint(21) NOT NULL auto_increment,
+  `SESSION` varchar(32) NOT NULL default '',
+  `time` bigint(21) NOT NULL default '0',
+  PRIMARY KEY  (`ID`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "online`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "pendingnotif`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "pendingnotif`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "pendingnotif` (
+  `id` int(11) NOT NULL auto_increment,
+  `auction_id` int(11) NOT NULL default '0',
+  `seller_id` int(11) NOT NULL default '0',
+  `winners` text NOT NULL,
+  `auction` text NOT NULL,
+  `seller` text NOT NULL,
+  `thisdate` varchar(8) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "pendingnotif`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "proxybid`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "proxybid`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "proxybid` (
+  `itemid` int(32) default NULL,
+  `userid` int(32) default NULL,
+  `bid` double(16,2) default '0'
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "proxybid`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "rates`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "rates`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "rates` (
+  `id` int(11) NOT NULL auto_increment,
+  `ime` tinytext NOT NULL,
+  `valuta` tinytext NOT NULL,
+  `symbol` char(3) NOT NULL default '',
+  KEY `id` (`id`)
+) AUTO_INCREMENT=64 ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "rates`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (1, 'Great Britain', 'Pound Sterling ', 'GBP');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (2, 'Argentina', 'Argentinian Peso', 'ARS');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (3, 'Australia', 'Australian Dollar ', 'AUD');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (4, 'Burma', 'Myanmar (Burma) Kyat', 'MMK');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (5, 'Brazil', 'Brazilian Real ', 'BRL');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (6, 'Chile', 'Chilean Peso ', 'CLP');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (7, 'China', 'Chinese Renminbi ', 'CNY');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (8, 'Colombia', 'Colombian Peso ', 'COP');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (9, 'Neth. Antilles', 'Neth. Antilles Guilder', 'ANG');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (10, 'Czech. Republic', 'Czech. Republic Koruna ', 'CZK');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (11, 'Denmark', 'Danish Krone ', 'DKK');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (12, 'European Union', 'EURO', 'EUR');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (13, 'Fiji', 'Fiji Dollar ', 'FJD');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (14, 'Jamaica', 'Jamaican Dollar', 'JMD');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (15, 'Trinidad & Tobago', 'Trinidad & Tobago Dollar', 'TTD');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (16, 'Hong Kong', 'Hong Kong Dollar', 'HKD');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (17, 'Ghana', 'Ghanaian Cedi', 'GHC');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (18, 'Iceland', 'Icelandic Krona ', 'INR');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (19, 'India', 'Indian Rupee', 'INR');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (20, 'Indonesia', 'Indonesian Rupiah ', 'IDR');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (21, 'Israel', 'Israeli New Shekel ', 'ILS');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (22, 'Japan', 'Japanese Yen', 'JPY');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (23, 'Malaysia', 'Malaysian Ringgit', 'MYR');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (24, 'Mexico', 'New Peso', 'MXN');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (25, 'Morocco', 'Moroccan Dirham ', 'MAD');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (26, 'Honduras', 'Honduras Lempira', 'HNL');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (27, 'Hungaria', 'Hungarian Forint', 'HUF');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (28, 'New Zealand', 'New Zealand Dollar', 'NZD');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (29, 'Norway', 'Norwege Krone', 'NOK');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (30, 'Pakistan', 'Pakistan Rupee ', 'PKR');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (31, 'Panama', 'Panamanian Balboa ', 'PAB');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (32, 'Peru', 'Peruvian New Sol', 'PEN');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (33, 'Philippine', 'Philippine Peso ', 'PHP');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (34, 'Poland', 'Polish Zloty', 'PLN');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (35, 'Russian', 'Russian Rouble', 'RUR');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (36, 'Singapore', 'Singapore Dollar ', 'SGD');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (37, 'Slovakia', 'Koruna', 'SKK');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (38, 'Slovenia', 'Slovenian Tolar', 'SIT');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (39, 'South Africa', 'South African Rand', 'ZAR');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (40, 'South Korea', 'South Korean Won', 'KRW');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (41, 'Sri Lanka', 'Sri Lanka Rupee ', 'LKR');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (42, 'Sweden', 'Swedish Krona', 'SEK');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (43, 'Switzerland', 'Swiss Franc', 'CHF');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (44, 'Taiwan', 'Taiwanese New Dollar ', 'TWD');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (45, 'Thailand', 'Thailand Thai Baht ', 'THB');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (46, 'Pacific Financial Community', 'Pacific Financial Community Franc', 'CFP');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (47, 'Tunisia', 'Tunisisan Dinar', 'TND');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (48, 'Turkey', 'Turkish Lira', 'TRL');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (49, 'United States', 'U.S. Dollar', 'USD');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (50, 'Venezuela', 'Bolivar ', 'VEB');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (51, 'Bahamas', 'Bahamian Dollar', 'BSD');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (52, 'Croatia', 'Croatian Kuna', 'HRK');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (53, 'East Caribe', 'East Caribbean Dollar', 'XCD');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (54, 'CFA Franc (African Financial Community)', 'African Financial Community Franc', 'CFA');";
+$query[] = "INSERT INTO `" . $DBPrefix . "rates` VALUES (55, 'Canadian', 'Canadian Dollar', 'CAD');";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "rememberme`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "rememberme`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "rememberme` (
+  `userid` int(11) NOT NULL default '0',
+  `hashkey` char(32) NOT NULL default ''
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "rememberme`
+# 
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "settings`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "settings`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "settings` (
+  `sitename` varchar(255) NOT NULL default '',
+  `siteurl` varchar(255) NOT NULL default '',
+  `copyright` varchar(255) NOT NULL default '',
+  `version` varchar(10) NOT NULL default '',
+  `loginbox` int(1) NOT NULL default '0',
+  `newsbox` int(1) NOT NULL default '0',
+  `newstoshow` int(11) NOT NULL default '0',
+  `helpbox` int(1) NOT NULL default '0',
+  `perpage` int(10) NOT NULL default '15',
+  `moneyformat` int(1) NOT NULL default '0',
+  `moneydecimals` int(11) NOT NULL default '2',
+  `moneysymbol` int(1) NOT NULL default '0',
+  `currency` varchar(10) NOT NULL default '',
+  `adminmail` varchar(100) NOT NULL default '',
+  `banners` int(1) NOT NULL default '0',
+  `newsletter` int(1) NOT NULL default '0',
+  `logo` varchar(255) NOT NULL default '',
+  `timecorrection` int(3) NOT NULL default '0',
+  `cron` int(1) NOT NULL default '0',
+  `archiveafter` int(11) NOT NULL default '0',
+  `datesformat` enum('USA','EUR') NOT NULL default 'EUR',
+  `errortext` text NOT NULL,
+  `picturesgallery` int(1) NOT NULL default '0',
+  `maxpictures` int(11) NOT NULL default '0',
+  `buy_now` int(1) NOT NULL default '1',
+  `thumb_show` smallint(6) NOT NULL default '120',
+  `thumb_list` smallint(6) NOT NULL default '120',
+  `lastitemsnumber` int(11) NOT NULL default '0',
+  `hotitemsnumber` int(11) NOT NULL default '0',
+  `endingsoonnumber` int(11) NOT NULL default '0',
+  `boards` enum('y','n') NOT NULL default 'y',
+  `wordsfilter` enum('y','n') NOT NULL default 'y',
+  `aboutus` enum('y','n') NOT NULL default 'y',
+  `aboutustext` text NOT NULL,
+  `terms` enum('y','n') NOT NULL default 'y',
+  `termstext` text NOT NULL,
+  `privacypolicy` enum('y','n') NOT NULL default 'y',
+  `privacypolicytext` text NOT NULL,
+  `defaultcountry` varchar(30) NOT NULL default '',
+  `defaultlanguage` char(2) NOT NULL default 'EN',
+  `catsorting` enum('alpha','counter') NOT NULL default 'alpha',
+  `usersauth` enum('y','n') NOT NULL default 'y',
+  `descriptiontag` text NOT NULL,
+  `keywordstag` text NOT NULL,
+  `maxuploadsize` int(11) NOT NULL default '0',
+  `contactseller` enum('always','logged','never') NOT NULL default 'always',
+  `theme` tinytext,
+  `catstoshow` int(11) NOT NULL default '0',
+  `bn_only` enum('y','n') NOT NULL default 'n',
+  `users_email` enum('y','n') NOT NULL default 'y',
+  `boardsmsgs` int(11) NOT NULL default '0',
+  `activationtype` INT(1) NOT NULL DEFAULT '1',
+  `https` enum('y','n') NOT NULL default 'n',
+  `https_url` varchar(255) NOT NULL default '',
+  `bn_only_disable` enum('y','n') NOT NULL default 'n',
+  `bn_only_percent` int(3) NOT NULL default '50',
+  `buyerprivacy` ENUM('y','n') NOT NULL default 'n',
+  `cust_increment` INT(1) NOT NULL DEFAULT '0',
+  `subtitle` ENUM('y','n') NOT NULL default 'y',
+  `extra_cat` ENUM('y','n') NOT NULL default 'n',
+  `fees` ENUM('y','n') NOT NULL default 'n',
+  `fee_type` int(1) NOT NULL default '1',
+  `fee_max_debt` double(16,2) NOT NULL default '25.00',
+  `fee_signup_bonus` double(16,2) NOT NULL default '0.00',
+  `fee_disable_acc` enum('y','n') NOT NULL default 'y',
+  `tax` enum('y','n') NOT NULL default 'n',
+  `taxuser` enum('y','n') NOT NULL default 'n',
+  `ae_status` enum('y','n') NOT NULL default 'n',
+  `ae_timebefore` int(11) NOT NULL default '120',
+  `ae_extend` int(11) NOT NULL default '300',
+  `cache_theme` ENUM('y','n') NOT NULL default 'y',
+  `hours_countdown` int(5) NOT NULL default '24',
+  `edit_starttime` int(1) NOT NULL default '1',
+  `banner_width` int(11) NOT NULL default '468',
+  `banner_height` int(11) NOT NULL default '60',
+  `counter_auctions` enum('y','n') NOT NULL default 'y',
+  `counter_users` enum('y','n') NOT NULL default 'y',
+  `counter_online` enum('y','n') NOT NULL default 'y',
+  `banemail` text NOT NULL,
+  `mandatory_fields` varchar(255) NOT NULL default '',
+  `displayed_feilds` VARCHAR(255) NOT NULL default '',
+  `ao_hpf_enabled` enum('y','n') NOT NULL default 'y',
+  `ao_hi_enabled` enum('y','n') NOT NULL default 'y',
+  `ao_bi_enabled` enum('y','n') NOT NULL default 'y',
+  `proxy_bidding` enum('y','n') NOT NULL default 'y',
+  `recaptcha_public` varchar(40) NOT NULL default '',
+  `recaptcha_private` varchar(40) NOT NULL default '',
+  `spam_sendtofriend` int(1) NOT NULL default '1',
+  `spam_register` int(1) NOT NULL default '1',
+  `mod_queue` enum('y','n') NOT NULL default 'n',
+  `payment_options` text NOT NULL,
+  `autorelist` ENUM('y','n') NOT NULL default 'y',
+  `autorelist_max` int(3) NOT NULL default '10',
+  `invoice_yellow_line` varchar(255) NOT NULL default '',
+  `invoice_thankyou` varchar(255) NOT NULL default ''
+);";
+
+# 
+# Dumping data for table `" . $DBPrefix . "settings`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "settings` VALUES
+('WeBid',
+'" . $siteURL . "',
+'',
+'" . this_version() . "',
+1,
+1,
+5,
+1,
+15,
+1,
+2,
+2,
+'GBP',
+'" . $siteEmail . "',
+1,
+1,
+'logo.gif',
+0,
+2,
+30,
+'EUR',
+'An unexpected error occurred. The error has been forwarded to our technical team and will be fixed shortly',
+1,
+5,
+2,
+120,
+120,
+8,
+8,
+0,
+'y',
+'y',
+'y',
+'',
+'y',
+'',
+'y',
+'',
+'United Kingdom',
+'EN',
+'alpha',
+'y',
+'',
+'',
+51200,
+'always',
+'default',
+20,
+'n',
+'y',
+0,
+1,
+'n',
+'',
+'n',
+50,
+'n',
+0,
+'y',
+'n',
+'n',
+1,
+'25.00',
+'0.00',
+'y',
+'n',
+'n',
+'n',
+120,
+300,
+'y',
+24,
+1,
+468,
+60,
+'y',
+'y',
+'y',
+'',
+'a:7:{s:9:\"birthdate\";s:1:\"y\";s:7:\"address\";s:1:\"y\";s:4:\"city\";s:1:\"y\";s:4:\"prov\";s:1:\"y\";s:7:\"country\";s:1:\"y\";s:3:\"zip\";s:1:\"y\";s:3:\"tel\";s:1:\"y\";}',
+'a:7:{s:17:\"birthdate_regshow\";s:1:\"y\";s:15:\"address_regshow\";s:1:\"y\";s:12:\"city_regshow\";s:1:\"y\";s:12:\"prov_regshow\";s:1:\"y\";s:15:\"country_regshow\";s:1:\"y\";s:11:\"zip_regshow\";s:1:\"y\";s:11:\"tel_regshow\";s:1:\"y\";}',
+'y',
+'y',
+'y',
+'y',
+'',
+'',
+1,
+1,
+'n',
+'a:2:{i:0;s:13:\"Wire Transfer\";i:1;s:6:\"Cheque\";}',
+'y',
+10,
+'',
+'Thank you for shopping with us and we hope to see you return soon!');";
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "statssettings`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "statssettings`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "statssettings` (
+  `activate` enum('y','n') NOT NULL default 'y',
+  `accesses` enum('y','n') NOT NULL default 'y',
+  `browsers` enum('y','n') NOT NULL default 'y',
+  `domains` enum('y','n') NOT NULL default 'y'
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "statssettings`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "statssettings` VALUES ('n', 'y', 'y', 'y');";
+
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "tax`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "tax`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "tax` (
+	  `id` INT(2) NOT NULL AUTO_INCREMENT,
+	  `tax_name` VARCHAR(30) NOT NULL ,
+	  `tax_rate` DOUBLE(16, 2) NOT NULL ,
+	  `countries_seller` TEXT NOT NULL ,
+	  `countries_buyer` TEXT NOT NULL ,
+	  `fee_tax` INT(1) NOT NULL DEFAULT  '0',
+	  PRIMARY KEY (`id`)
+	);";
+
+# 
+# Dumping data for table `" . $DBPrefix . "tax`
+# 
+
+$query[] = "INSERT INTO `" . $DBPrefix . "tax` VALUES (NULL, 'Site Fees', '0', '', '', '1');";
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "users`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "users`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "users` (
+  `id` int(32) NOT NULL auto_increment,
+  `nick` varchar(20) NOT NULL,
+  `password` varchar(32) default '',
+  `hash` varchar(5) default '',
+  `name` tinytext,
+  `address` tinytext,
+  `city` varchar(25) default '',
+  `prov` varchar(20) default '',
+  `country` varchar(30) default '',
+  `zip` varchar(10) default '',
+  `phone` varchar(40) default '',
+  `email` varchar(50) default '',
+  `reg_date` int(15) default NULL,
+  `rate_sum` int(11) NOT NULL default '0',
+  `rate_num` int(11) NOT NULL default '0',
+  `birthdate` int(8) default '0',
+  `suspended` int(1) default '0',
+  `nletter` int(1) NOT NULL default '0',
+  `balance` double(16,2) NOT NULL default '0',
+  `auc_watch` text,
+  `item_watch` text,
+  `endemailmode` enum('one','cum','none') NOT NULL default 'one',
+  `startemailmode` enum('yes','no') NOT NULL default 'yes',
+  `emailtype` enum('html','text') NOT NULL default 'html',
+  `lastlogin` datetime NOT NULL default '0000-00-00 00:00:00',
+  `payment_details` text,
+  `groups` text,
+  `bn_only` enum('y','n') NOT NULL default 'y',
+  `timecorrection` int(3) NOT NULL default '0',
+  `paypal_email` varchar(50) default '',
+  `authnet_id` varchar(50) default '',
+  `authnet_pass` varchar(50) default '',
+  `worldpay_id` varchar(50) default '',
+  `moneybookers_email` varchar(50) default '',
+  `toocheckout_id` varchar(50) default '',
+  `language` char(2) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+);";
+
+# 
+# Dumping data for table `" . $DBPrefix . "users`
+# 
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "useraccounts`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "useraccounts`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "useraccounts` (
+  `useracc_id` int(11) NOT NULL AUTO_INCREMENT,
+  `auc_id` int(15) NOT NULL default '0',
+  `user_id` int(15) NOT NULL default '0',
+  `date` int(15) NOT NULL default '0',
+  `setup` double(8,2) NOT NULL default '0',
+  `featured` double(8,2) NOT NULL default '0',
+  `bold` double(8,2) NOT NULL default '0',
+  `highlighted` double(8,2) NOT NULL default '0',
+  `subtitle` double(8,2) NOT NULL default '0',
+  `relist` double(8,2) NOT NULL default '0',
+  `reserve` double(8,2) NOT NULL default '0',
+  `buynow` double(8,2) NOT NULL default '0',
+  `image` double(8,2) NOT NULL default '0',
+  `extcat` double(8,2) NOT NULL default '0',
+  `signup` double(8,2) NOT NULL default '0',
+  `buyer` double(8,2) NOT NULL default '0',
+  `finalval` double(8,2) NOT NULL default '0',
+  `balance` double(8,2) NOT NULL default '0',
+  `total` double(8,2) NOT NULL,
+  `paid` int(1) NOT NULL default '0',
+  PRIMARY KEY (`useracc_id`)
+);";
+
+# 
+# Dumping data for table `" . $DBPrefix . "useraccounts`
+# 
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "usersips`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "usersips`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "usersips` (
+  `id` int(11) NOT NULL auto_increment,
+  `user` int(32) default NULL,
+  `ip` varchar(15) default NULL,
+  `type` enum('first','after') NOT NULL default 'first',
+  `action` enum('accept','deny') NOT NULL default 'accept',
+  PRIMARY KEY  (`id`)
+) ;";
+
+# 
+# Dumping data for table `" . $DBPrefix . "usersips`
+# 
+
+# ############################
+
+# 
+# Table structure for table `" . $DBPrefix . "winners`
+# 
+
+$query[] = "DROP TABLE IF EXISTS `" . $DBPrefix . "winners`;";
+$query[] = "CREATE TABLE `" . $DBPrefix . "winners` (
+  `id` int(11) NOT NULL auto_increment,
+  `auction` int(32) NOT NULL default '0',
+  `seller` int(32) NOT NULL default '0',
+  `winner` int(32) NOT NULL default '0',
+  `bid` double(16,2) NOT NULL default '0',
+  `closingdate` int(15) NOT NULL default '0',
+  `feedback_win` tinyint(1) NOT NULL default '0',
+  `feedback_sel` tinyint(1) NOT NULL default '0',
+  `qty` int(11) NOT NULL default '1',
+  `paid` int(1) NOT NULL default '0',
+  `bf_paid` INT(1) NOT NULL DEFAULT  '0',
+  `ff_paid` INT(1) NOT NULL DEFAULT '1',
+  KEY `id` (`id`)
+) ;";
+
+?>

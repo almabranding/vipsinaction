@@ -1,26 +1,5 @@
 var ROOT = '/';
 $(document).ready(function() {
-   /* html2canvas(document.body, {
-        onrendered: function(canvas) {
-            document.body.innerHTML = "";
-            document.head.innerHTML = "";
-           // document.body.appendChild(canvas);
-            var jpgURI = canvas.toDataURL('image/jpeg', 0.75);
-            //document.body.appendChild(jpgURI);
-             
-img = document.createElement("img");
-
-img.src =jpgURI;
-document.body.appendChild ( img );
-
-//            var doc = new jsPDF();
-//
-//            doc.setFontSize(40);
-//            doc.text(35, 25, "Paranyan loves jsPDF");
-//            doc.addImage(jpgURI, 'JPEG', 15, 40, 180, 160);
-//            doc.save('Test.pdf');
-        }
-    });*/
 });
 var isMobile = {
     Android: function() {
@@ -84,3 +63,28 @@ function getCookie(c_name)
     }
     return c_value;
 }
+$('#signup #_btnsubmit').on('click', function() {
+    var email = $('#signup #email').val();
+    var nick = $('#signup #nick').val();
+    $('.error').hide();
+    var error = false;
+    $.getJSON("/user/checkRegister", {email: email, nick: nick}, function(data) {
+        if (data != null) {
+            $.each(data, function(i, item) {
+                $('#signup #error_' + item).show();
+                error = true;
+            });
+        }
+        if (!error) {
+            $('#signup').submit();
+        }
+    });
+
+    return false;
+});
+$('.away').each(function(){
+   $(this).on('change',function(){
+       var checkId=$(this).attr('id');
+      $('.away').not('#'+checkId).removeAttr("checked");
+   }) 
+});

@@ -12,13 +12,12 @@
                 <nav class="header_menu" id="sidebarnav">
                     <div class="wrapper">
                     <ul id="menuNav">
-                        <? if ($_SESSION[INSTALLATION_KEY]['session_account_type'] == 'owner') { ?><li><a href="<?=URL; ?>home/lista">home</a></li><? } ?>
-                        <? if ($_SESSION[INSTALLATION_KEY]['session_account_type'] == 'owner') { ?><li><a href="<?=URL; ?>pages/lista">pages</a></li><? } ?>
-                        <? if ($_SESSION[INSTALLATION_KEY]['session_account_type'] == 'owner') { ?><li><a href="<?=URL; ?>gift/lista">gift</a></li><? } ?>
-                        <? if ($_SESSION[INSTALLATION_KEY]['session_account_type'] == 'owner') { ?><li><a href="<?=URL; ?>suggestions/lista">suggestions</a></li><? } ?>
-                        <? if ($_SESSION[INSTALLATION_KEY]['session_account_type'] == 'owner') { ?><li><a href="<?=URL; ?>banner/lista">banner</a></li><? } ?>
-                        <? if ($_SESSION[INSTALLATION_KEY]['session_account_type'] == 'owner') { ?><li><a href="<?=URL; ?>menu">menu</a></li><? } ?>
-                        <li><a href="<?=URL?>booking">hotel</a></li>
+                        <li><a href="<?=URL; ?>pages/lista">pages</a></li>
+                        <li><a href="<?=URL; ?>donantes/lista">colaboradores</a></li>
+                        <li><a href="<?=URL; ?>auctions/lista">auctions</a></li>
+                        <li><a href="<?=URL; ?>banner/lista">banner</a></li>
+                        <li><a href="<?=URL; ?>reviews/lista">reviews</a></li>
+                        <li><a href="<?=URL; ?>menu">menu</a></li>
                     </ul>
                     <ul id="langNav">
                         <li style="border-right: 1px solid #cccccc;"><a href="<?=WEB?>" target="_blank">View site</a></li>

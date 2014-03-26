@@ -1,0 +1,1 @@
+$( "#detail-tabs" ).tabs();
