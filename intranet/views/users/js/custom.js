@@ -1,4 +1,1 @@
-function borrarPackList($packageid){
-    if(confirm('¿Estas seguro?'))
-            location.href = ROOT+'/users/delete/'+$packageid;
-}
+var $tabs = $("#detail-tabs").tabs({});

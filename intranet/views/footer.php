@@ -8,6 +8,7 @@
 <script src="<?php echo URL; ?>public/js/HTML5script.js"></script>
 <script src="<?php echo URL; ?>tinymce/tinymce.min.js"></script>
 <script src="<?php echo URL; ?>public/js/custom.js"></script>
+<script src="<?php echo URL; ?>public/js/zebra_form.js"></script>
 <?php
 if (isset($this->js)) {
     foreach ($this->js as $js) {

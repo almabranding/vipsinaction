@@ -11,7 +11,7 @@ class Bootstrap {
     private $_errorFile = 'error.php';
     private $_defaultFile = 'index.php';
     private $_ZebraForm = 'Zebra_Form/Zebra_Form.php';
-    private $_allowLang = Array('es');
+    private $_allowLang = Array('es','en','ca');
     /**
      * Starts the Bootstrap
      * 

@@ -93,7 +93,8 @@ class Banner_Model extends Model {
             $b['values'][] = array(
                 "Name" => $value['name'],
                 "Info" => htmlentities(substr($value['content'], 0, 150)),
-                "Options" => '<a href="' . URL . LANG . '/banner/view/' . $value['banner_id'] . '"><button title="Edit" type="button" class="edit"></button></a><button type="button" title="Delete" class="delete" onclick="secureMsg(\'Do you want to delete this page?\',\'banner/delete/' . $value['banner_id'] . '\');"></button>'
+                "Options" => '<a href="' . URL . LANG . '/banner/view/' . $value['banner_id'] . '"><button title="Edit" type="button" class="edit"></button></a><button type="button" title="Delete" class="delete" onclick="secureMsg(\'Do you want to delete this page?\',\'banner/delete/' . $value['banner_id'] . '\');"></button>',
+                "sortId" => $value['banner_id'],
             );
         }
         return $b;
@@ -154,10 +155,11 @@ class Banner_Model extends Model {
     }
 
     public function sort() {
-        foreach ($_POST['foo'] as $key => $value) {
+        foreach ($_POST['sort'] as $key => $value) {
             $data = array(
                 'position' => $key
             );
+            var_dump($data);
             $this->db->update('banners', $data, "`id` = '{$value}'");
         }
         exit;

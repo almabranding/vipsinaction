@@ -16,7 +16,10 @@
                         <li><a href="<?=URL; ?>donantes/lista">colaboradores</a></li>
                         <li><a href="<?=URL; ?>auctions/lista">auctions</a></li>
                         <li><a href="<?=URL; ?>banner/lista">banner</a></li>
+                        <li><a href="<?=URL; ?>faq/lista">faq</a></li>
                         <li><a href="<?=URL; ?>reviews/lista">reviews</a></li>
+                        <li><a href="<?=URL; ?>media/lista">media</a></li>
+                        <li><a href="<?=URL; ?>users/lista">users</a></li>
                         <li><a href="<?=URL; ?>menu">menu</a></li>
                     </ul>
                     <ul id="langNav">

@@ -5,6 +5,7 @@ class Session
     
     public static function init()
     {
+        @session_name("mycausa"); 
         @session_start();
     }
     

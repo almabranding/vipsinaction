@@ -8,8 +8,113 @@ class Auction_Model extends Model {
         parent::__construct();
     }
 
-    public function auctionForm() {
+    /* public function auctionForm() {
+      $card = (isset($_GET['card'])) ? $_GET['card'] : null;
+      $auction_id = (isset($_GET['auction_id'])) ? $_GET['auction_id'] : null;
+      $user_id = (isset($_GET['user_id'])) ? $_GET['user_id'] : null;
+      $bid = (isset($_GET['bid'])) ? $_GET['bid'] : null;
+      $user = Session::get('user');
+      $auction = $this->getAuction($auction_id);
+      if ($user_id != $user['id'])
+      return false;
+      if ($card)
+      $card_data = $this->getCards($user_id, $card);
+      $action = URL . 'auction/doBid';
+      $atributes = array(
+      'enctype' => 'multipart/form-data',
+      );
+      $form = new Zebra_Form('confirmBid', 'POST', $action, $atributes);
+      switch (LANG) {
+      case 'es': $form->language('espanol');
+      break;
+      }
+      $form->add('hidden', 'auction_id', $auction_id);
+      $form->add('hidden', 'user_id', $user_id);
+      $form->add('hidden', 'dobid', 1);
+      $form->add('hidden', 'bid', $bid);
+
+      $form->add('label', 'label_cardsaved', 'cardsaved', $this->lang['tarjeta_guardada'] . ':');
+      $obj = $form->add('select', 'cardsaved', $card_data['id'], array('autocomplete' => 'off', 'placeholder' => $this->lang['tarjeta_guardada']));
+      foreach ($this->getCards($user_id) as $card) {
+      $obt[$card['id']] = $card['name'];
+      }
+      if ($obt)
+      $obj->add_options($obt, false);
+      unset($obt);
+
+      $form->add('label', 'label_cardholder', 'cardholder', $this->lang['card_holder'] . ':');
+      $obj = $form->add('text', 'cardholder', $card_data['holder'], array('autocomplete' => 'off', 'placeholder' => $this->lang['Cardholder_fullname']));
+
+      $obj->set_rule(array(
+      'required' => array('error', $this->lang['card_holder'] . ' ' . $this->lang['is required'] . '!'),
+      ));
+
+      $form->add('label', 'label_cardnumber', 'cardnumber', $this->lang['card_number'] . ':');
+      $obj = $form->add('text', 'cardnumber', $card_data['number'], array('autocomplete' => 'off', 'placeholder' => $this->lang['card_number']));
+
+      $obj->set_rule(array(
+      'required' => array('error', $this->lang['card_number'] . ' ' . $this->lang['is required'] . '!'),
+      ));
+      $form->add('label', 'label_cardtype', 'cardtype', $this->lang['card_type'] . ':');
+      $obj = $form->add('select', 'cardtype', $card_data['type'], array('autocomplete' => 'off', 'placeholder' => $this->lang['card_type']));
+      $obt['visa'] = 'Visa';
+      $obt['mastercard'] = 'Master Card';
+      $obj->add_options($obt, true);
+      unset($obt);
+
+      $form->add('label', 'label_expire', 'expire', $this->lang['card_date'] . ':');
+      $obj = $form->add('select', 'month', $card_data['month'], array('autocomplete' => 'off', 'placeholder' => $this->lang['month']));
+      $obt[''] = '';
+      for ($i = 1; $i <= 12; $i++) {
+      $obt[$i] = $i;
+      }
+      $obj->add_options($obt, true);
+      $obj->set_rule(array(
+      'required' => array('error', $this->lang['month'] . ' ' . $this->lang['is required'] . '!'),
+      ));
+      unset($obt);
+      $obj = $form->add('select', 'year', $card_data['year'], array('autocomplete' => 'off', 'placeholder' => $this->lang['year']));
+      $obt[''] = '';
+      for ($i = date('Y'); $i < date('Y') + 10; $i++) {
+      $obt[$i] = $i;
+      }
+      $obj->add_options($obt, true);
+      $obj->set_rule(array(
+      'required' => array('error', $this->lang['year'] . ' ' . $this->lang['is required'] . '!'),
+      ));
+      unset($obt);
+
+      $form->add('label', 'label_cvv', 'cvv', $this->lang['cvv'] . ':');
+      $obj = $form->add('text', 'cvv', $card_data['cvv'], array('autocomplete' => 'off', 'placeholder' => $this->lang['cvv']));
+      $obj->set_rule(array(
+      'length' => array(3, 4, 'error', ''),
+      'required' => array('error', 'CVV ' . $this->lang['is required'] . '!'),
+      ));
+      $form->add('label', 'label_card_name', 'card_name', $this->lang['nombre_tarjeta'] . ':');
+      $obj = $form->add('text', 'card_name', '', array('autocomplete' => 'off', 'placeholder' => $this->lang['nombre_tarjeta']));
+
+      $obj = $form->add('checkboxes', 'card[]', array(
+      'save_card' => $this->lang['save_card_data'],
+      ));
+
+      $obj = $form->add('checkboxes', 'extra[]', array(
+      'acuerdo' => $this->lang['leido_acepto'] . ' <a href="'.URL.'terms" target="_blank">' . $this->lang['Acuerdo de usuario'] . '</a>',
+      ));
+      $obj->set_rule(array(
+      'required' => array('error', $this->lang['please_accept']),
+      ));
+      $form->add('submit', '_btnsubmit', $this->lang['confirma_puja']);
+
+      if ($form->validate()) {
+      show_results();
+      }
+      return $form;
+      }
+     */
+
+    public function code_request() {
         $card = (isset($_GET['card'])) ? $_GET['card'] : null;
+        $code = (isset($_GET['code'])) ? $_GET['code'] : null;
         $auction_id = (isset($_GET['auction_id'])) ? $_GET['auction_id'] : null;
         $user_id = (isset($_GET['user_id'])) ? $_GET['user_id'] : null;
         $bid = (isset($_GET['bid'])) ? $_GET['bid'] : null;
@@ -17,8 +122,90 @@ class Auction_Model extends Model {
         $auction = $this->getAuction($auction_id);
         if ($user_id != $user['id'])
             return false;
-        if ($card)
-            $card_data = $this->getCards($user_id, $card);
+
+        $atributes = array(
+            'enctype' => 'multipart/form-data',
+        );
+        $form = new Zebra_Form('code_req', 'POST', $action, $atributes);
+        switch (LANG) {
+            case 'es': $form->language('espanol');
+                break;
+        }
+
+        $form->add('hidden', 'auction_id', $auction_id);
+        $form->add('hidden', 'user_id', $user_id);
+        $form->add('hidden', 'dobid', 1);
+        $form->add('hidden', 'bid', $bid);
+
+        $form->add('label', 'label_prefix', 'prefix', $this->lang['prefix'] . ':');
+        $obj = $form->add('select', 'prefix', '', array('autocomplete' => 'off', 'placeholder' => ''));
+        foreach ($this->getPrefix() as $card) {
+            $obt[$card['number']] = $card['number'];
+        }
+        if ($obt)
+            $obj->add_options($obt, true);
+        unset($obt);
+
+        $form->add('label', 'label_num_tel', 'num_tel', $this->lang['num_tel'] . ':');
+        $obj = $form->add('text', 'num_tel', '', array('autocomplete' => 'off', 'placeholder' => $this->lang['num_tel']));
+        $obj->set_rule(array(
+            'required' => array('error', $this->lang['num_tel'] . ' ' . $this->lang['is required'] . '!'),
+        ));
+        $obj = $form->add('submit', '_btnsubmit', $this->lang['sol_cod_tel']);
+
+        if ($form->validate())
+            show_results();
+        return $form;
+    }
+
+    public function code_verification() {
+        $code = (isset($_GET['code'])) ? $_GET['code'] : null;
+        $auction_id = (isset($_GET['auction_id'])) ? $_GET['auction_id'] : null;
+        $user_id = (isset($_GET['user_id'])) ? $_GET['user_id'] : null;
+        $bid = (isset($_GET['bid'])) ? $_GET['bid'] : null;
+        $user = Session::get('user');
+        $auction = $this->getAuction($auction_id);
+        if ($user_id != $user['id'])
+            return false;
+        $atributes = array(
+            'enctype' => 'multipart/form-data',
+        );
+        $form = new Zebra_Form('code_ver', 'POST', $action, $atributes);
+        switch (LANG) {
+            case 'es': $form->language('espanol');
+                break;
+        }
+        $form->add('hidden', 'auction_id', $auction_id);
+        $form->add('hidden', 'user_id', $user_id);
+        $form->add('hidden', 'dobid', 1);
+        $form->add('hidden', 'bid', $bid);
+
+        if(!$this->resultVerif)
+        $form->add('label', 'label_error', '', $this->lang['error_code']);
+        $form->add('label', 'label_code', 'code', $this->lang['ver_cod'] . ':');
+        $obj = $form->add('text', 'code', '', array('autocomplete' => 'off', 'placeholder' => $this->lang['ver_cod']));
+        $obj->set_rule(array(
+            'required' => array('error', $this->lang['ver_cod'] . ' ' . $this->lang['is required'] . '!'),
+        ));
+
+        $obj = $form->add('submit', '_btnsubmit', $this->lang['sol_ver_cod']);
+        if ($form->validate()) {
+            
+        }
+        return $form;
+    }
+
+    public function auctionForm() {
+        $card = (isset($_GET['card'])) ? $_GET['card'] : null;
+        $auction_id = (isset($_GET['auction_id'])) ? $_GET['auction_id'] : null;
+        $user_id = (isset($_GET['user_id'])) ? $_GET['user_id'] : null;
+        $bid = (isset($_GET['bid'])) ? $_GET['bid'] : null;
+        $user = Session::get('user');
+        $auction = $this->getAuction($auction_id);
+        $code = $this->getCodes($user_id, $auction_id);
+        if ($user_id != $user['id'])
+            return false;
+
         $action = URL . 'auction/doBid';
         $atributes = array(
             'enctype' => 'multipart/form-data',
@@ -33,77 +220,29 @@ class Auction_Model extends Model {
         $form->add('hidden', 'dobid', 1);
         $form->add('hidden', 'bid', $bid);
 
-        $form->add('label', 'label_cardsaved', 'cardsaved', $this->lang['tarjeta_guardada'] . ':');
-        $obj = $form->add('select', 'cardsaved', $card_data['id'], array('autocomplete' => 'off', 'placeholder' => $this->lang['tarjeta_guardada']));
-        foreach ($this->getCards($user_id) as $card) {
-            $obt[$card['id']] = $card['name'];
+        $form->add('label', 'label_prefix', 'prefix', $this->lang['prefix'] . ':');
+        $obj = $form->add('select', 'prefix', '', array('autocomplete' => 'off', 'placeholder' => ''));
+        foreach ($this->getPrefix() as $card) {
+            $obt[$card['number']] = $card['number'];
         }
         if ($obt)
-            $obj->add_options($obt, false);
+            $obj->add_options($obt, true);
         unset($obt);
 
-        $form->add('label', 'label_cardholder', 'cardholder', $this->lang['card_holder'] . ':');
-        $obj = $form->add('text', 'cardholder', $card_data['holder'], array('autocomplete' => 'off', 'placeholder' => $this->lang['Cardholder_fullname']));
+        $form->add('label', 'label_num_tel', 'num_tel', $this->lang['num_tel'] . ':');
+        $obj = $form->add('text', 'num_tel', $card_data['number'], array('autocomplete' => 'off', 'placeholder' => $this->lang['num_tel']));
 
-        $obj->set_rule(array(
-            'required' => array('error', $this->lang['card_holder'] . ' ' . $this->lang['is required'] . '!'),
-        ));
 
-        $form->add('label', 'label_cardnumber', 'cardnumber', $this->lang['card_number'] . ':');
-        $obj = $form->add('text', 'cardnumber', $card_data['number'], array('autocomplete' => 'off', 'placeholder' => $this->lang['card_number']));
-
-        $obj->set_rule(array(
-            'required' => array('error', $this->lang['card_number'] . ' ' . $this->lang['is required'] . '!'),
-        ));
-        $form->add('label', 'label_cardtype', 'cardtype', $this->lang['card_type'] . ':');
-        $obj = $form->add('select', 'cardtype', $card_data['type'], array('autocomplete' => 'off', 'placeholder' => $this->lang['card_type']));
-        $obt['visa'] = 'Visa';
-        $obt['mastercard'] = 'Master Card';
-        $obj->add_options($obt, true);
-        unset($obt);
-
-        $form->add('label', 'label_expire', 'expire', $this->lang['card_date'] . ':');
-        $obj = $form->add('select', 'month', $card_data['month'], array('autocomplete' => 'off', 'placeholder' => $this->lang['month']));
-        $obt[''] = '';
-        for ($i = 1; $i <= 12; $i++) {
-            $obt[$i] = $i;
-        }
-        $obj->add_options($obt, true);
-        $obj->set_rule(array(
-            'required' => array('error', $this->lang['month'] . ' ' . $this->lang['is required'] . '!'),
-        ));
-        unset($obt);
-        $obj = $form->add('select', 'year', $card_data['year'], array('autocomplete' => 'off', 'placeholder' => $this->lang['year']));
-        $obt[''] = '';
-        for ($i = date('Y'); $i < date('Y') + 10; $i++) {
-            $obt[$i] = $i;
-        }
-        $obj->add_options($obt, true);
-        $obj->set_rule(array(
-            'required' => array('error', $this->lang['year'] . ' ' . $this->lang['is required'] . '!'),
-        ));
-        unset($obt);
-
-        $form->add('label', 'label_cvv', 'cvv', $this->lang['cvv'] . ':');
-        $obj = $form->add('text', 'cvv', $card_data['cvv'], array('autocomplete' => 'off', 'placeholder' => $this->lang['cvv']));
-        $obj->set_rule(array(
-            'length' => array(3, 4, 'error', ''),
-            'required' => array('error', 'CVV ' . $this->lang['is required'] . '!'),
-        ));
-        $form->add('label', 'label_card_name', 'card_name', $this->lang['nombre_tarjeta'] . ':');
-        $obj = $form->add('text', 'card_name', '', array('autocomplete' => 'off', 'placeholder' => $this->lang['nombre_tarjeta']));
-
-        $obj = $form->add('checkboxes', 'card[]', array(
-            'save_card' => $this->lang['save_card_data'],
-        ));
-        
         $obj = $form->add('checkboxes', 'extra[]', array(
-            'acuerdo' => $this->lang['leido_acepto'] . ' <a href="#">' . $this->lang['Acuerdo de usuario'] . '</a>',
+            'acuerdo' => $this->lang['leido_acepto'] . ' <a href="' . URL . 'terms" target="_blank">' . $this->lang['Acuerdo de usuario'] . '</a>',
         ));
         $obj->set_rule(array(
             'required' => array('error', $this->lang['please_accept']),
         ));
-        $form->add('submit', '_btnsubmit', $this->lang['confirma_puja']);
+        $attr = array(
+            'disabled' => 'disabled',
+        );
+        $obj = $form->add('submit', '_btnsubmit', $this->lang['confirma_puja'], ((!$code['verify'] == 1) ? $attr : ''));
 
         if ($form->validate()) {
             show_results();
@@ -112,17 +251,23 @@ class Auction_Model extends Model {
     }
 
     public function getAuction($id = null, $lang = LANG) {
+        $time = time();
         if ($id == null)
-            $auction = $this->db->select("SELECT * FROM " . BID_PREFIX . "auctions a JOIN " . BID_PREFIX . "auctions_description d ON d.auction_id=a.id JOIN photos p ON p.id=a.photo_id WHERE d.language_id=:lang", array('lang' => $lang));
+            $auction = $this->db->select("SELECT * FROM " . BID_PREFIX . "auctions a JOIN " . BID_PREFIX . "auctions_description d ON d.auction_id=a.id JOIN photos p ON p.id=a.photo_id WHERE d.language_id=:lang AND starts<=$time", array('lang' => $lang));
         else {
-            $auction = $this->db->selectOne("SELECT * FROM " . BID_PREFIX . "auctions a JOIN " . BID_PREFIX . "auctions_description d ON d.auction_id=a.id JOIN photos p ON p.id=a.photo_id WHERE a.id=:id AND d.language_id=:lang AND a.visibility='public'", array('id' => $id, 'lang' => $lang));
+            $auction = $this->db->selectOne("SELECT * FROM " . BID_PREFIX . "auctions a JOIN " . BID_PREFIX . "auctions_description d ON d.auction_id=a.id JOIN photos p ON p.id=a.photo_id WHERE a.id=:id AND d.language_id=:lang AND a.visibility='public' AND starts<=$time", array('id' => $id, 'lang' => $lang));
+            if ($auction['ofrecido_id'] != '') {
+                $ofrecido = $this->db->selectOne("SELECT a.img_date as ofrecido_date,a.file_name as file_ofrecido FROM photos a WHERE a.id=:id", array('id' => $auction['ofrecido_id']));
+                if ($ofrecido)
+                    $auction = array_merge($auction, $ofrecido);
+            }
             if ($auction['donated'] != '') {
-                $donated = $this->db->selectOne("SELECT dd1.name donated_name,dd1.donantes_id as donated_id FROM donantes_description dd1  WHERE dd1.donantes_id=:id AND dd1.language_id=:lang", array('id' => $auction['donated'], 'lang' => $lang));
+                $donated = $this->db->selectOne("SELECT dd1.name donated_name,dd1.donantes_id as donated_id FROM donantes_description dd1 JOIN donantes dd ON dd.id=dd1.donantes_id JOIN photos p ON p.id=dd.photo_id WHERE dd1.donantes_id=:id AND dd1.language_id=:lang", array('id' => $auction['donated'], 'lang' => $lang));
                 if ($donated)
                     $auction = array_merge($auction, $donated);
             }
             if ($auction['for'] != '') {
-                $for = $this->db->selectOne("SELECT dd2.name for_name,dd2.donantes_id as for_id FROM donantes_description dd2 WHERE dd2.donantes_id=:id AND dd2.language_id=:lang", array('id' => $auction['for'], 'lang' => $lang));
+                $for = $this->db->selectOne("SELECT dd2.name for_name,dd2.donantes_id as for_id, p.img_date as for_img_date, p.file_name as for_file_name FROM donantes_description dd2 JOIN donantes dd ON dd.id=dd2.donantes_id JOIN photos p ON p.id=dd.photo_id WHERE dd2.donantes_id=:id AND dd2.language_id=:lang", array('id' => $auction['for'], 'lang' => $lang));
                 if ($for)
                     $auction = array_merge($auction, $for);
             }
@@ -132,11 +277,88 @@ class Auction_Model extends Model {
         return $auction;
     }
 
-    public function getCards($user_id, $card_id = null) {
-        if ($card_id == null)
-            return $this->db->select("SELECT * FROM " . BID_PREFIX . "cards WHERE user_id=:id ORDER BY name", array('id' => $user_id));
+    public function getCodes($user_id, $bid_id) {
+        return $this->db->selectOne("SELECT * FROM " . BID_PREFIX . "codes WHERE user_id=:user_id AND bid_id=:bid_id", array('user_id' => $user_id, 'bid_id' => $bid_id));
+    }
+
+    public function generateCode($user_id, $bid_id) {
+        $tel = (isset($_POST['prefix'])) ? $_POST['prefix'] : '';
+        $tel .=( (isset($_POST['num_tel'])) ? $_POST['num_tel'] : '');
+        $length = 6;
+        $key = '';
+        $keys = array_merge(range(0, 9), range('a', 'z'));
+
+        for ($i = 0; $i < $length; $i++) {
+            $key .= $keys[array_rand($keys)];
+        }
+        $data = array(
+            'user_id' => $user_id,
+            'bid_id' => $bid_id,
+            'code' => $key,
+            'tel' => $tel,
+            'try' =>0,
+            'date_created' => $this->getTimeSQL(),
+            'verify' => 0
+        );
+        $exist = $this->getCodes($user_id, $bid_id);
+        if ($exist)
+            $this->db->update(BID_PREFIX . 'codes', $data, "`user_id` = '{$user_id}' AND `bid_id` = '{$bid_id}'");
         else
-            return $this->db->selectOne("SELECT * FROM " . BID_PREFIX . "cards WHERE user_id=:user_id AND id=:card_id ORDER BY name", array('user_id' => $user_id, 'card_id' => $card_id));
+            $this->db->insert(BID_PREFIX . 'codes', $data);
+        //$this->sendCode($tel, $key);
+        return $key;
+    }
+
+    public function sendCode($tel, $code) {
+
+        $dms = new dms_send;
+
+//Autentificar
+        $dms->autentificacion->idcli = "214357";
+        $dms->autentificacion->username = "mayorec";
+        $dms->autentificacion->passwd = "popo1234";
+
+
+//Configurar envio
+        $dms->remitente = "";
+
+//Agregar mensajes
+        $dms->mensajes->add("1", $tel, $this->lang["your_code"] . $code, 'Mycausa.com');
+        $dms->send();
+    }
+
+    public function verifyCode($user_id, $bid_id) {
+        $code = (isset($_POST['code'])) ? $_POST['code'] : '';
+        $exist = $this->getCodes($user_id, $bid_id);
+        if ($exist['code'] == strtolower($code)) {
+            unset($data);
+            $data = array(
+                'verify' => 1
+            );
+            $this->db->update(BID_PREFIX . 'codes', $data, "`user_id` = '{$user_id}' AND `bid_id` = '{$bid_id}'");
+            return true;
+        }else{
+            unset($data);
+            $data = array(
+                'try' => $exist['try']+1
+            );
+            $this->db->update(BID_PREFIX . 'codes', $data, "`user_id` = '{$user_id}' AND `bid_id` = '{$bid_id}'");
+        }
+        return false;
+    }
+
+    public function getPrefix($id = null) {
+        if ($id == null)
+            return $this->db->select("SELECT * FROM " . BID_PREFIX . "prefix ORDER BY position,name");
+        else
+            return $this->db->selectOne("SELECT * FROM " . BID_PREFIX . "tels WHERE  id=:id ORDER BY name", array('id' => $id));
+    }
+
+    public function getTels($user_id, $card_id = null) {
+        if ($card_id == null)
+            return $this->db->select("SELECT * FROM " . BID_PREFIX . "tels WHERE user_id=:id ORDER BY name", array('id' => $user_id));
+        else
+            return $this->db->selectOne("SELECT * FROM " . BID_PREFIX . "tels WHERE user_id=:user_id AND id=:tel_id ORDER BY name", array('user_id' => $user_id, 'tel_id' => $card_id));
     }
 
     public function getBids($auction) {
@@ -172,10 +394,17 @@ class Auction_Model extends Model {
         } else {
             $next_bidp = $high_bid + $increment;
         }
+        $bids['num_bids'] = $num_bids;
         $bids['customincrement'] = $customincrement;
         $bids['increment'] = $increment;
         $bids['next_bid'] = $this->input_money($next_bidp);
         return $bids;
+    }
+
+    public function Mybids($auction) {
+        $user = Session::get('user');
+        $bids = $this->db->select("SELECT * FROM " . BID_PREFIX . "bids b JOIN " . BID_PREFIX . "users u ON u.id=b.bidder WHERE auction=:id AND u.id=:user ORDER BY bid DESC, b.id DESC", array('id' => $auction['auction_id'], 'user' => $user['id']));
+        return ($bids) ? true : false;
     }
 
     function get_increment($val, $input_check = true) {
@@ -348,6 +577,8 @@ class Auction_Model extends Model {
         }
         Log::set('Bid on Item: ' . $id . ' by: ' . $bidder_id);
         if ($send_email) {
+            $auction = $this->getAuction($auction_id);
+            $auction['maxbid'] = $proxy_max_bid;
             $mail = new MailHelper();
             $mail->sendRebid($this->getUser($proxy_bidder_id), $auction);
         }

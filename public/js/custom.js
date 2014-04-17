@@ -1,5 +1,9 @@
 var ROOT = '/';
 $(document).ready(function() {
+    $('#socialMediaMargin a').on('click',function(){
+        var addr=$(this).attr('rel');
+        window.open(addr,"social","toolbar=no, scrollbars=no, resizable=yes, top=500, left=500, width=400, height=400");
+    });
 });
 var isMobile = {
     Android: function() {
@@ -82,9 +86,9 @@ $('#signup #_btnsubmit').on('click', function() {
 
     return false;
 });
-$('.away').each(function(){
-   $(this).on('change',function(){
-       var checkId=$(this).attr('id');
-      $('.away').not('#'+checkId).removeAttr("checked");
-   }) 
+$('.away').each(function() {
+    $(this).on('change', function() {
+        var checkId = $(this).attr('id');
+        $('.away').not('#' + checkId).removeAttr("checked");
+    })
 });

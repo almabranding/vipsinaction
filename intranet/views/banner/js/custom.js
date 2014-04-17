@@ -1,8 +1,28 @@
-function updateListItem(itemId, newStatus) {
-    var sorted = $("#sortable").sortable("serialize");
-    $.post(ROOT + 'banner/sort', sorted + '&action=updateOrder').done(function(data) {
-    });
-}
+
+$(function() {
+   $('.sortable tbody').sortable({
+        start: function(event, ui) {
+            $(ui.helper).addClass("sortable-drag-clone");
+        },
+        stop: function(event, ui) {
+            $(ui.helper).removeClass("sortable-drag-clone");
+        },
+        update: function(event, ui) {
+            updateListItem($(this));
+        },
+        tolerance: "pointer",
+        connectWith: ".sortable tbody",
+        placeholder: "sortable-draggable-placeholder",
+        forcePlaceholderSize: true,
+        appendTo: 'body',
+        helper: 'clone',
+        zIndex: 666
+    }).disableSelection();
+});
+function updateListItem(sortable) {
+    var sorted = sortable.sortable( "toArray" );
+    $.post(ROOT+'banner/sort',{ 'sort[]': sorted}).done(function(data) {});
+  }
 $(document).ready(function() {
     var $model_id = $('#model_id').val();
     $("#compositeBox, #draggable").sortable({

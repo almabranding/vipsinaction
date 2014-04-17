@@ -1,8 +1,8 @@
 $(document).ready(function() {
-    $('#bill_1').change(function(){
-       mycallback($(this).is(':checked'),1);
-});
-    mycallback($('#bill_1').is(':checked'),1);
+    $('#bill_1').change(function() {
+        mycallback($(this).is(':checked'), 1);
+    });
+    mycallback($('#bill_1').is(':checked'), 1);
 
     $('#userForm #_btnsubmit').on('click', function() {
         var email = $('#userForm #email').val();
@@ -19,10 +19,16 @@ $(document).ready(function() {
                 });
             }
             if (!error) {
-            $('#userForm').submit();
+                $('#userForm').submit();
             }
         });
-   
-    return false;
+
+        return false;
     });
+//    $('#user-file').on('change', function() {
+//        console.log(1);
+//        $('#subir_pic').hide();
+//        $('#press_save').show();
+//        
+//    });
 });

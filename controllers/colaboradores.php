@@ -6,6 +6,7 @@ class Colaboradores extends Controller {
 
     function __construct() {
         parent::__construct();
+        $this->view->js = array('colaboradores/js/custom.js');
     }
 
     function index() {
@@ -17,14 +18,9 @@ class Colaboradores extends Controller {
         $this->view->setBreadcrumb('<a href="/colaboradores/view/'.$name.'" class="capitalize">'.$name.'</a>',false);
         $this->view->title=$name;
         $this->view->donantes=$this->model->getDonantesByName($name);
+        foreach($this->view->donantes as $donante){
+            $this->view->auctions[$donante['donantes_id']]=$this->model->getDonantesAuction($donante['donantes_id']);
+        }
         $this->view->render('colaboradores/view');
-    }
-    function auctions($id,$name=null) {
-        $donanteInfo=$this->model->getDonantesById($id);
-        $this->view->setBreadcrumb('<a href="/" class="capitalize">'.$this->view->lang['home'].'</a>',true);
-        $this->view->setBreadcrumb('<a href="/colaboradores/view/'.$donanteInfo['type_name'].'" class="capitalize">'.$this->view->lang[$donanteInfo['type_name']].'</a>',true);
-        $this->view->setBreadcrumb('<span class="capitalize">'. urldecode($donanteInfo['name']).'</span>',false);
-        $this->view->bids=$this->model->getDonantesAuction($id);
-        $this->view->render('auction/lista');
     }
 }

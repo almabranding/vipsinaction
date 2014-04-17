@@ -103,5 +103,22 @@ class Model {
         return number_format($str,2,',','.');
         
     }
+    function recortar_texto($texto, $limite=50){  
+    $texto = trim($texto);
+    $texto = strip_tags($texto);
+    $tamano = strlen($texto);
+    $resultado = '';
+    if($tamano <= $limite){
+        return $texto;
+    }else{
+        $palabras = explode(' ', $texto);
+        foreach($palabras as $palabra){
+            if(strlen($resultado)+strlen($palabra).' '<$limite) $resultado.=$palabra.' ';
+        }
+        $resultado = substr($resultado, 0, -1);
+        $resultado .= '...';
+    }  
+    return $resultado;
+}
 
 }

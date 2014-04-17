@@ -12,19 +12,4 @@
         <li><a href="#"><img src="<?= UPLOAD ?>dicen04.jpg"></a>
         <li><a href="#"><img src="<?= UPLOAD ?>dicen05.jpg"></a>
     </ul>
-    <div class="colaboradores-separator"></div>
-    <h2><?=$this->lang['lo_opinan_usuarios']?></h2>
-    <ul id="opiniones">
-        <?foreach($this->reviews as $key=>$review){?>
-        <li>
-            <?=($key!=0)?'<div class="colaboradores-separator"></div>':''?>
-            <div class="opiniones-img">
-                <img class='full' src="<?= UPLOAD . Model::getRouteImg($review['img_date']) .'thumb_250x250_'. $review['file_name'] ?>">
-            </div><div class="opiniones-content">
-                <h1><?=$review['name']?>
-                </h1>
-                <p><?=$review['content']?></p> </div>
-        </li>
-        <?}?>
-    </ul>
 </div>

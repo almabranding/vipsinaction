@@ -1,6 +1,7 @@
 <?php
 
 class User extends Controller {
+
     function __construct() {
         parent::__construct();
     }
@@ -10,31 +11,34 @@ class User extends Controller {
         $this->view->render('error/index');
     }
 
-    function settings($nick) {
-        $this->view->setBreadcrumb('<a class="capitalize" href="/">'.$this->view->lang['home'].'</a>');
-        $this->view->setBreadcrumb('<span class="capitalize">'.$this->view->lang['user'].'</span>');
+    function settings() {
+        $this->view->setBreadcrumb('<a class="capitalize" href="/">' . $this->view->lang['home'] . '</a>');
+        $this->view->setBreadcrumb('<span class="capitalize">' . $this->view->lang['user'] . '</span>');
         $this->view->js = array('user/js/custom.js');
-        if ($nick != $this->model->user['nick'])
-            header('location: ' . URL);
-        $this->view->userForm = $this->model->userForm($nick);
-        $this->view->user = $this->model->getUser($nick);
+        $this->view->userForm = $this->model->userForm();
+        $this->view->user = Session::get('user');
         $this->view->render('user/view');
     }
 
     function favorites() {
-        $this->view->title=$this->view->lang['favoritos'];
-        $this->view->setBreadcrumb('<a class="capitalize" href="/">'.$this->view->lang['home'].'</a>',true);
-        $this->view->setBreadcrumb('<a class="capitalize" href="/user/settings/'.$this->model->user['nick'].'">'.$this->view->lang['user'].'</a>',true);
-        $this->view->setBreadcrumb('<span class="capitalize">'.$this->view->lang['favoritos'].'</span>');
-        $this->view->bids=$this->model->getFavorites();
+        $orden = (isset($_GET['order'])) ? $_GET['order'] : 'ends';
+        $this->model->_orderby.='ORDER BY ' . $orden;
+        $this->view->title = $this->view->lang['favoritos'];
+        $this->view->setBreadcrumb('<a class="capitalize" href="/">' . $this->view->lang['home'] . '</a>', true);
+        $this->view->setBreadcrumb('<a class="capitalize" href="/user/settings/' . $this->model->user['nick'] . '">' . $this->view->lang['user'] . '</a>', true);
+        $this->view->setBreadcrumb('<span class="capitalize">' . $this->view->lang['favoritos'] . '</span>');
+        $this->view->bids = $this->model->getFavorites();
         $this->view->render('auction/lista');
     }
+
     function bids() {
-        $this->view->title=$this->view->lang['my_bids'];
-        $this->view->setBreadcrumb('<a class="capitalize" href="/">'.$this->view->lang['home'].'</a>',true);
-        $this->view->setBreadcrumb('<a class="capitalize" href="/user/settings/'.$this->model->user['nick'].'">'.$this->view->lang['user'].'</a>',true);
-        $this->view->setBreadcrumb('<span class="capitalize">'.$this->view->lang['my_bids'].'</span>');
-        $this->view->bids=$this->model->getBids();
+        $orden = (isset($_GET['order'])) ? $_GET['order'] : 'ends';
+        $this->model->_orderby.='ORDER BY ' . $orden;
+        $this->view->title = $this->view->lang['my_bids'];
+        $this->view->setBreadcrumb('<a class="capitalize" href="/">' . $this->view->lang['home'] . '</a>', true);
+        $this->view->setBreadcrumb('<a class="capitalize" href="/user/settings/' . $this->model->user['nick'] . '">' . $this->view->lang['user'] . '</a>', true);
+        $this->view->setBreadcrumb('<span class="capitalize">' . $this->view->lang['my_bids'] . '</span>');
+        $this->view->bids = $this->model->getBids();
         $this->view->render('auction/lista');
     }
 
@@ -72,9 +76,11 @@ class User extends Controller {
     }
 
     function message($code = null) {
+        $user=Session::get('user');
         switch ($code) {
             //Register done, please confirm
             case 1:
+                $this->model->sendConfirmationMail($user['id']);
                 $this->view->setBreadcrumb('Register Complete');
                 $this->view->message['title'] = 'Please confirm your mail';
                 $this->view->message['subtitle'] = '';
@@ -99,7 +105,7 @@ class User extends Controller {
                 $this->view->setBreadcrumb('User not found');
                 $this->view->message['title'] = 'User or password wrong';
                 $this->view->message['subtitle'] = '';
-                $this->view->message['content'] = 'Please try again or <a href="'.URL.'user/remember">reset password</a>';
+                $this->view->message['content'] = 'Please try again or <a href="' . URL . 'user/remember">reset password</a>';
                 break;
             //Remember password
             case 5:
@@ -140,7 +146,7 @@ class User extends Controller {
         $error = $this->model->login();
         switch ($error) {
             case 0:
-                header('location: ' . URL);
+                header('location: ' . URL.((Session::get('ruta'))?Session::get('ruta'):''));
                 break;
             case 1:
                 header('location: ' . URL . 'user/message/4');
@@ -159,11 +165,30 @@ class User extends Controller {
     }
 
     function fbRegister() {
-        $this->model->fbRegister();
+        if(isset($_GET['code'])) $user = $this->model->fbRegister();
+        header('location: ' . URL.((Session::get('ruta'))?Session::get('ruta'):''));
     }
 
     function checkRegister() {
         $this->model->checkRegister();
+    }
+
+    function newsletter() {
+        try {
+            $this->model->addNewsletter();
+        } catch (Exception $e) {
+            $this->view->message = array(
+                'content' => $e->getMessage(),
+                'title' => $this->view->lang['subscribete_a_nuestra'] . ' ' . $this->view->lang['newslettter']
+            );
+            $this->view->render('page/message');
+            exit;
+        }
+        $this->view->message = array(
+            'content' => $this->view->lang['gracias_mail_anadido'],
+            'title' => $this->view->lang['subscribete_a_nuestra'] . ' ' . $this->view->lang['newslettter']
+        );
+        $this->view->render('page/message');
     }
 
 }

@@ -27,7 +27,7 @@
     <h1><?= $this->variables['personal_data'] ?></h1>
     <div id="user-image">
         <div class="user-img"> <img class='full' src="<?= UPLOAD . Model::getRouteImg($this->variables['user']['img_date']) .'thumb_250x250_'. $this->variables['user']['file_name'] ?>"></div>
-        <label for="user-file">+ <?= $this->variables['lang']['upload_picture'] ?></label><input id="user-file" type="file" name="user-file" class="user-file">
+        <label id="subir_pic" for="user-file">+ <?= $this->variables['lang']['upload_picture'] ?></label><label style="display:none;" id="press_save" for="user-file">+ <?= $this->variables['lang']['press_save'] ?></label><input id="user-file" type="file" name="user-file" class="user-file">
         <ul class="user-options">
             <li>
                 <a class="link" href="<?=URL?>user/bids"><div class="q-button">+</div>

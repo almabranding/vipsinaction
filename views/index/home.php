@@ -12,19 +12,22 @@
     </div>
     <div id="auctions-list-box">
         <ul id="auctions-list">
-            <? foreach ($this->auctions as $key=>$auction) { 
-                $time=Model::getRemaingTime($auction['ends']);
-                ?><li class='pos_<?= $key % 4 ?>'><a href='<?=URL?>auction/view/<?=$auction['auction_id']?>/<?=  urlencode($auction['name'])?>'><div class="content-box">
-                        <div class="auctions-list-img-box">
-                            <img class='full' src="<?= UPLOAD .Model::getRouteImg($auction['img_date']).'thumb_250x250_'.$auction['file_name']?>">
-                            <img class="capaSquare" src="<?=URL?>public/img/capaSquare.png">
-                            <div class="auctions-time-label"><?=($time)?$time->d:'0'?> <?=$this->lang['dias']?>, <?=($time)?$time->h:'0'?> <?=$this->lang['horas']?> <?=$this->lang['and']?> <?=($time)?$time->i:'0'?> <?=$this->lang['minutos']?></div>
+            <?
+            foreach ($this->auctions as $key => $auction) {
+                $time = Model::getRemaingTime($auction['ends']);
+                ?><li class='pos_<?= $key % 4 ?>'><a href='<?= URL ?>auction/view/<?= $auction['auction_id'] ?>/<?= urlencode($auction['name']) ?>'><div class="content-box">
+                            <div class="auctions-list-img-box">
+                                <img class='full' src="<?= UPLOAD . Model::getRouteImg($auction['img_date']) . 'thumb_250x250_' . $auction['file_name'] ?>">
+                                <img class="capaSquare" src="<?= URL ?>public/img/capaSquare.png">
+                                <div class="auctions-time-label"><?= ($time) ? $time->d .' '. $this->lang['dias'] .','. $time->h.' '.$this->lang['horas'].' '. $this->lang['and'] .' '. $time->i.' '. $this->lang['minutos']:$this->lang['auction_ended'] ?></div>
+                            </div>
+                            <div class="auctions-list-info">
+                                <p><?= Model::recortar_texto($auction['name'],30) ?></p>
+                                <p class="price"><?= $this->lang['oferta_actual'] ?>: <?= number_format(($auction['current_bid'] != 0) ? $auction['current_bid'] : $auction['minimum_bid'], 2, ',', '.') ?>€</p>
+                            </div>
                         </div>
-                        <div class="auctions-list-info">
-                            <p><?=$auction['name']?></p>
-                            <p class="price"><?= $this->lang['oferta_actual'] ?>: <?= number_format(($auction['current_bid']!=0)?$auction['current_bid']:$auction['minimum_bid'],2,',','.') ?>€</p>
-                        </div>
-                        </div></a></li><? } ?>
+                    </a>
+                </li><? } ?>
         </ul>
     </div>
 </div>

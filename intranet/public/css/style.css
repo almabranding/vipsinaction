@@ -582,7 +582,12 @@ tableTitle li {
 #product-table .delete:hover {
     background: url("../img/table_icon_2.gif") no-repeat scroll 0 -24px transparent;
 }
-
+#product-table .view {
+    background: url("../img/table_icon_6.gif") no-repeat scroll 0 0 transparent;
+}
+#product-table .view:hover {
+    background: url("../img/table_icon_6.gif") no-repeat scroll 0 -24px transparent;
+}
 #login-box {
     background: none repeat scroll 0 0 #000000;
     color: #EBEBEB;
@@ -833,4 +838,30 @@ tableTitle li {
     border:1px solid #000;
     margin:auto;
     overflow: hidden;
+}
+
+.tabs li div.tab-box {
+    height: 100%;
+    padding: 14px 0 12px;
+    width: 100%;
+}
+.tabs li.ui-state-active {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-bottom: 1px solid #FFFFFF !important;
+    color: #004066;
+    display: inline-block;
+    font-weight: normal;
+}
+.tabs li {
+    border: 1px solid #CDCDCD;
+}
+.tabs li {
+    background: none repeat scroll 0 0 #EFEFEF;
+    display: inline-block;
+    font-size: 14px;
+    margin-right: -2.6px;
+    max-width: 300px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 12%;
 }

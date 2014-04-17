@@ -10,7 +10,6 @@ function __autoload($class) {
     if (file_exists(LIBS . $class . ".php"))
         require LIBS . $class . ".php";
 }
-
 // Load the Bootstrap!
 $bootstrap = new Bootstrap();
 

@@ -58,16 +58,9 @@ function secureMsg(Msg, route) {
     if (confirm(Msg))
         location.href = ROOT + route;
 }
-$(document).ready(function() {
 
-    $("#modelList").change(function() {
-        var coma = "";
-        if ($('#name').val() != "")
-            coma = ', ';
-        $('#name').val($('#name').val() + coma + $(this).val());
-    });
-
-
+$('form').on('change',function(){
+    $('form').attr('target','');
 });
 
 

@@ -4,66 +4,69 @@
         <div id="container">
             <ul class="footer-list">
                 <li>
-                    <h1>VIPSENACCIÓN</h1>
+                    <h1>MYCAUSA</h1>
                     <ul class="footer-list-a">
-                        <li><a>Testimoniales</a></li>
-                        <li><a>Equipo</a></li>
-                        <li><a>FAQs</a></li>
+                        <li><a href="<?=URL?>page/view/about"><?=$this->lang['about_us']?></a></li>
+                        <li><a href="<?=URL?>faq"><?=$this->lang['preg_freq']?></a></li>
                     </ul>
                 </li><li>
-                    <h1>COLABORA CON NOSOTROS</h1>
+                    <h1><?=$this->lang['col.w.US']?></h1>
                     <ul class="footer-list-a">
-                        <li><a>Testimoniales</a></li>
-                        <li><a>Equipo</a></li>
-                        <li><a>FAQs</a></li>
+                        <li><a href="<?=URL?>page/view/contact"><?=$this->lang['eres_ong']?></a></li>
+                        <li><a href="<?=URL?>page/view/contact"><?=$this->lang['eres_donante']?></a></li>
+                        <li><a href="<?=URL?>page/view/contact"><?=$this->lang['eres_empresa']?></a></li>
+                        <li><a href="<?=URL?>page/view/contact"><?=$this->lang['Contactanos']?></a></li>
                     </ul>
                 </li><li>
-                    <h1>CONTACTA CON NOSOTROS</h1>
+                    <h1><?=$this->lang['APARTADOS']?></h1>
                     <ul class="footer-list-a">
-                        <li><a>Oficinas en Barcelona</a></li>
-                        <li><a>Oficinas en Madrid</a></li>
+                        <li><label style="cursor: pointer;" for="signupCheck"><?=$this->lang['Regístrate']?></label></li>
+                        <li><a href="<?=URL?>page/view/gift"><?=$this->lang['Regalo']?></a></li>
+                        <li><a href="<?=URL?>page/view/crowdfunding"><?=$this->lang['Crowdfounding']?></a></li>
                     </ul>
                 </li><li>
-                    <h1>SUBSCRÍBETE A NUESTRA<br> NEWSLETTER</h1>
-                    <form><input type="text"><input type="submit" style="display: none;"></form>
+                    <h1><?=$this->lang['subscribete_a_nuestra']?><br> <?=$this->lang['newslettter']?></h1>
+                    <form enctype="multipart/form-data" method="post" action="<?=URL?>user/newsletter" name="contactForm"><input type="text" name="email"><input type="submit" style="display: none;"></form>
                     <ul class="socialIcons">
                         <li>
-                            <a href="#"><div id="fb"></div></a>
+                            <a target="_blank" href="https://www.facebook.com/pages/mycausacom/1390973194512137"><div id="fb"></div></a>
                         </li>
                         <li>
-                            <a href="#"><div id="tw"></div></a>
+                            <a target="_blank" href="https://twitter.com/mycausa"><div id="tw"></div></a>
                         </li>
                         <li>
-                            <a href="#"><div id="gplus"></div></a>
+                            <a target="_blank" href="#"><div id="gplus"></div></a>
                         </li>
                         <li>
-                            <a href="#"><div id="pinterest"></div></a>
+                            <a target="_blank" href="http://www.pinterest.com/mycausa/"><div id="pinterest"></div></a>
                         </li>
                         <li>
-                            <a href="#"><div id="tuenti"></div></a>
+                            <a target="_blank" href="http://mycausa.tumblr.com/"><div id="tumblr"></div></a>
                         </li>
                         <li>
-                            <a href="#"><div id="in"></div></a>
+                            <a target="_blank" href="#"><div id="in"></div></a>
                         </li>
                         <li>
-                            <a href="#"><div id="instagram"></div></a>
+                            <a target="_blank" href="#"><div id="instagram"></div></a>
                         </li>
                     </ul>
                 </li>
             </ul>
             <div class="privacy">
-                © 2014 Vipsenaccion SL. Todos los derechos reservados | <a href="#">Política de privacidad</a>
+                © 2014 Mycausa SL. <?=$this->lang['derechos_reservados']?> | <a href="#"><?=$this->lang['politica_privacidad']?></a>
             </div>
         </div>
     </div>  
 </div>  
+<script>
+var lng="<?=LANG?>";
+</script>
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script src="<?= URL; ?>public/js/custom.js"></script>
 <script src="<?= URL; ?>public/js/mobile.js"></script>
 <script src="<?= URL; ?>public/js/zebra_form.js"></script>
 <script src="<?= URL; ?>public/js/html2canvas.js"></script>
-
 
 <?php
 if (isset($this->js))

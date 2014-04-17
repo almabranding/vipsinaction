@@ -4,9 +4,9 @@
 <?php echo (isset($zf_error) ? $zf_error : (isset($error) ? $error : '')) ?>
 <?=$accounttype ?>
     <h1><?=$this->variables['turn to member']?></h1>
-    <a href="https://www.facebook.com/dialog/oauth?client_id=<?=APP_ID?>&redirect_uri=<?=APP_REDIRECT?>&scope=publish_stream,email,basic_info" title="Signup with facebook">
+    <a href="https://www.facebook.com/dialog/oauth?client_id=<?=APP_ID?>&redirect_uri=<?=APP_REDIRECT?>&scope=publish_stream,email,user_about_me" title="Signup with facebook">
      <div id="facebookSignup"></div></a>
-    <p><?=$this->variables['acuerdos_fb']?> <a href="#"><?=$this->variables['Acuerdo de usuario']?></a></p>
+    <p><?=$this->variables['acuerdos_fb']?> <a href="<?=URL?>terms" target="_blank"><?=$this->variables['Acuerdo de usuario']?></a></p>
     <span id="oregister"><?=$this->variables['O_REGISTRATE']?></span>
     <p><?=$this->variables['coplete_formulario']?></p>
 <ul><li class="row" style="text-align: left">

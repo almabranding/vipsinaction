@@ -17,7 +17,7 @@
     <?php echo $label_password . $password ?>
 </li>
 <li class="row last">
-    <a href="https://www.facebook.com/dialog/oauth?client_id=<?=APP_ID?>&redirect_uri=<?=APP_REDIRECT?>&scope=publish_stream,email,basic_info" title="Signup with facebook">
+    <a href="https://www.facebook.com/dialog/oauth?client_id=<?=APP_ID?>&redirect_uri=<?=APP_REDIRECT?>&scope=publish_stream,email,user_about_me" title="Signup with facebook">
      <div id="facebookSignup" class="facebookLogin"></div></a>
     <?php echo $_btnsubmitLogin ?>
 </li>

@@ -6,9 +6,13 @@
 <style>
     #giftForm li{margin: 20px 0;}
     #algunaDuda{
-        float: right;
+        display: inline-block;
     position: relative;
-    right: 20px;}
+    text-align: right;
+    vertical-align: middle;
+    width: 50%;
+    margin-bottom: 0px;
+}
 </style>
 <ul id='giftForm'><li class="row">
     <?php echo $label_deseo . $deseo ?>
@@ -21,23 +25,24 @@
 <li class="clear"></li>
 
 <li class="row" style="width: 60%;">
-    <?php echo $label_nombre . $nombre ?>
+    <?php echo $label_name . $name ?>
 </li>
 <br>
 <?=$this->variables['donacion_text']?>
 <br>
 <li class="row last">
     <?php echo  $extra_acuerdo.$label_extra_acuerdo ?>
-</li><li class="row last">
-    <?php echo $_btnsubmit ?>
+</li><li class="row last" style="width: 50%;display: inline-block;">
+        <?php echo $_btnsubmit ?>
+        
+    </li><li id="algunaDuda">
+    <a class="link" href="<?=URL?>faq">
+        <div class="q-button">?</div>
+        <?= $this->variables['alguna_duda'] ?>
+    </a>
 </li>
 </ul>
-<div id="algunaDuda">
-<a class="link" href="http://temp.vipsinaction.com/faq">
-<div class="q-button">?</div>
-<?=$this->variables['alguna_duda']?>
-</a>
-</div>
+
 <div class="clear"></div>
 
 

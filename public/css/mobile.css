@@ -2,9 +2,9 @@
 /* CSS Document */
 
 /* small screens */
-@media screen and (max-width: 44em) {
+@media only screen and (max-width :770px) {
+.noMobil{display: none;}
 }
-
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (max-width : 620px) {
     #auctions-list li{width: 48%;}
@@ -41,12 +41,15 @@
     #facebookSignup,#_btnsubmitLogin,#_btnsubmit{margin:10px auto;float: none;display: block;}
     #_btnsubmitLogin{margin-bottom:20px;}
     #contact-form,#contact-info,.contact-wrapper{width: 99%;margin: auto;}
+    
 }
 
 /* Smartphones (landscape) ----------- */
 @media only screen and (max-width : 400px) {
 
-    #banner .label p{font-size: 11px;line-height: 11px}
+    #banner .label p{font-size: 11px;line-height: 11px;margin:10px auto}
+    #banner .banner-box .button{font-size: 12px;width: 100px;padding:4px;}
+    .rsMinW .rsBullets{right: 25% !important;bottom:5px !important;}
 }
 
 /* Smartphones (portrait) ----------- */

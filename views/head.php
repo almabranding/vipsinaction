@@ -4,6 +4,7 @@
     header("Cache-Control: no-store, no-cache, must-revalidate");
     header("Cache-Control: post-check=0, pre-check=0", false);
     header("Pragma: no-cache");
+    Session::set('ruta',RUTE);
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,13 +21,13 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minium-scale=1.0,user-scalable=yes"/>
+    <meta name="viewport" content="width=900, initial-scale=1.0, maximum-scale=1.0, minium-scale=1.0,user-scalable=yes"/>
     <link rel="shortcut icon" href="<?=URL; ?>favicon.ico" Content-type="image/x-icon" />
     <link rel="stylesheet" href="<?=URL; ?>public/css/style.css" />
     <link rel="stylesheet" href="<?=URL; ?>public/css/mobile.css"/>
     <link rel="stylesheet" href="<?=URL; ?>public/css/zebra_form.css"/>
     <script src="<?=URL; ?>public/js/modernizr.js"></script>
-    <?php
+    <?
     if (isset($this->css)) 
         foreach ($this->css as $css)
             echo '<link rel="stylesheet" href="'.URL.'views/'.$css.'"/>';

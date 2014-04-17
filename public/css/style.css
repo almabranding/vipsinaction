@@ -62,12 +62,13 @@
     outline-width: 0;
 }
 #container {
-    margin: 10px auto auto;
+    margin: 10px auto 10px;
 }
 .container-border{
     background: #ffffff;
     border: 1px solid #BABABA;
-    padding: 20px}
+    padding: 20px 40px
+}
 html {
     height: 100%;
 }
@@ -118,30 +119,41 @@ body {
 #logoDestination{
     text-transform: uppercase;
 }
-.splash-head{position: relative;margin-top: 20px !important;}
-#searchBox{
-    height: 35px;
+.splash-head{position: relative;margin-top: 25px !important;}
+#searchBox{    
+    max-width: 259px;
     text-align: left;
     width: 55%;
 }
 
 #loginBox{
     font-size: 12px;
-    text-transform: uppercase;
     color: #000000;
     position: absolute;
     right: 0;
-    top: 9px;
+    top: 4px;
 }
+#loginBox a{color:#000000;}
+#loginBox a:hover,#loginBox .selected{color:#E75F0C;}
 #loginBox label{
     cursor: pointer;
 }
 #loginBox label:hover{
     color: #E75F0C;
 }
-
-
-#searchBox input{    
+#searchBox form{position: relative;}
+#searchBox input[type="submit"]{    
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: none;
+    color: rgba(0, 0, 0, 0);
+    height: 25px;
+    margin: 0;
+    min-width: 0;
+    position: absolute;
+    right: -10px;
+    width: 25px;
+}
+#searchBox input[type="text"]{    
     border:1px solid #000000;
     transition: width 1s ease 0s;
     width: 100%;
@@ -149,7 +161,7 @@ body {
     color:#000000;
     text-transform: capitalize;
     height: 12px;
-    margin: 4px;
+    margin: 0px;
     min-width: 0px;
 }
 header{
@@ -165,7 +177,7 @@ header{
     margin:55px auto 30px;
 }
 #header{
-    padding: 5px 0;
+    padding: 7px 0 5px;
     background: #f5f5f5;
     box-shadow: 0 4px 2px -2px #CCCCCC;
 }
@@ -302,7 +314,10 @@ input[type="text"], input[type="password"],input.datepicker {
 select{font-family: 'Avenir',arial,sans-serif}
 textarea {
     font-family: 'Avenir',arial,sans-serif;
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #777777;
     border: 1px solid #000000;
+    font-size: 14px;
     height: 54px;
     padding: 1%;
     resize: none;
@@ -436,7 +451,7 @@ ul.navMobile {
 ul.navMobile > li:first-child{}
 ul.navMobile  > li{
     border-bottom: 1px solid #D2D2D2;
-   padding: 10px 0;
+    padding: 10px 0;
 }
 ul.navMobile > li > a{margin: 0 10px;}
 ul.navMobile .submenu > li{margin: 0;}
@@ -458,7 +473,7 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
     display: block;
     max-height: 0;
     overflow: hidden;
-    margin-left:-20px;
+    margin-left:-28px;
     position: absolute;
     transition: max-height 1s ease 0s;
 }
@@ -508,7 +523,7 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
     border-bottom: 1px solid #FFFFFF;
     border-top: 1px solid #FFFFFF;
     color: #5A5A59;
-    margin: 10px 0 0;
+    margin: 15px 0 0;
     padding: 7px 0;
     position: relative;
     text-align: left;
@@ -542,13 +557,13 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
 }
 .xLogo{
     color: #FFFFFF;
+    cursor: pointer;
     margin: 0;
     padding: 0;
     position: absolute;
-    right: 20px;
+    right: 10px;
     text-align: right;
-    top: 20px;
-    cursor: pointer;
+    top: 5px;
 }
 .away {
     left: -99999px;
@@ -560,6 +575,14 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
 #signupCheck:checked ~ .splash-signup{max-height: 1000px;}
 #loginCheck:checked ~ .splash-login{max-height: 1000px;}
 #msgCheck:checked ~ .splash-msg{max-height: 1000px;}
+.splash-msg{
+    display:none;
+    transition: max-height 1s ease 0s;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    z-index: 10
+}
 #splash-content{
     transition: max-height 1s ease 0s;
     max-height: 0;
@@ -618,27 +641,27 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
     height: 25px;
     width: 25px;
 }
-
+.socialIcons{margin-top: 10px}
 .socialIcons #fb{
-    background-position: -5px 0;
+    background-position: -10px 0;
 }
 .socialIcons #tw{
-    background-position: -38px 2px;
+    background-position: -40px 2px;
 }
 .socialIcons #gplus{
-    background-position: -73px 0px;
+    background-position: -76px 0px;
 }
 .socialIcons #pinterest{
-    background-position: -108px 0;
+    background-position: -110px 0;
 }
-.socialIcons #tuenti{
-    background-position: -143px 0;
+.socialIcons #tumblr{
+    background-position: -148px 0;
 }
 .socialIcons #in {
-    background-position: -177px 0;
+    background-position: -180px 0;
 }
 .socialIcons #instagram{
-    background-position: -212px 0;
+    background-position: -215px 0;
 }
 #footer{
     width: 100%;
@@ -679,8 +702,8 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
     color:#3c3c3b;
     display: block;
 }
-#footer a:hover{
-
+#footer a:hover,#footer label:hover{
+    color: #E75F0C;
 }
 #footer .container{
 
@@ -694,30 +717,27 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
 /*BANNER*/
 #banner .banner-box{
     background: #f5f5f5;
-    height: 330px;
     overflow: hidden;
 }
-#banner ul, #banner li{height: 100%;}
+#banner ul, #banner li{height: 100%;max-height: 330px;position: relative;}
 #banner .banner-box .button{
-    position: absolute;
-    left: 50%;
-    margin-left: -80px;
+    border: 2px solid #FFFFFF;
     bottom: 30px;
+    color: #FFFFFF;
     font-family: 'Avenir Heavy';
     font-size: 16px;
-    padding: 10px;
-    border:2px solid #ffffff;
-    width: 150px;
-    text-align: center;
+    left: 10%;
     line-height: 20px;
-    color:#ffffff;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    width: 150px;
     -webkit-box-shadow: 0px 0px 11px 0px rgba(255, 255, 255, 0.75);
     -moz-box-shadow:    0px 0px 11px 0px rgba(255, 255, 255, 0.75);
     box-shadow:         0px 0px 11px 0px rgba(255, 255, 255, 0.75);
 }
 #banner .banner-box .button:hover{opacity: 0.7}
 #banner .label{
-    position: relative;
     height: 100%;
     color: #009FE3;
     display: inline-block;
@@ -764,10 +784,10 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
 #auctions-list li{
     display: inline-block;
     margin-bottom: 30px;
-    margin-right: 4%;
+    margin-right: 2%;
     text-align: center;
     vertical-align: top;
-    width: 22%;
+    width: 23.5%;
 }
 #auctions-list li.pos_3{
     margin-right: 0%;
@@ -784,6 +804,7 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
     height:auto;
     position: relative;
 }
+.auctions-list-img-box:hover{opacity: 0.7}
 .capaSquare{    
     display: block;
     height: auto;
@@ -816,6 +837,7 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
 }
 /*Auctions*/
 #auction-content,#bid {
+    position: relative;
     border: 1px solid #cdcdcd;
     text-align: left;
     padding-bottom: 10px;
@@ -854,7 +876,15 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
 #bidFormbox{
     border: 1px solid #e75f0c;
 }
-.bidOver{display: inline-block;width: 55%;vertical-align: top;text-align: left;color:#000cff;font-size: 18px; text-transform: uppercase;}
+.bidOver{
+    color: #FA0505;
+    display: inline-block;
+    font-size: 14px;
+    text-align: left;
+    text-transform: uppercase;
+    vertical-align: top;
+    width: 54%;
+}
 .bidNext{display: inline-block;width: 45%;vertical-align: top;}
 #bidInput{
     text-align: right;
@@ -867,7 +897,7 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
     width: 280px;
 }
 .auction-content-box{
-    margin: auto;
+    margin: auto auto 49px;
     width: 95%;
 }
 #product-detail h3{display: none;}
@@ -893,6 +923,8 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
 #auction-data li{
     margin: 10px 0;
 }
+
+#auction-data li img{border: 1px solid #CDCDCD}
 .tabs{
     text-align: left;
     position: relative;
@@ -909,7 +941,7 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
     text-transform: uppercase;
 }
 .tabs li div.tab-box{
-     height: 100%;
+    height: 100%;
     padding: 14px 0 12px;
     width: 100%;
 }
@@ -923,12 +955,26 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
     border-right: 1px solid #CDCDCD;
     border-top: 1px solid #CDCDCD;
     border-bottom: 1px solid #CDCDCD;
-/*    min-height: 200px;*/
+    /*    min-height: 200px;*/
     margin-top: -1px;
     overflow-y: auto;
     padding: 30px 20px;
     text-align: left;
     font-size: 14px;
+}
+#product-detail .product-detail-content .desc-text{
+    width: 73%;
+    display: inline-block;
+    vertical-align: top;
+}
+#product-detail .product-detail-content .desc-logo{
+    width: 25%;
+    display: inline-block;
+    vertical-align: top;
+    text-align: right;
+}
+#product-detail .product-detail-content .desc-logo img{
+    border: 1px solid #CDCDCD;
 }
 #product-detail .tabs li{
     border: 1px solid #CDCDCD;
@@ -973,10 +1019,11 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
     margin-top: -100px;
     padding: 10px 13px 10px 9px;
     position: fixed;
-    top: 50%;
+    top: 30%;
 }
 #socialMediaMargin li{
     display: block;
+    cursor: pointer;
     margin: 10px 0;
 }
 
@@ -988,6 +1035,7 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
     text-align: left;
     position: relative;
 }
+.mainWrapper{text-align: left;}
 .mainWrapper > h1{
     font-family: 'Avenir-light';
     font-size: 50px;
@@ -999,29 +1047,72 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
 .colaboradores-img .full{position: absolute;}
 .colaboradores-info{vertical-align: top;width: 77%;display: inline-block;margin-left: 2%; margin-bottom: 25px;}
 .colaboradores-info h1{font-weight: bold;font-size: 20px;text-transform: uppercase;}
-.colaboradores-info .colaboradores-acumulado{color:#e30f18;;margin-top: 20px;}
-.colabores-auctions {position: absolute;bottom: 0px;right: 10px;text-align: right;}
+.colaboradores-info .colaboradores-acumulado{color:#e30f18;;margin-top: 20px;width: 50%;display: inline-block;vertical-align: top;}
+.colabores-auctions {width: 50%;display: inline-block;vertical-align: top;    margin-top: 20px;min-width: 100px;text-align: right;}
 .colaboradores-separator{width: 100%;margin: 29px auto;height: 1px;border-bottom: 1px solid #bababa;}
-
+#colaboradores-list #listBids{display: none;}
+#ordenBox{
+    cursor: pointer;
+    float: right;
+    position: relative;
+}
+.orden_Selected{display: inline-block;margin-left: 17px;}
+#ordenBox:hover #ordenMenu {
+    max-height: 200px;
+    position: absolute;
+    transition: max-height 1s ease 0s;
+}
+.orden_Selected i{
+    background: url("../img/strip.png") no-repeat scroll -2px -98px rgba(0, 0, 0, 0);
+    height: 21px;
+    width: 15px;
+    display: inline-block;
+}
+#ordenMenu{
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px 3px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px 3px 5px 0px rgba(50, 50, 50, 0.75);
+    background: none repeat scroll 0 0 #FFFFFF;
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    right: 0;
+    width: auto;
+    z-index: 2;
+}
+#ordenMenu li:first-child {
+    padding-top: 6px;
+}
+#ordenMenu li {
+    border-bottom: 1px solid #BABABA;
+    padding: 2px 38px;
+    text-align: center;
+    width: auto;
+}
+#ordenMenu li a{color:#000000;}
+#ordenMenu li a:hover{color:#E75F0C;}
 /*PAGE ARTICLE*/
+.breath{
+    padding:100px 112px;
+}
 #page{text-align: left;position: relative;}
 #page h1{
     font-family: 'Avenir-light';
-    font-size: 36px;
+    font-size: 40px;
     font-weight: normal;
     line-height: 41px;
     text-align: center;
 }
-#page.form h2{font-family: 'Avenir-light';font-size: 24px;color:#484747;text-align: center;}
+#page.form h2{font-family: 'Avenir-light';font-size: 21px;color:#484747;text-align: center;}
 #page h1 .orange{font-family: 'Avenir';}
 #page h2{font-size: 27px;color:#000000;font-weight: bold;}
 #page iframe{width: 100%;height: 570px; margin: 20px 0 40px;}
-#opiniones{padding: 20px 20px 20px 0;text-align: left;}
-#opiniones h1{text-align: left;font-size: 20px;line-height: inherit;font-weight: bold;}
-.opiniones-img{width: 20%;display: inline-block;vertical-align: top;}
-.opiniones-content{width:75%;display: inline-block;vertical-align: top;margin-left: 20px;}
 #dicen li{display: inline-block;margin: 10px 10px;vertical-align: middle;}
-
+#aution-actions{
+    position: absolute;
+    bottom: 20px;
+    width: 400px;
+}
 /*USER*/
 #user{text-align: left;}
 .street{width: 100%}
@@ -1080,6 +1171,7 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
     width: 20px;
 }
 .styled-select select {
+    -webkit-appearance: none;
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
     color: #9A9996;
     font-size: 14px;
@@ -1092,6 +1184,7 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
 #contact h2{font-size: 20px;font-weight: normal;margin-top: 20px;}
 
 /*LIST BIDS/FAVS*/
+#listBids h2{color:#131313;font-size: 24px;border-bottom: 1px solid #dedede;font-weight: normal;margin: 20px 0}
 #listBids > ul > li{border: 1px solid #BABABA;text-align: left;padding: 10px;margin-bottom: 20px;position: relative;background: #ffffff}
 #listBids ul li h1{font-size: 20px;margin-bottom: 30px;}
 #listBids .imgBox{
@@ -1111,7 +1204,7 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
 
 /*BID FORM*/
 #bid-content{width: 95%;margin: auto;position: relative;}
-#bid .card_saved{width: 50%;display:inline-block;text-align: left;vertical-align: top}
+#bid .card_saved{width: 10%;display:inline-block;text-align: left;vertical-align: top}
 #bid .card_holder{width: 50%;display:inline-block;text-align: left;;vertical-align: top}
 #bid .card_type{width: 15%;display:inline-block;text-align: left;;vertical-align: top}
 #bid .card_number{width: 55%;display:inline-block;text-align: left;;vertical-align: top}
@@ -1122,6 +1215,9 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
 #bid .submitLi{width: 30%;display:inline-block;text-align: right;;vertical-align: bottom}
 #bid .card_name{width:70%;display:inline-block;text-align: left;;vertical-align: top;margin:0;}
 #bid .save_card{width: 30%;display:inline-block;text-align: right;;vertical-align: bottom}
+#bid .num_tel{width: 20%;display:inline-block;text-align: right;;vertical-align: bottom}
+#bid .num_code{width: 40%;display:inline-block;text-align: right;;vertical-align: bottom}
+#bid .send_code{width: 20%;display:inline-block;text-align: right;;vertical-align: bottom;    margin: 0 0 0 5%}
 #bid h1 {
     font-size: 22px;
     font-weight: bold;
@@ -1147,4 +1243,79 @@ ul.navMobile .submenu > li div{margin: 10px 40px 0;}
     bottom: 20px;
     position: absolute;
     right: 20px;
+}
+
+/*FAQ*/
+#faq h3,#terms h3 {font-size: 14px;color:#e75f0c;margin: 15px 0;cursor: pointer;}
+#faq p{font-size: 14px;margin: 5px 0}
+#cookies{width: 100%; max-height: 35px; background: #000000;color:#ffffff;text-align: center;line-height: 35px;font-size: 12px;overflow: hidden;    transition: max-height 1s ease 0s;}
+#cookieCheck:checked ~ #cookies {
+    max-height: 0px;
+}
+
+/*TESTIMONIALS*/
+#testimonials> h1{
+    font-family: 'Avenir-light';
+    font-size: 60px;
+    font-weight: normal;
+    text-align: left;
+}
+#opiniones li{
+    height: 600px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 7px #777777;
+    width: 48%;
+    margin-right:2%;
+    margin-bottom: 20px;
+    background: #ffffff;
+    display: inline-block;
+    vertical-align: top;
+}
+#opiniones li.last{
+    margin-right:0;
+}
+#opiniones{text-align: left;}
+#opiniones h1{text-transform: uppercase;position: absolute;width: 100%; background:rgba(0,0,0,0.7);color:#ffffff;font-size: 12px;font-weight: normal;top:0;text-align: center;padding: 15px 0;}
+.opiniones-img{width: 100%;display: inline-block;vertical-align: top;}
+.opiniones-content{
+    margin: 20px auto;
+    position: relative;
+    vertical-align: top;
+    width: 80%;
+}
+#language{
+    background: none repeat scroll 0 0 #F5F5F5;
+    box-shadow: 0 4px 2px -2px #CCCCCC;
+    display: block;
+    max-height: 0;
+    position: absolute;
+    right: -10px;
+    transition: max-height 1s ease 0s;
+    width: auto;
+    z-index: 1;
+    overflow: hidden;
+}
+#languageSel{
+position: relative;
+cursor: pointer;
+}
+#languageSel:hover{
+    color:#E75F0C;
+}
+#languageSel:hover #language{
+    max-height: 100px;
+}
+#language li{
+    border-bottom: 1px solid #FFFFFF;
+    display: block;
+    line-height: 28px;
+    margin: 0;
+    padding: 0 10px;
+    text-align: center;
+    width: auto;
+}
+#language li:hover{
+    background: none repeat scroll 0 0 #DCDCDC;
+    color: #E75F0C;
 }

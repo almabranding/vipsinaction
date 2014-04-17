@@ -1,4 +1,4 @@
-<div class="container-border container form" id="page">
+<div class="container-border container form breath" id="page">
     <h1><?=$this->title?></h1>
     <br><br>
     <h2><?=$this->subtitle?></h2>

@@ -4,9 +4,12 @@ class User_Model extends Model {
 
     public $_idmodel;
     public $_model;
+    public $_where;
+    public $_orderby;
 
     public function __construct() {
         parent::__construct();
+        $this->_where = ' WHERE 1=1 ';
     }
 
     public function resetForm() {
@@ -59,8 +62,8 @@ class User_Model extends Model {
         return $form;
     }
 
-    public function userForm($nick) {
-        $user = $this->getUser($nick);
+    public function userForm() {
+        $user = Session::get('user');
         $action = URL . 'user/edit';
         $atributes = array(
             'enctype' => 'multipart/form-data',
@@ -82,7 +85,7 @@ class User_Model extends Model {
         ));
         $form->add('label', 'label_phone', 'phone', $this->lang['phone'] . ':');
         $obj = $form->add('text', 'phone', $user['phone'], array('autocomplete' => 'off', 'placeholder' => $this->lang['phone']));
-        
+
         $form->add('label', 'label_email', 'email', $this->lang['direccion_email'] . ':');
         $obj = $form->add('text', 'email', $user['email'], array('autocomplete' => 'off', 'placeholder' => $this->lang['Contact e-mail']));
         $obj->set_rule(array(
@@ -263,6 +266,7 @@ class User_Model extends Model {
             $data = array('is_active' => 1,);
             $this->db->update(BID_PREFIX . 'users', $data, "`id` = '{$id}'");
             $user['is_active'] = 1;
+            Session::set('is_active', true);
             Session::set('loggedIn', true);
             Session::set('user', $user);
         } else {
@@ -282,7 +286,7 @@ class User_Model extends Model {
         $user = $this->getUserById($_POST['user_id']);
         $isMail = $this->db->selectOne('SELECT id FROM ' . BID_PREFIX . 'users WHERE id!=:id AND email=:email', array('id' => $user['id'], 'email' => $_POST['email']));
         $isNick = $this->db->selectOne('SELECT id FROM ' . BID_PREFIX . 'users WHERE id!=:id AND nick=:nick', array('id' => $user['id'], 'nick' => $_POST['nick']));
-        
+
         if ($isMail)
             return 1;
         if ($isNick)
@@ -343,12 +347,13 @@ class User_Model extends Model {
         if (!$user) {
             return 1;
         } else {
-            if ($user['is_active'] == 0) {
-                $this->sendConfirmationMail($user['id']);
-                return 2;
-            }
             Session::set('user', $user);
             Session::set('loggedIn', true);
+            Session::set('is_active', true);
+            if ($user['is_active'] == 0) {
+                Session::set('is_active', false);
+                return 2;
+            }
             return 0;
         }
     }
@@ -356,6 +361,7 @@ class User_Model extends Model {
     public function logout() {
         Session::set('user', '');
         Session::set('loggedIn', false);
+        Session::set('is_active', false);
         Session::destroy();
         header('location: ' . URL);
     }
@@ -381,16 +387,18 @@ class User_Model extends Model {
         Session::set('fb_code', $code);
         $token_url = "https://graph.facebook.com/oauth/access_token?"
                 . "client_id=" . APP_ID . "&redirect_uri=" . urlencode(APP_REDIRECT)
-                . "&client_secret=" . APP_SECRET . "&code=" . $code . "&scope=publish_stream,email,basic_info";
+                . "&client_secret=" . APP_SECRET . "&code=" . $code . "&scope=publish_stream,email,user_about_me";
+
         $response = @file_get_contents($token_url);
         $params = null;
         parse_str($response, $params);
         Session::set('fb_token', $params['access_token']);
         $graph_url = "https://graph.facebook.com/me?access_token=" . $params['access_token'];
-        $user_info = json_decode(file_get_contents($graph_url));
+        $user_info = json_decode(@file_get_contents($graph_url));
         $user = $this->db->selectOne('SELECT * FROM ' . BID_PREFIX . 'users WHERE facebook_id=:id', array('id' => $user_info->id));
         $nick = ($user_info->username != '') ? $user_info->username : $user_info->id;
-        if (!$user) {
+
+        if (!$user && $params) {
             $data = array(
                 'first_name' => $user_info->first_name,
                 'last_name' => $user_info->last_name,
@@ -417,11 +425,13 @@ class User_Model extends Model {
             }
             $user = $this->db->selectOne('SELECT * FROM ' . BID_PREFIX . 'users WHERE facebook_id=:facebook_id', array('facebook_id' => $user_info->id));
         }
-        if ($user) {
+        if ($user && $params) {
             Session::set('user', $user);
             Session::set('loggedIn', true);
+        } else {
+            $this->logout();
         }
-        header('location: ' . URL);
+        return $user;
     }
 
     public function checkRegister() {
@@ -434,25 +444,38 @@ class User_Model extends Model {
             $error[] = 2;
         echo json_encode($error);
     }
-    public function getFavorites($lang=LANG){
-        $bid=$this->db->select("SELECT * FROM ".BID_PREFIX."auctions a  JOIN photos p ON p.id=a.photo_id JOIN ".BID_PREFIX."auctions_description ad on ad.auction_id=a.id JOIN ".BID_PREFIX."favorites f ON f.auction_id=a.id WHERE f.user_id=:user_id and ad.language_id=:lang", array('user_id' => $this->user['id'],'lang' => $lang));
-        foreach($bid as $key=>$value){
-            $max=$this->db->selectOne("SELECT * FROM ".BID_PREFIX."proxybid WHERE itemid=:itemid ORDER BY bid DESC", array('itemid' => $value['auction_id']));
-            $bid[$key]['max_bidder']=$max['userid'];
-            
-        };
-        return $bid;
-    }  
-    public function getBids(){
-        $bid=$this->db->select("SELECT *,max(b.bid) as maxbid,u.id as user_id FROM " . BID_PREFIX . "bids b JOIN " . BID_PREFIX . "users u ON u.id=b.bidder JOIN ".BID_PREFIX."auctions a on a.id=b.auction JOIN photos p ON p.id=a.photo_id JOIN ".BID_PREFIX."auctions_description ad on ad.auction_id=a.id WHERE u.id=:user_id GROUP BY b.auction ORDER BY b.bid DESC,b.id DESC", array('user_id' => $this->user['id']));
-        foreach($bid as $key=>$value){
-            $max=$this->db->selectOne("SELECT * FROM ".BID_PREFIX."proxybid WHERE itemid=:itemid ORDER BY bid DESC", array('itemid' => $value['auction_id']));
-            $bid[$key]['max_bidder']=$max['userid'];
-            
-        };
-        return $bid;
-        
 
-    }   
+    public function getFavorites($lang = LANG) {
+        $bid = $this->db->select("SELECT * FROM " . BID_PREFIX . "auctions a  JOIN photos p ON p.id=a.photo_id JOIN " . BID_PREFIX . "auctions_description ad on ad.auction_id=a.id JOIN " . BID_PREFIX . "favorites f ON f.auction_id=a.id $this->_where AND f.user_id=:user_id and ad.language_id=:lang $this->_orderby", array('user_id' => $this->user['id'], 'lang' => $lang));
+        foreach ($bid as $key => $value) {
+            $max = $this->db->selectOne("SELECT * FROM " . BID_PREFIX . "proxybid WHERE itemid=:itemid ORDER BY bid DESC", array('itemid' => $value['auction_id']));
+            $bid[$key]['max_bidder'] = $max['userid'];
+        };
+        return $bid;
+    }
+
+    public function getBids() {
+        $bid = $this->db->select("SELECT *,max(b.bid) as maxbid,u.id as user_id FROM " . BID_PREFIX . "bids b JOIN " . BID_PREFIX . "users u ON u.id=b.bidder JOIN " . BID_PREFIX . "auctions a on a.id=b.auction JOIN photos p ON p.id=a.photo_id JOIN " . BID_PREFIX . "auctions_description ad on ad.auction_id=a.id WHERE u.id=:user_id GROUP BY b.auction $this->_orderby", array('user_id' => $this->user['id']));
+        foreach ($bid as $key => $value) {
+            $max = $this->db->selectOne("SELECT * FROM " . BID_PREFIX . "proxybid WHERE itemid=:itemid ORDER BY bid DESC", array('itemid' => $value['auction_id']));
+            $bid[$key]['max_bidder'] = $max['userid'];
+        };
+        return $bid;
+    }
+
+    public function addNewsletter() {
+        $data = array(
+            'email' => $_POST['email'],
+            'updated_at' => $this->getTimeSQL(),
+            'created_at' => $this->getTimeSQL(),
+        );
+        $mail = $this->db->selectOne("SELECT * FROM " . DB_PREFIX . "newsletter WHERE email=:email", array('email' => $_POST['email']));
+        if ($mail)
+            throw new Exception($this->lang['mail_ya_existe']);
+        $id = $this->db->insert(DB_PREFIX . 'newsletter', $data);
+        if (!$id)
+            throw new Exception($this->lang['algun_error']);
+        return $id;
+    }
 
 }

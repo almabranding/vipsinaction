@@ -324,7 +324,7 @@ opacity: 0.7;
 .rsMinW.rsVer .rsArrowLeft .rsArrowIcn { background-position:-66px -53px }
 .rsMinW.rsVer .rsArrowRight .rsArrowIcn { background-position: -100px -68px; }
 
-.rsMinW .rsArrowDisabled .rsArrowIcn { opacity: .3 !important; filter: alpha(opacity=30);  *display: none; }
+.rsMinW .rsArrowDisabled .rsArrowIcn { opacity: .7 !important; filter: alpha(opacity=70);  *display: none; }
 
 
 /***************
@@ -335,8 +335,8 @@ opacity: 0.7;
 
 .rsMinW .rsBullets {
 	position: absolute;
-	bottom: 15px;
-	right: 50%;
+	bottom: 15px;    
+        left: 48%;
 	z-index: 9;
 	padding-top: 4px;
 	height: auto;

@@ -54,7 +54,7 @@ class Login extends Model {
             'compare' => array('user_password', 'error', $this->lang['password not confirmed'])
         ));
         $obj = $form->add('checkboxes', 'extra[]', array(
-            'acuerdo' => $this->lang['leido_acepto'] . ' <a href="#">' . $this->lang['Acuerdo de usuario'] . '</a>',
+            'acuerdo' => $this->lang['leido_acepto'] . ' <a href="'.URL.'terms" target="_blank">' . $this->lang['Acuerdo de usuario'] . '</a>',
             'noticias' => $this->lang['recibir_noticias'],
         ));
         $obj->set_rule(array(

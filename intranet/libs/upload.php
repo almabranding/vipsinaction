@@ -3,7 +3,7 @@
 class upload extends Model {
     private $img;
     private $result;
-    public function upload($sub = 'temp/', $name = 'pic',$result=true) {
+    public function upload($sub = 'temp/', $name = 'pic',$result=true,$original=false) {
         parent::__construct();
         $this->result=$result;
         $allowed_ext = array('jpg', 'jpeg', 'png', 'gif', 'pdf', 'doc');
@@ -35,7 +35,8 @@ class upload extends Model {
                 $data['file_size'] = filesize($uploadDir . $file);
                 list($data['width'], $data['height'], $imgType, $atributos) = getimagesize($uploadDir . $file);
                 $data['file_content_type'] = image_type_to_mime_type($imgType);
-                $this->img=$this->insertImg($data);
+                if($original)$this->img=$this->insertOriginal($data);
+                else $this->img=$this->insertImg($data);
                 return 1;
             }
         }
@@ -69,6 +70,32 @@ class upload extends Model {
             $thumb->resize(500, 'height');
             $thumb->save($filepath . $filename);
         }
+    }
+    public function insertOriginal($img) {
+        $rute = $this->getRouteImg($this->getTimeSQL());
+        $file_name = (file_exists(UPLOAD . $rute . 'original/' . $img['file'])) ? $img['nameFile']. '_' . rand().'.'.$img['extension']: $img['file'];
+        $data = array(
+            'file_name' => $file_name,
+            'file_content_type' => $img['file_content_type'],
+            'file_size' => $img['file_file_size'],
+            'width' => $img['width'],
+            'height' => $img['height'],
+            'img_date' => $this->getTimeSQL(),
+            'updated_at' => $this->getTimeSQL()
+        );
+        $photo_id = $this->db->insert(DB_PREFIX . 'photos', $data);
+        
+        if (!is_dir(UPLOAD . $rute . 'original'))
+            mkdir(UPLOAD . $rute . 'original/', 0777, true);
+        copy(UPLOAD . 'temp/' . $img['file'], UPLOAD . $rute . 'original/' . $file_name);
+        copy(UPLOAD . 'temp/' . $img['file'], UPLOAD . $rute  . $file_name);
+        $thumb = new thumb();
+        $thumb->loadImage(UPLOAD . $rute . 'original/' . $file_name);
+        $thumb->crop(250,250);
+        $thumb->save(UPLOAD . $rute . 'thumb_250x250_' . $file_name);
+        unlink(UPLOAD . 'temp/' . $img['file']);
+        $data['id'] = $photo_id;
+        return $data;
     }
     public function insertImg($img) {
         $rute = $this->getRouteImg($this->getTimeSQL());
