@@ -3,7 +3,7 @@ $lng=(isset($_GET['lng']))?$_GET['lng']:'es';
 $msg=(isset($_GET['lng']))?$_GET['msg']:'no_login';
 include('../../lang/'.$lng.'/default.php');?>
 <div id="signup-box">
-    <label for="msgCheck" class="xLogo">x</label>
+    <label class="xLogo">x</label>
     <? switch($msg){
        case 'no_login': ?>
     <h1><?= $lang['registra_o_accede'] ?></h1>

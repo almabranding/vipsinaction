@@ -21,9 +21,7 @@
 </script>
 
 <div>
-    <label for="signupCheck" class="xLogo">x</label>
     <?php echo (isset($zf_error) ? $zf_error : (isset($error) ? $error : '')) ?>
-
     <h1><?= $this->variables['personal_data'] ?></h1>
     <div id="user-image">
         <div class="user-img"> <img class='full' src="<?= UPLOAD . Model::getRouteImg($this->variables['user']['img_date']) .'thumb_250x250_'. $this->variables['user']['file_name'] ?>"></div>

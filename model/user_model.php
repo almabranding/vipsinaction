@@ -63,7 +63,8 @@ class User_Model extends Model {
     }
 
     public function userForm() {
-        $user = Session::get('user');
+        $userData = Session::get('user');
+        $user = $this->getUserById($userData['id']);
         $action = URL . 'user/edit';
         $atributes = array(
             'enctype' => 'multipart/form-data',
@@ -92,7 +93,8 @@ class User_Model extends Model {
             'required' => array('error', $this->lang['direccion_email'] . ' ' . $this->lang['is required'] . '!'),
             'email' => array('error', $this->lang['email_valid']),
         ));
-        $form->add('label', 'label_nick', 'nick', $this->lang['user_name'] . ' (' . $this->lang['solo_cambia_once'] . '):');
+        $solo1 = ($user['nick_changed'] == 0) ? ' (' . $this->lang['solo_cambia_once'] . ')' : '';
+        $form->add('label', 'label_nick', 'nick', $this->lang['user_name'] . $solo1 . ':');
         $obj = $form->add('text', 'nick', ($user['nick_changed'] != 0) ? $user['nick'] : '', array('autocomplete' => 'off', 'placeholder' => $this->lang['user_name']));
         $obj->set_rule(array(
             'required' => array('error', $this->lang['user_name'] . ' ' . $this->lang['is required'] . '!'),
@@ -344,6 +346,7 @@ class User_Model extends Model {
 
     public function login() {
         $user = $this->db->selectOne("SELECT * FROM " . BID_PREFIX . "users WHERE email = :email AND password = :password", array(':email' => $_POST['email'], ':password' => md5($_POST['password'])));
+        $user['img'] = $this->db->selectOne("SELECT * FROM photos WHERE id = :photo", array(':photo' => $user['photo_id']));
         if (!$user) {
             return 1;
         } else {
@@ -376,10 +379,12 @@ class User_Model extends Model {
     }
 
     public function getUserById($id = null, $is_active = false) {
-        if (!$is_active)
-            return $this->db->selectOne('SELECT * FROM ' . BID_PREFIX . 'users WHERE id=:id', array('id' => $id));
-        if ($is_active)
-            return $this->db->selectOne('SELECT * FROM ' . BID_PREFIX . 'users WHERE id=:id AND is_active=:is_active', array('id' => $id, 'is_active' => $is_active));
+        if (!$is_active) {
+            return $this->db->selectOne('SELECT u.*,p.img_date,p.file_name FROM ' . BID_PREFIX . 'users u JOIN photos p ON p.id=u.photo_id WHERE u.id=:id', array('id' => $id));
+        }
+        if ($is_active) {
+            return $this->db->selectOne('SELECT u.*,p.img_date,p.file_name FROM ' . BID_PREFIX . 'users u JOIN photos p ON p.id=u.photo_id WHERE u.id=:id AND is_active=:is_active', array('id' => $id, 'is_active' => $is_active));
+        }
     }
 
     public function fbRegister() {
@@ -449,9 +454,16 @@ class User_Model extends Model {
         $bid = $this->db->select("SELECT * FROM " . BID_PREFIX . "auctions a  JOIN photos p ON p.id=a.photo_id JOIN " . BID_PREFIX . "auctions_description ad on ad.auction_id=a.id JOIN " . BID_PREFIX . "favorites f ON f.auction_id=a.id $this->_where AND f.user_id=:user_id and ad.language_id=:lang $this->_orderby", array('user_id' => $this->user['id'], 'lang' => $lang));
         foreach ($bid as $key => $value) {
             $max = $this->db->selectOne("SELECT * FROM " . BID_PREFIX . "proxybid WHERE itemid=:itemid ORDER BY bid DESC", array('itemid' => $value['auction_id']));
+            $bid[$key]['Mybids'] = $this->Mybids($value);
             $bid[$key]['max_bidder'] = $max['userid'];
-        };
+        }
         return $bid;
+    }
+
+    public function Mybids($auction) {
+        $user = Session::get('user');
+        $bids = $this->db->select("SELECT * FROM " . BID_PREFIX . "bids b JOIN " . BID_PREFIX . "users u ON u.id=b.bidder WHERE auction=:id AND u.id=:user ORDER BY bid DESC, b.id DESC", array('id' => $auction['auction_id'], 'user' => $user['id']));
+        return ($bids) ? true : false;
     }
 
     public function getBids() {
@@ -459,7 +471,8 @@ class User_Model extends Model {
         foreach ($bid as $key => $value) {
             $max = $this->db->selectOne("SELECT * FROM " . BID_PREFIX . "proxybid WHERE itemid=:itemid ORDER BY bid DESC", array('itemid' => $value['auction_id']));
             $bid[$key]['max_bidder'] = $max['userid'];
-        };
+            $bid[$key]['Mybids'] = $this->Mybids($value);
+        }
         return $bid;
     }
 

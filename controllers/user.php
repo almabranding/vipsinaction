@@ -16,7 +16,8 @@ class User extends Controller {
         $this->view->setBreadcrumb('<span class="capitalize">' . $this->view->lang['user'] . '</span>');
         $this->view->js = array('user/js/custom.js');
         $this->view->userForm = $this->model->userForm();
-        $this->view->user = Session::get('user');
+        $user=Session::get('user');
+        $this->view->user = $this->model->getUserById($user['id']);
         $this->view->render('user/view');
     }
 
@@ -25,7 +26,7 @@ class User extends Controller {
         $this->model->_orderby.='ORDER BY ' . $orden;
         $this->view->title = $this->view->lang['favoritos'];
         $this->view->setBreadcrumb('<a class="capitalize" href="/">' . $this->view->lang['home'] . '</a>', true);
-        $this->view->setBreadcrumb('<a class="capitalize" href="/user/settings/' . $this->model->user['nick'] . '">' . $this->view->lang['user'] . '</a>', true);
+        $this->view->setBreadcrumb('<a class="capitalize" href="/user/settings/">' . $this->view->lang['user'] . '</a>', true);
         $this->view->setBreadcrumb('<span class="capitalize">' . $this->view->lang['favoritos'] . '</span>');
         $this->view->bids = $this->model->getFavorites();
         $this->view->render('auction/lista');
@@ -179,14 +180,14 @@ class User extends Controller {
         } catch (Exception $e) {
             $this->view->message = array(
                 'content' => $e->getMessage(),
-                'title' => $this->view->lang['subscribete_a_nuestra'] . ' ' . $this->view->lang['newslettter']
+                'title' => $this->view->lang['suscrito_a_nuestra'] . ' ' . $this->view->lang['newslettter']
             );
             $this->view->render('page/message');
             exit;
         }
         $this->view->message = array(
             'content' => $this->view->lang['gracias_mail_anadido'],
-            'title' => $this->view->lang['subscribete_a_nuestra'] . ' ' . $this->view->lang['newslettter']
+            'title' => $this->view->lang['suscrito_a_nuestra'] . ' ' . $this->view->lang['newslettter']
         );
         $this->view->render('page/message');
     }

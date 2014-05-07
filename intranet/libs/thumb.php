@@ -110,7 +110,7 @@ class thumb {
     function crop($cwidth, $cheight, $pos = 'center') {
 
 //---Dependiendo del tamaño deseado redimensionar primero la imagen a uno de los valores
-        if ($cwidth > $cheight || $this->width<$this->height) {
+        if (($cwidth == $cheight && $this->width<$this->height) || ($cwidth > $cheight && $this->width<$this->height)) {
             $this->resize($cwidth, 'width');
         } else {
             $this->resize($cheight, 'height');

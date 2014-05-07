@@ -6,6 +6,7 @@
 
   ga('create', 'UA-49996961-1', 'mycausa.com');
   ga('require', 'displayfeatures');
+ga('require', 'linkid', 'linkid.js');
   ga('send', 'pageview');
 
 </script>

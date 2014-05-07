@@ -62,7 +62,7 @@ class Auction extends Controller {
             $this->model->generateCode($user_id, $bid_id);
         }
         if (!$code['verify'] == 1 && (isset($_POST['name_code_req']) || isset($_POST['name_code_ver']))) {
-            $this->view->code_verification = $this->model->code_verification();
+            $this->view->code_verification = $this->model->code_verification($code);
         }
         $this->view->auctionForm = $this->model->auctionForm();
         $this->view->setBreadcrumb('<a href="' . URL . 'auction/view/' . $this->view->auction['auction_id'] . '/' . $this->view->auction['name'] . '">' . $this->view->auction['name'] . '</a>');

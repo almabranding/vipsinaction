@@ -8,8 +8,8 @@ class Index_Model extends Model {
     public function getAuctions($id = null, $lang = LANG) {
         $time=time();
         if ($id == null){
-              $futuras=$this->db->select('SELECT * FROM ' . BID_PREFIX . 'auctions a JOIN ' . BID_PREFIX . 'auctions_description b ON b.auction_id=a.id JOIN photos p ON p.id=a.photo_id WHERE b.language_id=:lang AND a.featured="y" and a.visibility="public" AND ends>'.$time.'  AND starts<'.$time.' ORDER by  ends ASC', array('lang'=>$lang));
-              $pasadas=$this->db->select('SELECT * FROM ' . BID_PREFIX . 'auctions a JOIN ' . BID_PREFIX . 'auctions_description b ON b.auction_id=a.id JOIN photos p ON p.id=a.photo_id WHERE b.language_id=:lang AND a.featured="y" and a.visibility="public" AND ends<'.$time.' AND starts<'.$time.'  ORDER by ends ASC', array('lang'=>$lang));
+              $futuras=$this->db->select('SELECT *,p2.img_date as featured_img_date,p2.file_name as featured_file_name,p.img_date as img_date,p.file_name as file_name FROM ' . BID_PREFIX . 'auctions a JOIN ' . BID_PREFIX . 'auctions_description b ON b.auction_id=a.id JOIN photos p ON p.id=a.photo_id JOIN photos p2 ON p2.id=a.featured_id WHERE b.language_id=:lang AND a.featured="y" and a.visibility="public" AND ends>'.$time.'  AND starts<'.$time.' ORDER by  ends ASC', array('lang'=>$lang));
+              $pasadas=$this->db->select('SELECT *,p2.img_date as featured_img_date,p2.file_name as featured_file_name,p.img_date as img_date,p.file_name as file_name FROM ' . BID_PREFIX . 'auctions a JOIN ' . BID_PREFIX . 'auctions_description b ON b.auction_id=a.id JOIN photos p ON p.id=a.photo_id JOIN photos p2 ON p2.id=a.featured_id WHERE b.language_id=:lang AND a.featured="y" and a.visibility="public" AND ends<'.$time.' AND starts<'.$time.'  ORDER by ends ASC', array('lang'=>$lang));
               return array_merge($futuras,$pasadas);
         }
         else

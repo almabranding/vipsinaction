@@ -57,6 +57,8 @@ class Auctions_Model extends Model {
                 'File must be a valid jpg file!'
             ),
         ));
+        
+        
         $form->add('label', 'label_donated', 'donated', 'Donado por:');
         $obj = $form->add('select', 'donated', $value['donated']);
         foreach($this->getColaborators() as $aux){
@@ -123,9 +125,6 @@ class Auctions_Model extends Model {
         $obj->set_attributes(array(
             'style' => 'float:none',
         ));
-        $obj = $form->add('checkboxes', 'startNow', array(
-            'yes' => 'Start auction now',
-        ));
 
         $obj = $form->add('label', 'label_auctionStart', 'auctionStart', 'Start auction at:');
         $obj->set_attributes(array(
@@ -153,7 +152,6 @@ class Auctions_Model extends Model {
         $obj->add_options($opt, true);
 
         
-
         $obj = $form->add('label', 'label_shipping_cost', 'shipping_cost', 'Shipping cost');
         $form->add('text', 'shipping_cost', $value['shipping_cost'], array('autocomplete' => 'off'));
 
@@ -171,20 +169,32 @@ class Auctions_Model extends Model {
         $obj = $form->add('checkboxes', 'featured', array(
             'y' => 'Do it featured',
                 ), $value['featured']);
+        
+        $form->add('label', 'label_featured_image', 'featured_image', 'Featured image:');
+        $obj = $form->add('file', 'featured_image');
+        $obj->set_rule(array(
+            'upload' => array(
+                UPLOAD,
+                ZEBRA_FORM_UPLOAD_RANDOM_NAMES,
+                'error',
+                'Could not upload file!',
+            ),
+            'filesize' => array(
+                '2024000',
+                'error',
+                'File size must not exceed 2Mb!'
+            ),
+            'filetype' => array(
+                'jpg, jpeg, png',
+                'error',
+                'File must be a valid jpg file!'
+            ),
+        ));
         foreach ($this->_langs as $lng) {
             if ($id != null)
                 $element = $this->getAuctions($id, $lng);
             $obj = $form->add('label', 'label_name_' . $lng, 'name_' . $lng, 'Auction name ' . $lng . ':');
             $obj = $form->add('text', 'name_' . $lng, $element['name'], array('autocomplete' => 'off', 'required' => array('error', 'Name is required!')));
-
-//            $obj = $form->add('label', 'label_short_description_' . $lng, 'short_description_' . $lng, 'Short description ' . $lng);
-//            $obj->set_attributes(array(
-//                'style' => 'float:none',
-//            ));
-//            $obj = $form->add('textarea', 'short_description_' . $lng, $element['short_description'], array('autocomplete' => 'off'));
-//            $obj->set_attributes(array(
-//                'class' => 'wysiwyg',
-//            ));
 
             $obj = $form->add('label', 'label_description_' . $lng, 'description_' . $lng, 'Description ' . $lng);
             $obj->set_attributes(array(
@@ -257,17 +267,25 @@ class Auctions_Model extends Model {
                 "title" => "name",
                 'link' => URL."auctions/lista/1/name".$orden,
                 "width" => "auto"
+            ),array(
+                "title" => "status",
+                'link' => URL."auctions/lista/1/name".$orden,
+                "width" => "10%"
             ), array(
                 "title" => "Options",
-                "width" => "auto"
+                "width" => "10%"
         ));
         foreach ($lista as $key => $value) {
+            $bids = $this->db->selectOne("SELECT * FROM " . BID_PREFIX . "bids b JOIN " . BID_PREFIX . "users u ON u.id=b.bidder WHERE auction=:id ORDER BY bid DESC, b.id DESC", array('id' => $value['auction_id']));
+            $status=(time()>=$value['ends'])?'<a href="http://mycausa.com/intranet/users/view/'.$bids['id'].'">Winner<br>'.$bids['nick'].'</a>':'In progress';
+            $status=(time()>=$value['ends'] && !$bids)?'Finished:<br>No bids':$status;
             $photo = ($value['photo_id']) ? $this->getPhoto($value['photo_id']) : false;
             $b['values'][] = array(
                 "id" => $value['auction_id'],
                 "image" => ($photo) ? '<img width="100" src="' . WEB . UPLOAD . '/' . $this->getRouteImg($photo['img_date']) . $photo['file_name'] . '">' : '',
                 "name" => $value['name'],
-                "Options" => '<a href="' . URL . LANG . '/auctions/view/' . $value['auction_id'] . '"><button title="Edit" type="button" class="edit"></button></a><button type="button" title="Delete" class="delete" onclick="secureMsg(\'Do you want to delete this auction?\',\'auctions/delete/' . $value['auction_id'] . '\');"></button><a href="' . URL . LANG . '/auctions/report/' . $value['auction_id'] . '"><button title="Edit" type="button" class="view"></button></a>'
+                "status" => $status,
+                "Options" => '<a href="' . URL . LANG . '/auctions/view/' . $value['auction_id'] . '"><button title="Edit" type="button" class="edit"></button></a><a href="' . URL . LANG . '/auctions/report/' . $value['auction_id'] . '"><button title="view" type="button" class="view"></button></a><button type="button" title="Delete" class="delete" onclick="secureMsg(\'Do you want to delete this auction?\',\'auctions/delete/' . $value['auction_id'] . '\');"></button>'
             );
         }
         return $b;
@@ -280,12 +298,15 @@ class Auctions_Model extends Model {
         $upload = new upload('temp/', 'my_file_upload', false);
         $img = $upload->getImg();
         $photo_id = ($img != null) ? $img['id'] : 1;
+        $upload= new upload('temp/', 'featured_image', false);
+        $img2 = $upload->getImg();
+        $featured_id = ($img2 != null) ? $img2['id'] : $img['id'];
         $upload = new upload('temp/', 'ofrecido', false,true);
-        $ofrecido = $upload->getImg();
-        $ofrecido_id = ($ofrecido != null) ? $ofrecido['id'] : null;
+        $img3 = $upload->getImg();
+        $ofrecido_id = ($img3 != null) ? $img3['id'] : 1;
         $increment = ($_POST['increments'] == 1) ? 0 : $_POST['increment'];
         $buynow = ($_POST['buynow'] == 'yes') ? $_POST['buy_now'] : 0;
-        $starts = ($_POST['startNow'] == 'yes') ? time() : $time;
+        $starts =$time;
         $ends = $starts + ($_POST['duration'] * 1 * 24 * 60 * 60);
         $data = array(
             'donated' => $_POST['donated'],
@@ -298,6 +319,7 @@ class Auctions_Model extends Model {
             'price' => $_POST['price'],
             'ends' => $ends,
             'featured' => $_POST['featured'],
+            'featured_id' => $featured_id,
             'shipping' => $_POST['shipping_cost'],
             'visibility' => $_POST['visibility'],
             'photo_id' => $photo_id,
@@ -329,10 +351,13 @@ class Auctions_Model extends Model {
         $upload = new upload('temp/', 'my_file_upload', false);
         $img = $upload->getImg();
         $photo_id = ($img != null) ? $img['id'] : $element['photo_id'];
+        $upload= new upload('temp/', 'featured_image', false);
+        $img2 = $upload->getImg();
+        $featured_id = ($img2 != null) ? $img2['id'] : $element['featured_id'];
         $upload = new upload('temp/', 'ofrecido', false,true);
         $ofrecido = $upload->getImg();
-        $ofrecido_id = ($ofrecido != null) ? $ofrecido['id'] : null;
-        $starts = ($_POST['startNow'] == 'yes') ? time() : $time;
+        $ofrecido_id = ($ofrecido != null) ? $ofrecido['id'] : $element['ofrecido_id'] ;
+        $starts = $time;
         $ends = $starts + ($_POST['duration'] * 1 * 24 * 60 * 60);
         $data = array(
             'minimum_bid' => $_POST['minimum_bid'],
@@ -343,6 +368,7 @@ class Auctions_Model extends Model {
             'duration' => $_POST['duration'],
             'donated' => $_POST['donated'],
             'ofrecido_id' => $ofrecido_id,
+            'featured_id' => $featured_id,
             'for' => $_POST['for'],
             'price' => $_POST['price'],
             'featured' => $_POST['featured'],

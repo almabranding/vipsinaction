@@ -81,9 +81,12 @@ class Model {
     }
 
     public static function getRemaingTime($sqlTime) {
-        $a = new DateTime(date('Y-m-d h:i:s', $sqlTime));
-        $b = new DateTime(date('Y-m-d h:i:s', time()));
-        $fecha = $a->diff($b);
+        $total_time = $sqlTime - time();
+        $fecha['days']       = floor($total_time /86400);        
+        $fecha['hours']      = floor($total_time /3600 % 24);     
+        $fecha['minutes']     = intval(($total_time/60) % 60);        
+        $fecha['seconds']     = intval($total_time % 60); 
+
         if ($sqlTime > time())
             return $fecha;
         else

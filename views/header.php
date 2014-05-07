@@ -67,6 +67,7 @@
 <input id="signupCheck" type="checkbox" class="away">
 <input id="loginCheck" type="checkbox"  class="away">
 <input id="msgCheck" type="checkbox" class="away">
+<div id="blackScreen"></div>
 <div id="" class="splash-msg autoHide"></div>
 <div id="splash-content" class="splash-signup autoHide">
     <? $this->signupForm->render('views/templates/signup-template.php', false, $this->lang); ?>
@@ -78,7 +79,7 @@
     <div id="container" class="splash-head">
         <div id="searchBox"><form id="" class="" enctype="multipart/form-data" method="get" action="<?= URL ?>auction/search"><input type="text" name="search" placeholder="<?= $this->lang['search'] ?>"><input type="submit"></form></div>
         <div id="loginBox">            
-            <?= (!Session::get('loggedIn')) ? '<label for="loginCheck">' . $this->lang['login'] . '</label> / <label for="signupCheck">' . $this->lang['signup'] . '</label>' : '<a href="' . URL . 'user/settings/">' . $this->lang['welcome'] . ' <span class="orange">' . $this->user['first_name'] . '</span></a> <span class="noMobil">&nbsp;&nbsp;&nbsp;</span><a class="noMobil" href="' . URL . 'user/settings/">' . $this->lang['my_account'] . '</a> <span class="noMobil">|</span> <a class="noMobil" href="' . URL . 'user/bids/">' . $this->lang['my_auctions'] . '</a> <span class="noMobil">|</span> <a class="noMobil" href="' . URL . 'user/favorites/">' . $this->lang['my_favorites'] . '</a> | <a href="' . URL . 'user/logout">' . $this->lang['logout'] . '</a>' ?>  | <span id="languageSel" href="' . URL . 'user/logout"><?=$this->_langList[strtolower(LANG)]?> <ul id="language"><?foreach($this->_langList as $key=>$lang){ if($key!=strtolower(LANG)){?><li><a href="<?=URL.$key.'/'.RUTE?>"><?=$lang?></a></li><?}}?></ul></span>
+            <?= (!Session::get('loggedIn')) ? '<label for="loginCheck">' . $this->lang['login'] . '</label> | <label for="signupCheck">' . $this->lang['signup'] . '</label>' : '<a href="' . URL . 'user/settings/">' . $this->lang['welcome'] . ' <span class="orange">' . $this->user['first_name'] . '</span></a> <span class="noMobil">&nbsp;&nbsp;&nbsp;</span><a class="noMobil" href="' . URL . 'user/settings/">' . $this->lang['my_account'] . '</a> <span class="noMobil">|</span> <a class="noMobil" href="' . URL . 'user/bids/">' . $this->lang['my_auctions'] . '</a> <span class="noMobil">|</span> <a class="noMobil" href="' . URL . 'user/favorites/">' . $this->lang['my_favorites'] . '</a> | <a href="' . URL . 'user/logout">' . $this->lang['logout'] . '</a>' ?>  | <span id="languageSel" href="' . URL . 'user/logout"><?=$this->_langList[strtolower(LANG)]?> <ul id="language"><?foreach($this->_langList as $key=>$lang){ if($key!=strtolower(LANG)){?><li><a href="<?=URL.$key.'/'.RUTE?>"><?=$lang?></a></li><?}}?></ul></span>
         </div>
 
         <? if ($this->getBreadcrumb() != '') { ?>

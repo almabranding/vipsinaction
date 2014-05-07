@@ -14,6 +14,7 @@ class Colaboradores extends Controller {
     }
 
     function view($name) {
+        $name=  strtolower($name);
         $this->view->setBreadcrumb('<a href="/" class="capitalize">'.$this->view->lang['home'].'</a>',true);
         $this->view->setBreadcrumb('<a href="/colaboradores/view/'.$name.'" class="capitalize">'.$name.'</a>',false);
         $this->view->title=$name;
@@ -21,6 +22,15 @@ class Colaboradores extends Controller {
         foreach($this->view->donantes as $donante){
             $this->view->auctions[$donante['donantes_id']]=$this->model->getDonantesAuction($donante['donantes_id']);
         }
+        $this->view->render('colaboradores/view');
+    }
+    function auctions($id) {
+        $this->view->setBreadcrumb('<a href="/" class="capitalize">'.$this->view->lang['home'].'</a>',true);
+        $this->view->donantes=$this->model->getDonantesById($id);
+        foreach($this->view->donantes as $donante){
+            $this->view->auctions[$donante['donantes_id']]=$this->model->getDonantesAuction($donante['donantes_id']);
+        }
+        $this->view->setBreadcrumb($donante['name'],true);
         $this->view->render('colaboradores/view');
     }
 }

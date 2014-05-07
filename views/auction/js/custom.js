@@ -3,28 +3,33 @@ var $tabs = $("#detail-tabs").tabs({
 });
 $("#detail-tabs li:last-child").attr('aria-controls', '');
 
+$("#bidFormbox input").bind("keypress", function(e) {
+    if (e.keyCode == 13) {
+        return false;
+    }
+});
+
+function showMsg(msg) {
+    $.post("/views/templates/msg-template.php?lng=" + lng + "&msg=" + msg, function(data) {
+        $(".splash-msg").html(data);
+        $('.splash-msg').slideDown('fast');
+        $('#blackScreen').show();
+        $('.xLogo').on('click', function() {
+            $('.splash-msg').slideUp('fast');
+            $('#blackScreen').hide('fast');
+        });
+    });
+}
 $("#bidButton").on('click', function() {
     var accepted = true;
     if ($("#user_id").val() === '') {
-        $.post("/views/templates/msg-template.php?lng=" + lng + "&msg=no_login", function(data) {
-            $(".splash-msg").html(data);
-            $('.splash-msg').slideDown('fast');
-            $('.xLogo').on('click', function() {
-                $('.splash-msg').slideUp('fast');
-            });
-        });
+        showMsg('no_login');
         accepted = false;
     }
     var bid = parseInt($("#bidInput").val());
     var next_bid = parseInt($("#next_bid").val());
     if ((bid <= next_bid || $("#bidInput").val() === '' || bid === NaN) && accepted) {
-        $.post("/views/templates/msg-template.php?lng=" + lng + "&msg=bid_min", function(data) {
-            $(".splash-msg").html(data);
-            $('.splash-msg').slideDown('fast');
-            $('.xLogo').on('click', function() {
-                $('.splash-msg').slideUp('fast');
-            });
-        });
+        showMsg('bid_min');
         accepted = false;
     }
     if (accepted)
@@ -87,5 +92,6 @@ setInterval(function() {
     tHours.innerHTML = hours;
     tMinutes.innerHTML = minutes;
     tSeconds.innerHTML = seconds;
+    $('#countdownResult').show();
 
 }, 1000);

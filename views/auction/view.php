@@ -36,9 +36,9 @@
                             <img width="150" src="<?= UPLOAD . Model::getRouteImg($this->auction['ofrecido_date']) . $this->auction['file_ofrecido'] ?>">
 <? } ?>
                     </li>
-                    <li><?= $this->lang['last_offert'] ?>: <span class="orange"><?= $this->bids[0]['nick'] ?></span></li>
+                    <?if($this->bids[0]){?><li><?= $this->lang['last_offert'] ?>: <span class="orange"><?= $this->bids[0]['nick'] ?></span></li><?}?>
                     
-                    <li><?= $this->lang['Quedan'] ?>: <p id="countdownResult" class="bold"><? if ($time) { ?><span id="days"></span> <?= $this->lang['días'] ?>, <span id="hours"></span> <?= $this->lang['horas'] ?> , <span id="minutes"></span> <?= $this->lang['minutos'] ?> <?= $this->lang['and'] ?> <span id="seconds">8</span> <?= $this->lang['seconds'] ?><?
+                    <li><? if ($time) { ?><?= $this->lang['Quedan'] ?>: <p style="display: none;" id="countdownResult" class="bold"><span id="days"></span> <?= $this->lang['días'] ?>, <span id="hours"></span> <?= $this->lang['horas'] ?> , <span id="minutes"></span> <?= $this->lang['minutos'] ?> <?= $this->lang['and'] ?> <span id="seconds"></span> <?= $this->lang['seconds'] ?><?
                             } else {
                                 echo $this->lang['auction_ended'];
                             }
@@ -62,7 +62,7 @@
             </ul>
             <div class="product-detail-content" id="description">
                 <h1><?= $this->auction['name'] ?></h1>
-                <div class="desc-text"><?= $this->auction['description'] ?></div><div class="desc-logo"><img width="150" src="<?= UPLOAD . Model::getRouteImg($this->auction['for_img_date']) . $this->auction['for_file_name'] ?>"></div>         
+                <div class="desc-text"><?= $this->auction['description'] ?></div><div class="desc-logo"><a href="<?= URL ?>colaboradores/auctions/<?= $this->auction['for'] ?>"><img width="150" src="<?= UPLOAD . Model::getRouteImg($this->auction['for_img_date']) . $this->auction['for_file_name'] ?>"></a></div>         
             </div>
             <h3><?= $this->lang['legal'] ?></h3>
             <div class="product-detail-content"  id="legal">

@@ -8,8 +8,8 @@ class Colaboradores_Model extends Model {
         parent::__construct();
     }
     public function getDonantesById($id = null, $lang = LANG) {
-        $donantes = $this->db->selectOne("SELECT * FROM " . DB_PREFIX . "donantes d JOIN " . DB_PREFIX . "donantes_description dd ON dd.donantes_id=d.id JOIN " . DB_PREFIX . "photos p ON p.id=d.photo_id WHERE dd.language_id=:lang AND d.id=:id", array('id' => $id, 'lang' => $lang));
-        switch ($donantes['type']) {
+        $donantes = $this->db->select("SELECT * FROM " . DB_PREFIX . "donantes d JOIN " . DB_PREFIX . "donantes_description dd ON dd.donantes_id=d.id JOIN " . DB_PREFIX . "photos p ON p.id=d.photo_id WHERE dd.language_id=:lang AND d.id=:id", array('id' => $id, 'lang' => $lang));
+        switch ($donantes[0]['type']) {
             case 1: $type = $this->lang['donantes'];
                 break;
             case 2: $type=$this->lang['empresas'];
@@ -17,7 +17,7 @@ class Colaboradores_Model extends Model {
             case 3: $type=$this->lang['ong'];
                 break;
         }
-        $donantes['type_name'] = $type;
+        $donantes[0]['type_name'] = $type;
         return $donantes;
     }
     public function getDonantesByName($name = null, $lang = LANG) {
